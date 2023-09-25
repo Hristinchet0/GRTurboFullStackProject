@@ -1,6 +1,8 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "shipping_details")
@@ -10,20 +12,36 @@ public class ShippingDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @NotNull
     private String firstName;
 
+    @NotEmpty
+    @NotNull
     private String lastName;
 
+    @NotEmpty
+    @NotNull
     private String province;
 
+    @NotEmpty
+    @NotNull
     private String city;
 
+    @NotEmpty
+    @NotNull
     private String postalCode;
 
+    @NotEmpty
+    @NotNull
     private String street;
 
+    @NotEmpty
+    @NotNull
     private String streetNumber;
 
+    @NotEmpty
+    @NotNull
     private String phoneNumber;
 
     public ShippingDetails() {

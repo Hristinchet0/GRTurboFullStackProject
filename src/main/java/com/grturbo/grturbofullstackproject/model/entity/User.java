@@ -1,6 +1,8 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,14 +18,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
+    @NotEmpty
+    @Column(nullable = false)
     private String firstName;
 
+    @NotEmpty
+    @Column(nullable = false)
     private String lastName;
 
+    @NotEmpty
+    @Column(nullable = false)
     private String password;
 
+    @NotEmpty
+    @Column(nullable = false, unique = true)
     private String username;
 
     @OneToMany(fetch = FetchType.EAGER)

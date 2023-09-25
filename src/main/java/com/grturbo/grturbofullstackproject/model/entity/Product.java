@@ -1,6 +1,8 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -10,12 +12,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @NotNull
     private String name;
 
+    @NotEmpty
+    @NotNull
     private String description;
 
+    @NotEmpty
+    @NotNull
     private Double price;
 
+    @NotEmpty
+    @NotNull
     private String imgUrl;
 
     @ManyToOne(fetch = FetchType.EAGER)

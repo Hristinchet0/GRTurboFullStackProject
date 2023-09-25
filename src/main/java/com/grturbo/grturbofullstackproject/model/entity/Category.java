@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "categories")
@@ -11,6 +12,7 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
+    @NotEmpty
     private String name;
 
     public Category() {
