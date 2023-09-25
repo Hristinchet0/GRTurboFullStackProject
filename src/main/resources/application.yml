@@ -1,0 +1,20 @@
+logging:
+  level:
+    blog: WARN
+    org: WARN
+    org.hibernate.SQL: DEBUG
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: 12345
+    url: jdbc:mysql://localhost:3306/grturbo_project?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
