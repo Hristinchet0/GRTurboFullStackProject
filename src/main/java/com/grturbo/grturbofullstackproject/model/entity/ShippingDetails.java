@@ -44,6 +44,9 @@ public class ShippingDetails {
     @NotNull
     private String phoneNumber;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     public ShippingDetails() {
     }
 
