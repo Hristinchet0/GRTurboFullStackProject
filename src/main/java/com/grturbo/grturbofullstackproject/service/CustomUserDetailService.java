@@ -2,7 +2,7 @@ package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
-import com.grturbo.grturbofullstackproject.model.validations.CustomUserDetail;
+import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

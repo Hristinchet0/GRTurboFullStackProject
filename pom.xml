@@ -100,6 +100,14 @@
             <version>3.1.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.2.Final</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary -->
         <dependency>
             <groupId>com.cloudinary</groupId>
@@ -122,15 +130,19 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <source>16</source> <!-- depending on your project -->
+                    <target>16</target> <!-- depending on your project -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.2.Final</version>
+                        </path>
+                        <!-- other annotation processors -->
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

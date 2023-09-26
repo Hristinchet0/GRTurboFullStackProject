@@ -1,4 +1,4 @@
-package com.grturbo.grturbofullstackproject.model.validations;
+package com.grturbo.grturbofullstackproject.model;
 
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;

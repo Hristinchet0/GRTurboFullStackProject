@@ -50,19 +50,33 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form th:action="@{/login}" method="post" class="sign-in-form">
+          <form
+                th:action="@{/login}"
+                th:method="post"
+                class="sign-in-form">
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input for="email" type="email" name="email" id="email" placeholder="Your Email" />
+              <input for="email"
+
+                     type="email"
+                     name="email"
+                     id="email"
+                     placeholder="Your Email" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input for="password" type="password" placeholder="Password" name="password" id="password"/>
+              <input for="password"
+
+                     type="password"
+                     placeholder="Password"
+                     name="password"
+                     id="password"/>
             </div>
 			<div th:if="${param.error}" class="alert alert-error text-danger">
                     Invalid username or password.
              </div>
+
 
             <input type="submit" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
@@ -76,25 +90,52 @@
           </form>
 
 		  <!-- Registration Form -->
-          <form th:action="@{/register}" th:object="${user}" method="post" class="sign-up-form">
+          <form
+                  th:action="@{/register}"
+                  th:object="${userModel}"
+                  method="post"
+                  class="sign-up-form">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="firstName" id="firstName" required placeholder="Your Firstname" />
+              <input type="text"
+                     name="firstName"
+                     th:field="*{firstName}"
+                     id="firstName" required
+                     placeholder="Your Firstname" />
             </div>
 			<div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="lastName" id="lastName" required placeholder="Your Lastname" />
+              <input type="text"
+                     name="lastName"
+                     th:field="*{lastName}"
+                     id="lastName" required
+                     placeholder="Your Lastname" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" required minlength="6" placeholder="Email" name="email" id="eemail" aria-describedby="emailHelp" />
+              <input type="email" required minlength="6" placeholder="Email"
+                     name="email"
+                     th:field="*{email}"
+                     id="eemail"
+                     aria-describedby="emailHelp" />
 
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" required placeholder="Password" name="password" id="ppassword" />
+              <input type="password" required
+                     th:field="*{password}"
+                     placeholder="Password"
+                     name="password"
+                     id="ppassword" />
             </div>
+              <div class="input-field">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" required placeholder="Confirm Password"
+                         th:field="*{confirmPassword}"
+                         name="confirmPassword"
+                         id="confirmPassword" />
+              </div>
             <input type="submit" value="Register" class="btn" />
             <p class="social-text">Or Sign up with social platforms</p>
             <div class="social-media">
