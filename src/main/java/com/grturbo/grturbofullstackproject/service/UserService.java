@@ -93,4 +93,8 @@ public class UserService {
         return (CustomUserDetail) authentication.getPrincipal();
 
     }
+
+    public void removeUserById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
