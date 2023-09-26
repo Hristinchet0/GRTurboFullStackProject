@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,12 +1,10 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "authority")
@@ -18,8 +16,8 @@ public class Authority implements GrantedAuthority {
 
     private String authority;
 
-    @ManyToOne(optional = false)
-    private User user;
+    @ManyToMany(mappedBy = "authority")
+    private List<User> users;
 
     public Authority() {
     }
@@ -41,12 +39,11 @@ public class Authority implements GrantedAuthority {
         this.authority = authority;
     }
 
-    public User getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
-
 }
