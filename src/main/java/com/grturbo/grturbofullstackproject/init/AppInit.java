@@ -2,7 +2,9 @@ package com.grturbo.grturbofullstackproject.init;
 
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AppInit implements CommandLineRunner {
 
     private final UserService userService;

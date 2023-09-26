@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mobile Specific Meta-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/contactus.css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/product/">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+
+    <title>Contact Us</title>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d883.1268081187848!2d23.474569682175026!3d41.88269476945628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ababd9c44302b9%3A0xde13da6bdc4930df!2zR1Ig0KDQtdC80L7QvdGCINC4INC_0YDQvtC00LDQttCx0LAg0L3QsCDRgtGD0YDQsdC-0LrQvtC80L_RgNC10YHQvtGA0Lg!5e0!3m2!1sbg!2sbg!4v1694026143224!5m2!1sbg!2sbg"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+<div class="contactus">
+    <div class="row ">
+        <div class="row ">
+            <div class="col-sm-6 col-md-3">
+                <div class="service-item">
+                    <h4>Address</h4>
+                    <span class="recycling"><img src="/images/repair.png" th:src="@{/images/address.png}"
+                                                 alt="Img"></span>
+                    <p>Bulgaria</p>
+                    <p>Razlog</p>
+                    <p>Industrial area</p>
+                    <p>Aldo Picherili str</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="service-item">
+                    <h4>Phone</h4>
+                    <span class="recycling"><img class="recycling"
+                                                 src="/images/phone.png" th:src="@{/images/phone.png}" alt="Img"></span>
+                    <p>+359 898 464 715</p>
+                    <p>+359 878 363 618</p>
+                    <p>+359 896 960 906</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="service-item">
+                    <h4>Email</h4>
+                    <span class="recycling"><img class="recycling"
+                                                 src="/images/email.png" th:src="@{/images/email.png}"
+                                                 alt="Img"></span>
+                    <p>grturbo.eood@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="service-item">
+                    <h4>Working time</h4>
+                    <span class="recycling"><img class="recycling"
+                                                 src="/images/workingtime.png" th:src="@{/images/workingtime.png}"
+                                                 alt="Img"></span>
+                    <p>Monday - Saturday</p>
+                    <p>from 09:00 to 08:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer">Footer</div>
+
+</body>
+
+</html>

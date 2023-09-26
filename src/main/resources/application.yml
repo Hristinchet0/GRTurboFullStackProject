@@ -12,7 +12,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     open-in-view: false
     properties:
       hibernate:
@@ -41,3 +41,8 @@ cloudinary:
   api-key: 665714344361472
   api-secret: ${CLOUDINARY_API_SECRET}
   cloud-name: dpa9txx6f
+
+app:
+  admin:
+    password: ${ADMIN_PASSWORD}
+

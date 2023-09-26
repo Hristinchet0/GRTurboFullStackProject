@@ -35,9 +35,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @NotEmpty
-    @Column(nullable = false, unique = true)
-    private String username;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();
@@ -85,19 +82,16 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public List<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public User setRoles(List<UserRole> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public void addRole(UserRole role) {
+        this.roles.add(role);
     }
 }

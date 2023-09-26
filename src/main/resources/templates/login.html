@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+
+	<meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="app.css" th:href="@{/css/app.css}">
+
+    <title>GR Turbo Sign in & Sign up Form</title>
+  </head>
+  <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light site-header sticky-top py-1" >
+ <a class="navbar-brand" href="#">
+            <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+    <div class="container-fluid d-flex flex-column flex-md-row ">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+             <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav d-flex flex-column flex-md-row justify-content-center">
+                <li class="nav-item active">
+                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/}" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/shop}" href="#">Shop</a>
+                </li>
+
+
+            </ul>
+
+    </div>
+</nav>
+
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form th:action="@{/login}" method="post" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input for="email" type="email" name="email" id="email" placeholder="Your Email" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input for="password" type="password" placeholder="Password" name="password" id="password"/>
+            </div>
+			<div th:if="${param.error}" class="alert alert-error text-danger">
+                    Invalid username or password.
+             </div>
+
+            <input type="submit" value="Login" class="btn solid" />
+            <p class="social-text">Or Sign in with social platforms</p>
+            <div class="social-media">
+
+              <a href="/oauth2/authorization/google"  class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+
+            </div>
+          </form>
+
+		  <!-- Registration Form -->
+          <form th:action="@{/register}" th:object="${user}" method="post" class="sign-up-form">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" name="firstName" id="firstName" required placeholder="Your Firstname" />
+            </div>
+			<div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" name="lastName" id="lastName" required placeholder="Your Lastname" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" required minlength="6" placeholder="Email" name="email" id="eemail" aria-describedby="emailHelp" />
+
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" required placeholder="Password" name="password" id="ppassword" />
+            </div>
+            <input type="submit" value="Register" class="btn" />
+            <p class="social-text">Or Sign up with social platforms</p>
+            <div class="social-media">
+
+              <a href="/oauth2/authorization/google"  class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>
+              Please join us by registering with our website.
+            </p>
+            <button class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+          </div>
+          <img src="img/log.svg" th:src="@{/images/sign-up-form.svg}" class="image" alt=""  />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>One of us ?</h3>
+            <p>
+              Then no need to register, please login with your credentials.
+            </p>
+            <button class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+          </div>
+          <img src="img/otp-security.svg" th:src="@{/images/otp-security.svg}" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js" th:src="@{/js/app.js}"></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>

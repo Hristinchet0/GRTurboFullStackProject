@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+body {
+    background: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+.hero-image {
+    background-image: url("/images/MDTK200.jpg");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-image::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #1d192c;
+    opacity: 0.8;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.mt-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body > section > div {
+    width: 100%;
+}
+
+.flex-center {
+    align-items: center;
+}
+
+.circle-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    background: #FCA32A;
+    border: 5px solid #FCA32A;
+    color: #fff;
+    margin-left: -10px;
+    margin-right: -10px;
+    transform: scale(1.2);
+}
+
+body > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem!important;
+}
+
+.fa {
+    margin-left: 5px;
+}
+
+span {
+    margin-left: 30px;
+}
+
+.accordion-item {
+    border: 0px;!important;
+}
+
+.accordion-button:not(.collapsed) {
+    border: 0px;!important;
+    color: #FCA32A;
+    background: #fff;
+    box-shadow: 0 2px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-body {
+    margin-top: 15px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/faq.css">
+    <title>FAQ</title>
+</head>
+<body>
+<div th:replace="fragments/navbar">Navbar</div>
+<div class="hero-image">
+    <div class="hero-text">
+        <h1>Questions and Answers</h1>
+        <h2>Turbocharger Problems</h2>
+    </div>
+</div>
+<section class="mt-5">
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-md-10">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>Oil leakage from the turbine</span>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Oil system is clogged, unsealed or deformed
+                                <br>
+                                - Engine case ventilation is clogged or deformed
+                                <br>
+                                - Turbocharger bearing housing is contaminated and clogged
+                                <br>
+                                - Wear engine (valves rubber seals and guides, segments and cylinders)
+                                <br>
+                                - Worn segments
+                                <br>
+                                - Failure in turbocharger bearings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                                    Leakage of oil from compressor wheel
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Contaminated air filter – Replace the air filter according to the instructions of the
+                                engine manufacturer
+                                <br>
+                                - Gas bleed-off system has too much resistance
+                                <br>
+                                - Oil system is clogged, unsealed or deformed
+                                <br>
+                                - Engine case ventilation is clogged or deformed
+                                <br>
+                                - Turbocharger bearing housing is contaminated and clogged
+                                <br>
+                                - Wear engine (valves rubber seals and guides, segments and cylinders)
+                                <br>
+                                - Contamination of the turbocharger air cooler
+                                <br>
+                                - Worn segments
+                                <br>
+                                - Failure in turbocharger bearings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                                    High oil consumption
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Contaminated air filter – Replace the air filter according to the instructions of the
+                                engine manufacturer
+                                <br>
+                                - Gas bleed-off system has too much resistance
+                                <br>
+                                - Oil system is clogged, unsealed or deformed
+                                <br>
+                                - Engine case ventilation is clogged or deformed
+                                <br>
+                                - Turbocharger bearing housing is contaminated and clogged
+                                <br>
+                                - Wear engine (valves rubber seals and guides, segments and cylinders)
+                                <br>
+                                - Contamination of the turbocharger air cooler
+                                <br>
+                                - Worn segments
+                                <br>
+                                - Failure in turbocharger bearings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                                    Turbocharger produces sounds and noise
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Deformed or unsealed installations for pressure and vacuum
+                                <br>
+                                - Gas bleed-off system has too much resistance
+                                <br>
+                                - Contamination of the turbocharger air cooler
+                                <br>
+                                - Failure in turbocharger bearings
+                                <br>
+                                - Failures, caused by foreign objects in the turbine or compressor wheel
+                                <br>
+                                - Gases leakage between the exhaust pipe and turbine outlet
+                                <br>
+                                - Leak engine air scoop, lacking or loose seals
+                                <br>
+                                - Damage in the turbine housing or valve
+                                <br>
+                                - Insufficient oil feed of the turbocharger
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                              Black smoke from the exhaust pipe
+                        </span>
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Contaminated air filter – Replace the air filter according to the instructions of the engine
+                                manufacturer
+                                <br>
+                                - Deformed or unsealed installations for pressure and vacuum
+                                <br>
+                                - Gas bleed-off system has too much resistance
+                                <br>
+                                - Defect in the fuel system (nozzles, pump)
+                                <br>
+                                - Wear engine (valves rubber seals and guides, segments and cylinders)
+                                <br>
+                                - Contamination of the turbocharger air cooler
+                                <br>
+                                - Failure in turbocharger bearings
+                                <br>
+                                - Failures, caused by foreign objects in the turbine or compressor wheel
+                                <br>
+                                - Leak engine air scoop, lacking or loose seals
+                                <br>
+                                - Damage in the turbine housing or valve
+                                <br>
+                                - Insufficient oil feed of the turbocharger
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                              Too high charging pressure
+                        </span>
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Defect in the fuel system (nozzles, pump)
+                                <br>
+                                - Defect in the control valve (does not open)
+                                <br>
+                                - Defect faucet of control valve
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingSeven">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                              Lack of power, low charging pressure
+                        </span>
+                            </button>
+                        </h2>
+                        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Contaminated air filter
+                                <br>
+                                - Replace the air filter according to the engine manufacturer's instructions.
+                                <br>
+                                - Deformed or unsealed installations for pressure and vacuum
+                                <br>
+                                - Gas bleed-off system has too much resistance
+                                <br>
+                                - Defect in the fuel system (nozzles, pump)
+                                <br>
+                                - Wear engine (valves rubber seals and guides, segments and cylinders)
+                                <br>
+                                - Contamination of the turbocharger air cooler
+                                <br>
+                                - Defect in the control valve (does not close)
+                                <br>
+                                - Defect faucet of control valve
+                                <br>
+                                - Failure in turbocharger bearings
+                                <br>
+                                - Failures, caused by foreign objects in the turbine or compressor wheel
+                                <br>
+                                - Leak engine air scoop, lacking or loose seals
+                                <br>
+                                - Damage in the turbine housing or valve
+                                <br>
+                                - Insufficient oil feed of the turbocharger
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEight">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                <div class="circle-icon">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                                <span>
+                              Defects in turbine or compressor wheel
+                        </span>
+                            </button>
+                        </h2>
+                        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Possible reason:</strong>
+                                <br>
+                                - Failure in turbocharger bearings
+                                <br>
+                                - Damages caused by foreign objects in the turbine or compressor wheel
+                                <br>
+                                - Failure in turbine or valve casing
+                                <br>
+                                - Insufficient oil feed of the turbocharger
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="fragments/footer">Footer</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

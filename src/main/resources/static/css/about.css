@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body , h2, p{
+  font-family: "Poppins", sans-serif;
+}
+
+.photos {
+    width: 100%;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #A0A1A1;
+    padding-bottom: 20px;
+}
+
+.photos h2 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.swiper {
+    width: 60%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img{
+    width: 100%;
+    height: 55vh;
+}
+
+.swiper-button-next::after {
+    color: #FCA32A;
+}
+
+.swiper-button-prev::after {
+    color: #FCA32A;
+}
+
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: url("/static/images/aboutusphotos/turbocharger-3-scaled.jpg");
+    background-position: 50% 94px;
+    display: block;
+    position: relative;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding: 100px 0;
+}
+
+.about::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #1d192c;
+    opacity: 0.8;
+}
+
+.about h2 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.about p {
+    color: white;
+}
+
+.row1 {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col1 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer {
+    background: #A0A1A1;
+    text-align: center;
+    padding-top: 48px;
+    padding-bottom: 55px;
+}
+
+.footer p {
+    font-size: 13px;
+    line-height: 25px;
+    color: black;
+}
+
+.footer a {
+    color: black;
+}
+
+.footer .footer-manu {
+    padding-bottom: 25px;
+}
+
+.footer .footer-manu ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.footer .footer-manu ul li {
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.footer .footer-manu ul li a {
+    display: inline-block;
+    color: black;
+}
+
+.footer .footer-manu ul li a:hover {
+    color: #000;
+}
+
+.footer .copyright a {
+    font-weight: 600;
+}
+
+
+
