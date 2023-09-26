@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,12 +105,21 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        List<UserDto> list = new ArrayList<>();
+        List<UserDto> users = new ArrayList<>();
         for (User user : userRepository
                 .findAll()) {
             UserDto userDto = userMapper.userEntityToUserDto(user);
-            list.add(userDto);
+            users.add(userDto);
         }
-        return list;
+        return users;
+    }
+
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 }

@@ -1,5 +1,8 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
+import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
 import com.grturbo.grturbofullstackproject.service.CloudinaryService;
 import com.grturbo.grturbofullstackproject.service.CustomUserDetailService;
@@ -10,6 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -52,4 +60,25 @@ public class AdminController {
 
         return "redirect:/admin/user";
     }
+
+    @GetMapping("/admin/user/update/{id}")
+    public String updateUser(@PathVariable("id") Long id, Model model) {
+        User user = userService.getUserById(id).get();
+
+        List<UserRole> listRoles = roleService.listRoles();
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", listRoles);
+
+        return "updateUser";
+    }
+
+    @PostMapping("/admin/user/save")
+    public String saveUser(User user) {
+        userService.save(user);
+
+        return "redirect:/admin/user";
+    }
+
+
 }
