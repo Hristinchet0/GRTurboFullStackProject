@@ -41,8 +41,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/user")
-    public String getUser(Model model) {
-        model.addAttribute("users", customUserDetailService.getAllUsers());
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
         return "user";
     }
 

@@ -36,4 +36,9 @@ public class UserRole {
         this.role = role;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return this.role.toString();
+    }
 }

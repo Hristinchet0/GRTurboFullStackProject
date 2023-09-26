@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
+import com.grturbo.grturbofullstackproject.model.dto.UserDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
@@ -16,6 +17,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -96,5 +101,15 @@ public class UserService {
 
     public void removeUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public List<UserDto> getAllUsers() {
+        List<UserDto> list = new ArrayList<>();
+        for (User user : userRepository
+                .findAll()) {
+            UserDto userDto = userMapper.userEntityToUserDto(user);
+            list.add(userDto);
+        }
+        return list;
     }
 }
