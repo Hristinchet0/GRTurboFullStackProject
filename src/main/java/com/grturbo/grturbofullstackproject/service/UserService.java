@@ -18,7 +18,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${12345}")
+    @Value("${app.admin.password}")
     public String adminPassword;
 
     public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
@@ -26,6 +26,8 @@ public class UserService {
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+
 
     public void init() {
         if(userRoleRepository.count() == 0 && userRepository.count() == 0) {

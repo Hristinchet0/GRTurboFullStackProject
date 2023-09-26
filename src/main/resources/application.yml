@@ -44,5 +44,6 @@ cloudinary:
 
 app:
   admin:
-    password: ${ADMIN_PASSWORD}
+    password: ${ADMIN_PASS}
+
 
