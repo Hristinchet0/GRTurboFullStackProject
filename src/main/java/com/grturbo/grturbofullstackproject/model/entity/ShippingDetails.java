@@ -47,6 +47,9 @@ public class ShippingDetails {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @OneToOne(mappedBy = "shippingDetails")
+    private Order order;
+
     public ShippingDetails() {
     }
 

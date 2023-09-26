@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.model.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -18,13 +19,13 @@ public class Order {
 
     private LocalDate orderDateCreated;
 
-    @ManyToOne
-    private Product products;
+    @OneToMany(mappedBy = "order")
+    private List<Product> products;
 
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @OneToOne
     private ShippingDetails shippingDetails;
 
     public Order() {
@@ -62,11 +63,11 @@ public class Order {
         this.orderDateCreated = orderDateCreated;
     }
 
-    public Product getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Product products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 
