@@ -1,10 +1,9 @@
 package com.grturbo.grturbofullstackproject.service;
 
-import com.grturbo.grturbofullstackproject.model.entity.Authority;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.model.validations.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,18 +39,17 @@ public class CustomUserDetailService implements UserDetailsService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.
-                        getAuthorities().
+                        getRoles().
                         stream().
                         map(this::map).
                         toList()
         );
     }
 
-    private GrantedAuthority map(GrantedAuthority grantedAuthority) {
+    private GrantedAuthority map(UserRole userRole) {
         return new SimpleGrantedAuthority("ROLE_" +
-                grantedAuthority.getAuthority());
+                userRole.getRole());
     }
-
 
     public List<User> getAllUsers() { return userRepository.findAll(); }
 

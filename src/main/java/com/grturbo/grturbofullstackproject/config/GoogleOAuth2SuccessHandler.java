@@ -1,8 +1,8 @@
 package com.grturbo.grturbofullstackproject.config;
 
-import com.grturbo.grturbofullstackproject.model.entity.Authority;
+import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.repositority.AuthorityRepository;
+import com.grturbo.grturbofullstackproject.repositority.UserRoleRepository;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -21,13 +21,13 @@ import java.util.List;
 @Component
 public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
-    private final AuthorityRepository roleRepository;
+    private final UserRoleRepository roleRepository;
 
     private final UserRepository userRepository;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    public GoogleOAuth2SuccessHandler(AuthorityRepository authorityRepository, UserRepository userRepository) {
+    public GoogleOAuth2SuccessHandler(UserRoleRepository authorityRepository, UserRepository userRepository) {
         this.roleRepository = authorityRepository;
         this.userRepository = userRepository;
     }
@@ -44,15 +44,11 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             user.setLastName(token.getPrincipal().getAttributes().get("family_name").toString());
             user.setEmail(email);
 
-            List<Authority> roles = new ArrayList<>();
+            List<UserRole> roles = new ArrayList<>();
 
-            if (userRepository.count() < 1) {
-                roles.add(roleRepository.findById(1L).get());
-            } else {
-                roles.add(roleRepository.findById(2L).get());
-            }
+            roles.add(roleRepository.findById(2L).get());
 
-            user.setAuthorities(roles);
+            user.setRoles(roles);
             userRepository.save(user);
         }
         redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/");

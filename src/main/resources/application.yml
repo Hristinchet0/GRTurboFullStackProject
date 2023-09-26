@@ -18,3 +18,26 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 940438426693-40ttm15n4u3k1uoacdemv7j5jqt9j3q6.apps.googleusercontent.com
+            client-secret: ${OAUTH2.0_CLIENT_SECRET}
+    sql:
+      init:
+        mode: always
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
+    mvc:
+      hiddenmethod:
+        filter:
+          enabled: true
+
+cloudinary:
+  api-key: 665714344361472
+  api-secret: ${CLOUDINARY_API_SECRET}
+  cloud-name: dpa9txx6f

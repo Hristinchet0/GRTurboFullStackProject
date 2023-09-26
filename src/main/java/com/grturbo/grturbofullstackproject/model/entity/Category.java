@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "categories")
