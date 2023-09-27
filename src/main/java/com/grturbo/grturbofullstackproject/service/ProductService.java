@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
@@ -64,5 +65,30 @@ public class ProductService {
 
     public void removeProductById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    public void saveProduct(ProductEditDto productEditDto, Product product) throws IOException {
+
+        MultipartFile img = productEditDto.getImg();
+
+        String currentImg = product.getImgUrl();
+
+        product.setName(productEditDto.getName());
+        product.setCategory(categoryService.getCategoryById(productEditDto.getCategoryId()).get());
+        product.setDescription(productEditDto.getDescription());
+        product.setPrice(productEditDto.getPrice());
+
+        if(img.isEmpty()) {
+            product.setImgUrl(currentImg);
+        } else {
+            String imageUrl = cloudinaryService.uploadImage(img);
+            product.setImgUrl(imageUrl);
+        }
+
+        productRepository.save(product);
     }
 }

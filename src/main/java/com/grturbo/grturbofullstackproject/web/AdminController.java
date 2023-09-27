@@ -1,10 +1,8 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
-import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
-import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
-import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
+import com.grturbo.grturbofullstackproject.model.dto.*;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
+import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
@@ -150,6 +148,35 @@ public class AdminController {
         productService.removeProductById(id);
         return "redirect:/admin/products";
     }
+
+    @GetMapping("/admin/product/update/{id}")
+    public String updateProductGet(@PathVariable Long id, Model model) {
+
+        Product product = productService.getProductById(id).get();
+        ProductEditDto productEditDto = new ProductEditDto();
+        productEditDto.setId(product.getId());
+        productEditDto.setName(product.getName());
+        productEditDto.setCategoryId(product.getCategory().getId());
+        productEditDto.setPrice(product.getPrice());
+        productEditDto.setDescription(product.getDescription());
+        productEditDto.setImg(productEditDto.getImg());
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("productEditDto", productEditDto);
+
+        return "updateProduct";
+    }
+
+    @PostMapping("/admin/product/save")
+    public String saveProduct(Model model, @ModelAttribute("productEditDto") ProductEditDto productEditDto, Product product) throws IOException {
+
+        productService.saveProduct(productEditDto, product);
+
+        model.addAttribute("productEntity", product);
+        model.addAttribute("products", this.productService.findAll());
+        return "redirect:/admin/products";
+    }
+
 
 
 
