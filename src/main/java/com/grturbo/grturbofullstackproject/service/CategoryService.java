@@ -28,4 +28,8 @@ public class CategoryService {
         Category newCategory = categoryMapper.categoryDtoToCategoryEntity(categoryAddDto);
         categoryRepository.save(newCategory);
     }
+
+    public void removeCategoryById(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }

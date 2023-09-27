@@ -97,5 +97,11 @@ public class AdminController {
         return "redirect:/admin/categories";
     }
 
+    @GetMapping("/admin/categories/delete/{id}")
+    public String deleteCat(@PathVariable Long id) {
+        categoryService.removeCategoryById(id);
+        return "redirect:/admin/categories";
+    }
+
 
 }
