@@ -30,15 +30,11 @@ public class ShippingDetails {
 
     @NotEmpty
     @NotNull
-    private String postalCode;
+    private String postcode;
 
     @NotEmpty
     @NotNull
-    private String street;
-
-    @NotEmpty
-    @NotNull
-    private String streetNumber;
+    private String address;
 
     @NotEmpty
     @NotNull
@@ -93,28 +89,20 @@ public class ShippingDetails {
         this.city = city;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setPostcode(String postalCode) {
+        this.postcode = postalCode;
     }
 
-    public String getStreet() {
-        return street;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setAddress(String street) {
+        this.address = street;
     }
 
     public String getPhoneNumber() {
@@ -123,5 +111,21 @@ public class ShippingDetails {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-	<link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/nav.css">
     <title>GR Turbo Cart</title>
 </head>
 <body>
@@ -39,7 +39,8 @@
                                     <div class="mb-3 mb-md-0">
                                         <img class="img-fluid w-100"
                                              th:src="${item.imgUrl}"
-                                             src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg" alt="Sample">
+                                             src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                                             alt="Sample">
 
                                     </div>
                                 </div>
@@ -49,31 +50,34 @@
                                             <div>
                                                 <h5 th:text="${item.name}">Blue denim shirt</h5>
 
-                                                <p class="mb-2 text-uppercase small">Category: <span th:text="${item.category.name}"></span></p>
+                                                <p class="mb-2 text-uppercase small">Category: <span
+                                                        th:text="${item.category.name}"></span></p>
 
                                             </div>
 
                                         </div>
                                         <div class="mt-5 d-flex justify-content-between align-items-center">
                                             <div>
-                                                <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"  type="button" class="card-link-secondary small text-uppercase mr-3"><i
+                                                <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"
+                                                   type="button"
+                                                   class="card-link-secondary small text-uppercase mr-3"><i
                                                         class="fas fa-trash-alt mr-1"></i> Remove item </a>
 
                                             </div>
-                                            <p class="mb-0"><span><strong>BGN<span th:text="${item.price}"></span></strong></span></p>
+                                            <p class="mb-0"><span><strong>BGN<span
+                                                    th:text="${item.price}"></span></strong></span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <hr class="mb-4">
 
-                            <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
+                            <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the
+                                purchase, adding
                                 items to your cart does not mean booking them.</p>
 
                         </div>
                     </div>
-
-
 
 
                 </div>
@@ -108,67 +112,86 @@
                                 </li>
                             </ul>
 
-                            <!-- <a th:href="@{/checkout}" h class="btn btn-primary btn-block waves-effect waves-light">go to
-                                checkout</a> -->
+                            <!--                            <a th:href="@{/checkout}" h class="btn btn-primary btn-block waves-effect waves-light">go to-->
+                            <!--                                checkout</a>-->
+
+                            <form th:action="@{/cart}"
+                                  th:object="${shippingDetailsDto}"
+                                  th:method="post">
+
+                                <h5 class="mb-2">Delivery details</h5>
 
 
+                                <!-- Country -->
+                                <div class="d-flex flex-wrap">
+                                    <div class="select-outline position-relative w-100">
+                                        <label>Country - <strong>BULGARIA</strong></label>
+                                    </div>
+                                </div>
 
-					<form th:action="@{/cart}" th:object="${save}" method="post" >
-                        <h5 class="mb-2">Billing details</h5>
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form14">First Name</label>
+                                    <input type="text" name="FirstName" required id="form11"
+                                           placeholder="Your First Name" class="form-control">
+                                </div>
 
-                        <!-- Grid row -->
-                        
-                        <!-- Grid row -->
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form14">Last Name</label>
+                                    <input type="text" name="LastName" required id="form12" placeholder="Your Last Name"
+                                           class="form-control">
+                                </div>
 
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form14">Phone Number</label>
+                                    <input type="text" name="PhoneNumber" required id="form13"
+                                           placeholder="Your Phone Number" class="form-control">
+                                </div>
 
-						
-                        <!-- Country -->
-                        <div class="d-flex flex-wrap">
-                            <div class="select-outline position-relative w-100">
-                                <label>Country - <strong>BULGARIA</strong></label>
+                                <!-- Address Part 1 -->
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form14">Address (Line 1)</label>
+                                    <input type="text" name="Address" required id="form14"
+                                           placeholder="House number and street name" class="form-control">
+                                </div>
 
+                                <!-- Address Part 2 -->
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form15">State</label>
+                                    <input type="text" name="State" id="form15" required
+                                           placeholder="Apartment, suite, unit etc. (optional)"
+                                           class="form-control">
+                                </div>
 
-                            </div>
-                        </div>
+                                <!-- Postcode / ZIP -->
+                                <div class="md-form md-outline mt-3">
+                                    <label for="form16">Postcode / ZIP</label>
+                                    <input type="text" name="Postcode" maxlength="6" minlength="6" required id="form16"
+                                           class="form-control">
+                                </div>
 
-                        <!-- Address Part 1 -->
-                        <div class="md-form md-outline mt-2">
-                            <label for="form14">Address (Line 1)</label>
-                            <input type="text" name="Address"required id="form14" placeholder="House number and street name" class="form-control">
-                        </div>
+                                <!-- Town / City -->
+                                <div class="md-form md-outline mt-2">
+                                    <label for="form17">Town / City</label>
+                                    <input type="text" name="city" required id="form17" class="form-control">
+                                </div>
 
-                        <!-- Address Part 2 -->
-                        <div class="md-form md-outline mt-2">
-                            <label for="form15">State</label>
-                            <input type="text" name="State" id="form15" required placeholder="Apartment, suite, unit etc. (optional)"
-                                   class="form-control">
-                        </div>
+                                <div class="md-form md-outline mt-2">
+                                    <label for="description">More Information</label>
+                                    <textarea class="form-control" rows="3"  name="description" id="description"></textarea>
+                                </div>
 
-                        <!-- Postcode / ZIP -->
-                        <div class="md-form md-outline mt-3">
-                            <label for="form16">Postcode / ZIP</label>
-                            <input type="text" name="Pin" maxlength="6" minlength="6" required id="form16" class="form-control">
-                        </div>
+                                <div class="md-form md-outline mt-2">
+                                    <input type="submit" class="btn btn-primary btn-block waves-effect waves-light"
+                                           value="Proceed to Checkout">
+                                </div>
 
-                        <!-- Town / City -->
-                        <div class="md-form md-outline mt-2">
-                            <label for="form17">Town / City</label>
-                            <input type="text" name="city" required id="form17" class="form-control">
-                        </div>
-                        <div class="md-form md-outline mt-2">
-						<input type="submit"   class="btn btn-primary btn-block waves-effect waves-light" value="Proceed to Checkout">
-                               
-					</div>
-				</form>
-
+                            </form>
 
                         </div>
                     </div>
 
-
                 </div>
                 <!--Grid column-->
-
             </div>
             <!--Grid row-->
 
@@ -180,11 +203,14 @@
 <!--Main layout-->
 
 
-
-
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
