@@ -2,18 +2,30 @@ package com.grturbo.grturbofullstackproject.model.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public class ProductAddDto {
 
     private String id;
 
+    @NotEmpty
+    @NotNull
     private String name;
 
     private Long categoryId;
 
+    @NotNull
+    @Positive
     private Double price;
 
+    @NotEmpty
+    @NotNull
     private String description;
 
+    @NotEmpty
+    @NotNull
     private MultipartFile img;
 
     public ProductAddDto() {
