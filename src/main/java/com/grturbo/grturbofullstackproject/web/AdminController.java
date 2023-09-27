@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.User;
@@ -112,6 +113,16 @@ public class AdminController {
             return "categoriesAdd";
         } else
             return "404";
+    }
+
+    @GetMapping("/admin/products")
+    public String products(Model model) {
+
+        List<ProductViewDto> productViewModels = productService.findAll();
+
+        model.addAttribute("products", productViewModels);
+
+        return "products";
     }
 
 
