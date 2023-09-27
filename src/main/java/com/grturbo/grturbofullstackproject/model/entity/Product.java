@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.model.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "products")
@@ -20,8 +21,8 @@ public class Product {
     @NotNull
     private String description;
 
-    @NotEmpty
     @NotNull
+    @Positive
     private Double price;
 
     @NotEmpty

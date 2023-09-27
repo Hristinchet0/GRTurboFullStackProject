@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -118,11 +120,29 @@ public class AdminController {
     @GetMapping("/admin/products")
     public String products(Model model) {
 
-        List<ProductViewDto> productViewModels = productService.findAll();
+        List<ProductViewDto> productViewDto = productService.findAll();
 
-        model.addAttribute("products", productViewModels);
+        model.addAttribute("products", productViewDto);
 
         return "products";
+    }
+
+
+    @GetMapping("/admin/products/add")
+    public String productAddGet(Model model) {
+        model.addAttribute("productAddDto", new ProductAddDto());
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "productsAdd";
+    }
+
+    @PostMapping("/admin/products/add")
+    public String productAddPost(Model model, @ModelAttribute("productAddDto")
+    ProductAddDto productAddDto) throws IOException {
+
+        this.productService.addProduct(productAddDto);
+        model.addAttribute("products", this.productService.findAll());
+
+        return "redirect:/admin/products";
     }
 
 

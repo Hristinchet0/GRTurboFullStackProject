@@ -40,14 +40,10 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" required  name="price" id="price"
+                    <input type="number" step="any" class="form-control" required  name="price" id="price"
                            placeholder="Price">
                 </div>
-                <div class="form-group">
-                    <label for="weight">Weight in grams</label>
-                    <input type="number" class="form-control" required  name="weight" id="weight"
-                           placeholder="Weight">
-                </div>
+
                 <div class="form-group">
                     <label for="description">Product Description</label>
                     <textarea class="form-control" rows="5"  name="description" id="description"></textarea>
@@ -60,7 +56,7 @@
                     <label class="custom-file-label" for="productImage">Choose file</label>
                 </div>
                 <div class="form-group">
-                    <img src="#" id="imgPreview" height="200px" width="200px" th:src="@{productDTO.imgUrl}" style="margin-top: 20px" alt=" ">
+                    <img src="#" id="imgPreview" height="200px" width="200px" style="margin-top: 20px" alt=" ">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
