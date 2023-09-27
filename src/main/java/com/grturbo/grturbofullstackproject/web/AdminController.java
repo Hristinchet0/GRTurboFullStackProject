@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -102,6 +103,18 @@ public class AdminController {
         categoryService.removeCategoryById(id);
         return "redirect:/admin/categories";
     }
+
+    @GetMapping("/admin/categories/update/{id}")
+    public String updateCat(@PathVariable Long id, Model model) {
+        Optional<Category> category = categoryService.getCategoryById(id);
+        if (category.isPresent()) {
+            model.addAttribute("category", category.get());
+            return "categoriesAdd";
+        } else
+            return "404";
+    }
+
+
 
 
 }

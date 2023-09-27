@@ -6,7 +6,10 @@ import com.grturbo.grturbofullstackproject.model.mapper.CategoryMapper;
 import com.grturbo.grturbofullstackproject.repositority.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class CategoryService {
@@ -31,5 +34,9 @@ public class CategoryService {
 
     public void removeCategoryById(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    public Optional<Category> getCategoryById(Long id) {
+        return categoryRepository.findById(id);
     }
 }
