@@ -1,12 +1,15 @@
 package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductDetailDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.repositority.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,5 +93,34 @@ public class ProductService {
         }
 
         productRepository.save(product);
+    }
+
+    public Page<ProductDetailDto> getAllProducts(Pageable pageable) {
+
+        return productRepository
+                .findAll(pageable)
+                .map(product -> {
+                    ProductDetailDto productDetailDto = modelMapper.map(product, ProductDetailDto.class);
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
+
+                    productDetailDto.setCategory(categoryById.get().getName());
+
+                    return productDetailDto;
+                });
+    }
+
+    public Page<ProductDetailDto> getAllProductsByCategoryId(Long id, Pageable pageable) {
+
+        return productRepository.findByCategoryId(id, pageable)
+                .map(product -> {
+                    ProductDetailDto productDetailDto = modelMapper.map(product, ProductDetailDto.class);
+
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
+
+                    productDetailDto.setCategory(categoryById.get().getName());
+
+                    return productDetailDto;
+                });
+
     }
 }

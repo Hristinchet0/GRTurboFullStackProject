@@ -26,9 +26,6 @@
             <h2 th:text="${product.name}"></h2>
             <p th:text="${product.category.name}"></p>
             <h2>BGN <span th:text="${product.price}"></span></h2>
-            <h5>Weight:
-                <spna th:text="${product.weight}"></spna> grams.
-            </h5>
             <p th:text="${product.description}"></p>
             <a href="" th:href="@{/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Add to cart</a>
         </div>
