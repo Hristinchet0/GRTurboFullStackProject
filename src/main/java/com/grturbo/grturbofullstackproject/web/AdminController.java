@@ -1,6 +1,8 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
+import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
@@ -11,10 +13,7 @@ import com.grturbo.grturbofullstackproject.service.RoleService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,6 +77,24 @@ public class AdminController {
         userService.save(user);
 
         return "redirect:/admin/user";
+    }
+
+    @GetMapping("/admin/categories")
+    public String getCat(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "categories";
+    }
+
+    @GetMapping("/admin/categories/add")
+    public String getCatAdd(Model model) {
+        model.addAttribute("category", new CategoryAddDto());
+        return "categoriesAdd";
+    }
+
+    @PostMapping("/admin/categories/add")
+    public String postCatAdd(@ModelAttribute("category") CategoryAddDto categoryAddDto) {
+        categoryService.addCategory(categoryAddDto);
+        return "redirect:/admin/categories";
     }
 
 
