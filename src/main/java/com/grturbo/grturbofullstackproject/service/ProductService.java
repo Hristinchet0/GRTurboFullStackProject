@@ -62,4 +62,7 @@ public class ProductService {
     }
 
 
+    public void removeProductById(Long id) {
+        productRepository.deleteById(id);
+    }
 }
