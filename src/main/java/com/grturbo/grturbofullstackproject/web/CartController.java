@@ -38,4 +38,10 @@ public class CartController {
         model.addAttribute("cart",GlobalDataCard.cart);
         return "cart";
     }
+
+    @GetMapping("/cart/removeItem/{index}")
+    public String cartItemRemove(@PathVariable int index) {
+        GlobalDataCard.cart.remove(index);
+        return "redirect:/cart";
+    }
 }
