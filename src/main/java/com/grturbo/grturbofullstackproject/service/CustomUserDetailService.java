@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
@@ -30,6 +28,19 @@ public class CustomUserDetailService implements UserDetailsService {
                 .map(this::map)
                 .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found!"));
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByUsername(username);
+//        if(user == null){
+//            throw new UsernameNotFoundException("Could not find username");
+//        }
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+//                user.getPassword(),
+//                user.getRoles()
+//                        .stream()
+//                        .map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList()));
+//    }
 
     private UserDetails map(User user) {
         return new CustomUserDetail(
@@ -51,6 +62,5 @@ public class CustomUserDetailService implements UserDetailsService {
                 userRole.getRole());
     }
 
-    public List<User> getAllUsers() { return userRepository.findAll(); }
 
 }

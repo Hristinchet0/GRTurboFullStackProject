@@ -70,9 +70,15 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public Product getProductByID(Long id) {
+        return productRepository.findProductById(id);
+    }
+
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
+
+
 
     public void saveProduct(ProductEditDto productEditDto, Product product) throws IOException {
 

@@ -119,8 +119,15 @@
                      th:field="*{email}"
                      id="eemail"
                      aria-describedby="emailHelp" />
-
             </div>
+              <div class="input-field">
+                  <i class="fas fa-user"></i>
+                  <input type="text"
+                         name="firstName"
+                         th:field="*{username}"
+                         id="username" required
+                         placeholder="Your Username" />
+              </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" required

@@ -29,6 +29,11 @@ public class UserRegisterDto {
     @NotEmpty
     @NotNull
     @Size(min = 2, max = 20)
+    private String username;
+
+    @NotEmpty
+    @NotNull
+    @Size(min = 2, max = 20)
     private String firstName;
 
     @NotEmpty
@@ -77,5 +82,13 @@ public class UserRegisterDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

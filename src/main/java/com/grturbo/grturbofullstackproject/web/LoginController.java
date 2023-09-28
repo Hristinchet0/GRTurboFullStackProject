@@ -5,9 +5,7 @@ import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +22,14 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        GlobalDataCard.cart.clear();
+//        GlobalDataCard.cart.clear();
         return "login";
     }
+
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String login() {
+//        return "login";
+//    }
 
     @GetMapping("/register")
     public String registerGet() {

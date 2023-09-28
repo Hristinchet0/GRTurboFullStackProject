@@ -1,35 +1,110 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.global.GlobalDataCard;
-import com.grturbo.grturbofullstackproject.model.dto.ShippingDetailsDto;
+
 import com.grturbo.grturbofullstackproject.model.entity.Product;
-import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
-import com.grturbo.grturbofullstackproject.repositority.ShippingDetailsRepository;
+import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
+import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.ProductService;
-import com.grturbo.grturbofullstackproject.service.ShippingDetailsService;
+import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
+import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class CartController {
 
+    private final UserService userService;
+
+    private final ShoppingCartService shoppingCartService;
+
     private final ProductService productService;
 
-    private final OrderRepository ordersRepository;
-
-    private final ShippingDetailsRepository shippingDetailsRepository;
-
-    private final ShippingDetailsService shippingDetailsService;
-
-    public CartController(ProductService productService, OrderRepository ordersRepository, ShippingDetailsRepository shippingDetailsRepository, ShippingDetailsService shippingDetailsService) {
+    public CartController(UserService userService, ShoppingCartService shoppingCartService, ProductService productService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
         this.productService = productService;
-        this.ordersRepository = ordersRepository;
-        this.shippingDetailsRepository = shippingDetailsRepository;
-        this.shippingDetailsService = shippingDetailsService;
+    }
+
+    @GetMapping("/cart")
+    public String cart(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByEmail(principal.getName()).get();
+        ShoppingCart cart = user.getCart();
+
+        if (cart == null) {
+            model.addAttribute("check", "No item in your shopping cart");
+        }
+
+        model.addAttribute("shoppingCart", cart);
+
+        return "cart";
+    }
+
+    @PostMapping("/add-to-cart")
+    public String addItemToCart(@RequestParam("id") Long productId,
+                                @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
+                                Principal principal,
+                                HttpServletRequest request) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        Product product = productService.getProductByID(productId);
+
+        User user = userService.findByEmail(principal.getName()).get();
+
+        ShoppingCart cart = shoppingCartService.addItemToCart(product, quantity, user);
+
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+    @PostMapping("/update-cart")
+    public String updateCart(@RequestParam("quantity") int quantity,
+                             @RequestParam("id") Long productId,
+                             Model model,
+                             Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByEmail(principal.getName()).get();
+        Product product = productService.getProductByID(productId);
+        ShoppingCart cart = shoppingCartService.updateItemInCart(product, quantity, user);
+
+        model.addAttribute("shoppingCart", cart);
+
+        return "redirect:/cart";
+    }
+
+    @Transactional
+    @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
+    public String deleteItemInCart(@RequestParam("id") Long productId,
+                                   Model model,
+                                   Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+//            User user = userService.findByEmail(principal.getName()).get();
+            String username = principal.getName();
+            Product product = productService.getProductByID(productId);
+            ShoppingCart cart = shoppingCartService.deleteItemFromCart(product, username);
+
+            model.addAttribute("shoppingCart", cart);
+            return "redirect:/cart";
+        }
     }
 
 

@@ -17,188 +17,108 @@
 
 <div th:replace="fragments/navbar">Navbar</div>
 <main>
-    <div class="container">
-
-        <!--Section: Block Content-->
-        <section class="mt-5 mb-4">
-
-            <!--Grid row-->
+    <!-- Start Cart  -->
+    <div class="cart-box-main">
+        <div class="container">
             <div class="row">
-
-                <!--Grid column-->
-                <div class="col-lg-8">
-
-                    <!-- Card -->
-                    <div class="card wish-list mb-4">
-                        <div class="card-body">
-
-                            <h5 class="mb-4">Cart (<span th:text="${cartCount}">2</span> items)</h5>
-
-                            <div class="row mb-4" th:each="item, iStat : ${cart}">
-                                <div class="col-md-5 col-lg-3 col-xl-3">
-                                    <div class="mb-3 mb-md-0">
-                                        <img class="img-fluid w-100"
-                                             th:src="${item.imgUrl}"
-                                             src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
-                                             alt="Sample">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5 th:text="${item.name}">Blue denim shirt</h5>
-
-                                                <p class="mb-2 text-uppercase small">Category: <span
-                                                        th:text="${item.category.name}"></span></p>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="mt-5 d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"
-                                                   type="button"
-                                                   class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-
-                                            </div>
-                                            <p class="mb-0"><span><strong>BGN<span
-                                                    th:text="${item.price}"></span></strong></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="mb-4">
-
-                            <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the
-                                purchase, adding
-                                items to your cart does not mean booking them.</p>
-
-                        </div>
+                <div class="col-lg-12">
+                    <div th:if="${check}" class="text-center alert-warning">
+                        <p th:text="${check}"></p>
                     </div>
+                    <div class="table-main table-responsive" th:if="${check == null}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Images</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cartItem : ${shoppingCart.cartItems}">
+                                <td class="thumbnail-img">
+                                    <a href="#">
+                                        <img class="img-fluid"
+                                             th:src="*{cartItem.product.imgUrl}" alt=""/>
+                                    </a>
+                                </td>
+                                <td class="name-pr">
+                                    <p th:text="${cartItem.product.name}"></p>
+                                </td>
+                                <td class="price-pr">
+                                    <p th:text="'BGN' + ${cartItem.product.price}"></p>
+                                </td>
 
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-4">
-
-                    <!-- Card -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-
-                            <h5 class="mb-3">The total amount </h5>
-
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                    Amount Payable
-                                    <span>BGN<span th:text="${total}"></span></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    Shipping
-                                    <span>Free</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                    <div>
-                                        <strong>The total amount of</strong>
-                                        <strong>
-                                            <p class="mb-0">(including VAT)</p>
-                                        </strong>
-                                    </div>
-                                    <span><strong>BGN<span th:text="${total}"></span></strong></span>
-                                </li>
-                            </ul>
-
-                            <!--                            <a th:href="@{/checkout}" h class="btn btn-primary btn-block waves-effect waves-light">go to-->
-                            <!--                                checkout</a>-->
-
-                            <form th:action="@{/cart}"
-                                  th:object="${shippingDetailsDto}"
-                                  th:method="post">
-
-                                <h5 class="mb-2">Delivery details</h5>
-
-
-                                <!-- Country -->
-                                <div class="d-flex flex-wrap">
-                                    <div class="select-outline position-relative w-100">
-                                        <label>Country - <strong>BULGARIA</strong></label>
-                                    </div>
-                                </div>
-
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form14">First Name</label>
-                                    <input type="text" name="FirstName" required id="form11"
-                                           placeholder="Your First Name" class="form-control">
-                                </div>
-
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form14">Last Name</label>
-                                    <input type="text" name="LastName" required id="form12" placeholder="Your Last Name"
-                                           class="form-control">
-                                </div>
-
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form14">Phone Number</label>
-                                    <input type="text" name="PhoneNumber" required id="form13"
-                                           placeholder="Your Phone Number" class="form-control">
-                                </div>
-
-                                <!-- Address Part 1 -->
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form14">Address (Line 1)</label>
-                                    <input type="text" name="Address" required id="form14"
-                                           placeholder="House number and street name" class="form-control">
-                                </div>
-
-                                <!-- Address Part 2 -->
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form15">State</label>
-                                    <input type="text" name="State" id="form15" required
-                                           placeholder="Apartment, suite, unit etc. (optional)"
-                                           class="form-control">
-                                </div>
-
-                                <!-- Postcode / ZIP -->
-                                <div class="md-form md-outline mt-3">
-                                    <label for="form16">Postcode / ZIP</label>
-                                    <input type="text" name="Postcode" maxlength="6" minlength="6" required id="form16"
-                                           class="form-control">
-                                </div>
-
-                                <!-- Town / City -->
-                                <div class="md-form md-outline mt-2">
-                                    <label for="form17">Town / City</label>
-                                    <input type="text" name="city" required id="form17" class="form-control">
-                                </div>
-
-                                <div class="md-form md-outline mt-2">
-                                    <label for="description">More Information</label>
-                                    <textarea class="form-control" rows="3"  name="description" id="description"></textarea>
-                                </div>
-
-                                <div class="md-form md-outline mt-2">
-                                    <input type="submit" class="btn btn-primary btn-block waves-effect waves-light"
-                                           value="Proceed to Checkout">
-                                </div>
-
-                            </form>
-
-                        </div>
+                                <form
+                                        th:action="@{/update-cart}"
+                                        method="post">
+                                    <input type="hidden" name="id" th:value="${cartItem.product.id}">
+                                    <td class="quantity-box"><label>
+                                        <input type="number" size="4" th:value="${cartItem.quantity}"
+                                               name="quantity" min="0" step="1"
+                                               class="c-input-text qty text">
+                                    </label></td>
+                                    <td class="total-pr">
+                                        <p th:text="'BGN' + ${cartItem.totalPrice}"></p>
+                                    </td>
+                                    <td>
+                                        <button type="submit" name="action" value="update" title="Update"
+                                                class="btn btn-primary">
+                                            Update
+                                        </button>
+                                        <button type="submit" name="action" value="delete" title="Update"
+                                                class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
-                <!--Grid column-->
             </div>
-            <!--Grid row-->
 
-        </section>
-        <!--Section: Block Content-->
+            <div class="row my-5">
+                <div class="col-lg-8 col-sm-12"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="order-box">
+                        <h3>Order summary</h3>
+                        <div class="d-flex">
+                            <h4>Sub Total</h4>
+                            <div class="ml-auto font-weight-bold" th:text="${subTotal}"></div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Discount</h4>
+                            <div class="ml-auto font-weight-bold"> $0</div>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex">
+                            <h4>Tax</h4>
+                            <div class="ml-auto font-weight-bold"> $2</div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Shipping Cost</h4>
+                            <div class="ml-auto font-weight-bold"> Free</div>
+                        </div>
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>Grand Total</h5>
+                            <!--                            <div class="ml-auto h5" th:text = " '$' + ${subTotal + 2 }"> </div>-->
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-12 d-flex shopping-box"><a th:href="@{/check-out}" class="ml-auto btn hvr-hover">Checkout</a>
+                </div>
+            </div>
 
+        </div>
     </div>
+    <!-- End Cart -->
 </main>
 <!--Main layout-->
 

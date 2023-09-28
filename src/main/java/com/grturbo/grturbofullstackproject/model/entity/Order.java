@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.model.entity;
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,22 +12,31 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Long id;
 
-    private Double totalPrice;
+    private Date orderDate;
 
-    private String status;
+    private Date deliveryDate;
 
-    private LocalDate orderDateCreated;
+    private String orderStatus;
 
-    @OneToMany(mappedBy = "order")
-    private List<Product> products;
+    private double totalPrice;
 
-    @ManyToOne
-    private User user;
+    private double tax;
 
-    @OneToOne
-    private ShippingDetails shippingDetails;
+    private int quantity;
+
+    private String paymentMethod;
+
+    private boolean isAccept;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    private User customer;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private List<OrderDetail> orderDetailList;
 
     public Order() {
     }
@@ -39,51 +49,97 @@ public class Order {
         this.id = id;
     }
 
-    public Double getTotalPrice() {
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public String getStatus() {
-        return status;
+    public double getTax() {
+        return tax;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTax(double tax) {
+        this.tax = tax;
     }
 
-    public LocalDate getOrderDateCreated() {
-        return orderDateCreated;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setOrderDateCreated(LocalDate orderDateCreated) {
-        this.orderDateCreated = orderDateCreated;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public User getUser() {
-        return user;
+    public boolean isAccept() {
+        return isAccept;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccept(boolean accept) {
+        isAccept = accept;
     }
 
-    public ShippingDetails getShippingDetails() {
-        return shippingDetails;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setShippingDetails(ShippingDetails shippingDetails) {
-        this.shippingDetails = shippingDetails;
+    public void setCustomer(User customer) {
+        this.customer = customer;
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderDate=" + orderDate +
+                ", deliveryDate=" + deliveryDate +
+                ", totalPrice=" + totalPrice +
+                ", tax='" + tax + '\'' +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", customer=" + customer.getFirstName() + " " + customer.getLastName() +
+                ", orderDetailList=" + orderDetailList.size() +
+                '}';
     }
 }

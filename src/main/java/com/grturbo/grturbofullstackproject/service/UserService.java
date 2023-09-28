@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -63,6 +62,12 @@ public class UserService {
             admin.setPassword(password);
             admin.setFirstName("Petar");
             admin.setLastName("Rachev");
+            admin.setAddress("Luben Karavelov 3");
+            admin.setCity("Razlog");
+            admin.setUsername("GrturboAdmin");
+            admin.setPhoneNumber("0878363618");
+            admin.setCart(null);
+            admin.setOrders(null);
             admin.addRole(roleAdmin);
 
             userRepository.save(admin);
@@ -78,7 +83,7 @@ public class UserService {
 
         userRepository.save(newUser);
 
-        return login(newUser.getEmail());
+        return login(newUser.getUsername());
 
     }
 
@@ -121,5 +126,13 @@ public class UserService {
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+    }
+
+    public User findByUsername(String name) {
+        return userRepository.findByUsername(name);
+    }
+
+    public Optional<User> findByEmail(String name) {
+        return userRepository.findUserByEmail(name);
     }
 }

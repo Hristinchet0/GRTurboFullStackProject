@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class CustomUserDetail extends User implements UserDetails {
+public class CustomUserDetail implements UserDetails {
 
     private final Long id;
 
@@ -37,6 +37,11 @@ public class CustomUserDetail extends User implements UserDetails {
 //        });
 //        return authorityList;
 //    }
+
+
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -73,11 +78,6 @@ public class CustomUserDetail extends User implements UserDetails {
         return true;
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -85,8 +85,6 @@ public class CustomUserDetail extends User implements UserDetails {
     public String getLastName() {
         return lastName;
     }
-
-
 
     public String getFullName() {
         StringBuilder fullName = new StringBuilder();
