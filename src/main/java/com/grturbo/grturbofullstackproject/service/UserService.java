@@ -135,4 +135,15 @@ public class UserService {
     public Optional<User> findByEmail(String name) {
         return userRepository.findUserByEmail(name);
     }
+
+    public User saveProfile(User user) {
+        User updatedUser = userRepository.findByEmail(user.getEmail());
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setPhoneNumber(user.getPhoneNumber());
+        updatedUser.setAddress(user.getAddress());
+        updatedUser.setCity(user.getCity());
+
+        return userRepository.save(user);
+    }
 }

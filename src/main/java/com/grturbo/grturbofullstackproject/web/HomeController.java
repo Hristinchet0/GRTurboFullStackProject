@@ -1,6 +1,5 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.global.GlobalDataCard;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.UserService;
@@ -28,11 +27,10 @@ public class HomeController {
             session.setAttribute("username", principal.getName());
             User user = userService.findByEmail(principal.getName()).get();
             ShoppingCart cart = user.getCart();
-//            session.setAttribute("totalItems", cart.getTotalItems());
+            session.setAttribute("totalItems", cart.getTotalItems());
         }else{
             session.removeAttribute("username");
         }
-//        model.addAttribute("cartCount", GlobalDataCard.cart.size());
         return "index";
     }
 

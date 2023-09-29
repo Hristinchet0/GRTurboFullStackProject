@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String cart(Model model, Principal principal) {
+    public String cart(Model model, Principal principal, HttpSession session) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -45,6 +46,11 @@ public class CartController {
             model.addAttribute("check", "No item in your shopping cart");
         }
 
+        if (cart != null) {
+            model.addAttribute("subTotal", cart.getTotalPrice());
+        }
+
+        session.setAttribute("totalItems", cart.getTotalItems());
         model.addAttribute("shoppingCart", cart);
 
         return "cart";

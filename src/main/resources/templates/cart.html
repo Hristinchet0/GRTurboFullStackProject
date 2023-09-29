@@ -91,15 +91,7 @@
                             <h4>Sub Total</h4>
                             <div class="ml-auto font-weight-bold" th:text="${subTotal}"></div>
                         </div>
-                        <div class="d-flex">
-                            <h4>Discount</h4>
-                            <div class="ml-auto font-weight-bold"> $0</div>
-                        </div>
                         <hr class="my-1">
-                        <div class="d-flex">
-                            <h4>Tax</h4>
-                            <div class="ml-auto font-weight-bold"> $2</div>
-                        </div>
                         <div class="d-flex">
                             <h4>Shipping Cost</h4>
                             <div class="ml-auto font-weight-bold"> Free</div>
@@ -107,7 +99,7 @@
                         <hr>
                         <div class="d-flex gr-total">
                             <h5>Grand Total</h5>
-                            <!--                            <div class="ml-auto h5" th:text = " '$' + ${subTotal + 2 }"> </div>-->
+                            <div class="ml-auto h5" th:text = " 'BGN' + ${subTotal}"> </div>
                         </div>
                         <hr>
                     </div>
@@ -121,16 +113,7 @@
     <!-- End Cart -->
 </main>
 <!--Main layout-->
+<div th:replace="fragments/scripts"></div>
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
 </body>
 </html>
