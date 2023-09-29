@@ -2,7 +2,9 @@ package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.model.dto.UserDto;
+import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
+import com.grturbo.grturbofullstackproject.model.dto.UserUpdateDto;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.model.enums.RoleEnum;
@@ -143,6 +145,35 @@ public class UserService {
         updatedUser.setPhoneNumber(user.getPhoneNumber());
         updatedUser.setAddress(user.getAddress());
         updatedUser.setCity(user.getCity());
+
+        return userRepository.save(user);
+    }
+
+    public UserUpdateDto getUser(String userEmail) {
+        UserUpdateDto userUpdateDto = new UserUpdateDto();
+
+        User user = userRepository.findByEmail(userEmail);
+
+        userUpdateDto.setFirstName(user.getFirstName());
+        userUpdateDto.setLastName(user.getLastName());
+        userUpdateDto.setPhoneNumber(user.getPhoneNumber());
+        userUpdateDto.setUsername(user.getUsername());
+        userUpdateDto.setAddress(user.getAddress());
+        userUpdateDto.setCity(user.getCity());
+        userUpdateDto.setEmail(user.getEmail());
+        userUpdateDto.setPassword(user.getPassword());
+
+        return userUpdateDto;
+    }
+
+    public User update(UserUpdateDto userUpdateDto) {
+        User user = userRepository.findByEmail(userUpdateDto.getEmail());
+
+        user.setFirstName(userUpdateDto.getFirstName());
+        user.setLastName(userUpdateDto.getLastName());
+        user.setAddress(userUpdateDto.getAddress());
+        user.setCity(userUpdateDto.getCity());
+        user.setPhoneNumber(userUpdateDto.getPhoneNumber());
 
         return userRepository.save(user);
     }

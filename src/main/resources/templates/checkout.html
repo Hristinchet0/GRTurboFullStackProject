@@ -1,112 +1,127 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-	
-	<link rel="stylesheet" href="css/nav.css">
-    <title>GR Turbo Checkout</title>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<!-- Basic -->
+
+<head th:replace="fragments/head">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
+
 <body>
 
-
 <div th:replace="fragments/navbar">Navbar</div>
-<div class="container">
 
-    <!--Section: Block Content-->
-    <section class="mt-5 mb-4">
-
-        <!--Grid row-->
-        <div class="d-flex justify-content-center">
-
-            <!--Grid column-->
-            
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4">
-
-                <!-- Card -->
-                <div class="card mb-4">
-                    <div class="card-body">
-
-                        <h5 class="mb-3">The total amount </h5>
-
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                Amount Payable
-                                <span>BGN<span th:text="${total}"></span></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                Shipping
-                                <span>Free</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                <div>
-                                    <strong>The total amount of</strong>
-                                    <strong>
-                                        <p class="mb-0">(including VAT)</p>
-                                    </strong>
-                                </div>
-                               </li>
-                               </ul>
-                               <div class="card">
-                             <div class="card-body">
-                               <div>
-             				    <span ><strong>BGN<span id="main" th:text="${total}" ></span></strong></span>
-                                </div>
-            					<button type="submit" class="btn btn-warning btn-block btn-lg" th:onclick="paymentStart()" >Proceed to Pay</button>
-         					 
-         					 </div>
-       					 </div>
-                               
-
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="checkout-address">
+                    <div class="title-left">
+                        <h3>Billing address</h3>
                     </div>
+                    <form class="needs-validation" novalidate th:object="${user}">
+
+                        <div class="mb-3">
+                            <label for="username">Username *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{username}" id="username"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Phone Number *</label>
+                            <input type="text" class="form-control" th:field="*{phoneNumber}" id="phone" placeholder=""
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Address *</label>
+                            <input type="text" class="form-control"
+                                   th:value="${user.address + ' ' + user.city}"
+                                   id="address" placeholder="" readonly>
+                        </div>
+                        <a th:href="@{/profile}" class="btn btn-primary"> Change information</a>
+                        <hr class="mb-4">
+                        <div class="title"><span>Payment Methods</span></div>
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="debit" name="paymentMethod" type="radio" checked class="custom-control-input"
+                                       required>
+                                <label class="custom-control-label" for="debit">Cash</label>
+                            </div>
+                        </div>
+                        <hr class="mb-1">
+                    </form>
                 </div>
-				
-			
             </div>
-            <!--Grid column-->
-
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <form th:action="@{/add-order}" method="post" th:object="${shoppingCart}">
+                    <input type="hidden" name="id" th:value="${id}">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="odr-box">
+                            <div class="title-left">
+                                <h3>Shopping cart</h3>
+                            </div>
+                            <div class="rounded p-2 bg-light">
+                                <div class="media mb-2 border-bottom" th:each="item : ${shoppingCart.getCartItems()}">
+                                    <div class="media-body"><a href="product-detail.html"
+                                                               th:text="${item.product.name}"></a>
+                                        <div class="small text-muted">Price: [(${item.product.price})]$ <span
+                                                class="mx-2">|</span> Qty: [(${item.quantity})]
+                                            <span class="mx-2">|</span> Subtotal: $ + [(${item.totalPrice})]
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="order-box">
+                            <div class="title-left">
+                                <h2><b>Your order</b></h2>
+                            </div>
+                            <div class="d-flex">
+                                <div class="font-weight-bold">Product</div>
+                                <div class="ml-auto font-weight-bold">Total</div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Sub Total</h4>
+                                <div class="ml-auto font-weight-bold" th:text="${shoppingCart.totalPrice}"></div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Tax</h4>
+                                <div class="ml-auto font-weight-bold"> $2</div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Shipping Cost</h4>
+                                <div class="ml-auto font-weight-bold"> Free</div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Grand Total</h5>
+                                <div class="ml-auto h5" th:text="${shoppingCart.totalPrice + 2}"></div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex shopping-box">
+                        <button type="submit" class="ml-auto btn hvr-hover">Place Order</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!--Grid row-->
-
-    </section>
-    <!--Section: Block Content-->
-
-
+    </div>
 </div>
 
-</div>
+<footer th:replace="fragments/footer">
+</footer>
 
-    <script th:inline="javascript">
-   /*<![CDATA[*/
-   var amt=/*[[${total}]]*/ "value";
-   /*]]>*/
-    </script>
-
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-    <script
- 	 	src="https://code.jquery.com/jquery-3.6.0.min.js"
-  		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  		crossorigin="anonymous"></script>
-
-
-
-
-<!-- script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script-->
+<div th:replace="fragments/scripts"></div>
 </body>
+
 </html>
