@@ -27,7 +27,8 @@ public class HomeController {
             session.setAttribute("username", principal.getName());
             User user = userService.findByEmail(principal.getName()).get();
             ShoppingCart cart = user.getCart();
-            session.setAttribute("totalItems", cart.getTotalItems());
+
+            session.setAttribute("totalItems", cart != null ? cart.getTotalItems() : 0);
         }else{
             session.removeAttribute("username");
         }

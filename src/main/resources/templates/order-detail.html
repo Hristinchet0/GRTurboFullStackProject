@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+    <title>GR Turbo Order</title>
+</head>
+<body>
+
+
+<div th:replace="fragments/navbar">Navbar</div>
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Images</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="orderdetail : ${order.orderDetailList}">
+                            <td class="thumbnail-img">
+                                <a href="#">
+                                    <img class="img-fluid"
+                                         th:src="${orderdetail.product.imgUrl}" alt=""/>
+                                </a>
+                            </td>
+                            <td class="name-pr">
+                                <p th:text="${orderdetail.product.name}"></p>
+                            </td>
+                            <td class="price-pr">
+                                <p th:text="'$' + ${orderdetail.product.price}"></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="row my-5">
+                        <div class="col-lg-8 col-sm-12"></div>
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="order-box">
+                                <h3>Order summary</h3>
+                                <div class="d-flex">
+                                    <p>Total Quantity [(${order.quantity})]</p>
+                                    <h4>Sub Total</h4>
+                                    <div class="ml-auto font-weight-bold" th:text="${order.totalPrice}"> </div>
+                                </div>
+                                <hr class="my-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.model.entity;
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Order {
     private User customer;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderDetail> orderDetailList;
+    private List<OrderDetail> orderDetailList = new ArrayList<>();
 
     public Order() {
     }
@@ -129,17 +130,6 @@ public class Order {
         this.orderDetailList = orderDetailList;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderDate=" + orderDate +
-                ", deliveryDate=" + deliveryDate +
-                ", totalPrice=" + totalPrice +
-                ", tax='" + tax + '\'' +
-                ", paymentMethod='" + paymentMethod + '\'' +
-                ", customer=" + customer.getFirstName() + " " + customer.getLastName() +
-                ", orderDetailList=" + orderDetailList.size() +
-                '}';
-    }
+
+
 }

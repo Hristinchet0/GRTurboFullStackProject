@@ -12,11 +12,11 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
-    private ShoppingCart cart;
+    private ShoppingCart cart = new ShoppingCart();
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
-    private Product product;
+    private Product product = new Product();
     private int quantity;
     private double totalPrice;
 
@@ -70,10 +70,9 @@ public class CartItem {
     public String toString() {
         return "CartItem{" +
                 "id=" + id +
-                ", cart=" + cart.getId() +
+                ", cart=" + cart +
                 ", product=" + product.getName() +
                 ", quantity=" + quantity +
-                ", unitPrice="  +
                 ", totalPrice=" + totalPrice +
                 '}';
     }

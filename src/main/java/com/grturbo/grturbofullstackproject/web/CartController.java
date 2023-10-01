@@ -1,6 +1,5 @@
 package com.grturbo.grturbofullstackproject.web;
 
-
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 public class CartController {
@@ -50,7 +48,7 @@ public class CartController {
             model.addAttribute("subTotal", cart.getTotalPrice());
         }
 
-        session.setAttribute("totalItems", cart.getTotalItems());
+        session.setAttribute("totalItems", cart != null ? cart.getTotalItems() : 0);
         model.addAttribute("shoppingCart", cart);
 
         return "cart";

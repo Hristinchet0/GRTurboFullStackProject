@@ -26,9 +26,23 @@
                     <form class="needs-validation" novalidate th:object="${user}">
 
                         <div class="mb-3">
-                            <label for="username">Username *</label>
+                            <label for="firstName">First Name *</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" th:field="*{username}" id="username"
+                                <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName">Last Name *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{email}" id="email"
                                        placeholder="" readonly>
                             </div>
                         </div>
@@ -59,7 +73,7 @@
             </div>
             <div class="col-sm-6 col-lg-6 mb-3">
                 <form th:action="@{/add-order}" method="post" th:object="${shoppingCart}">
-                    <input type="hidden" name="id" th:value="${id}">
+                    <input type="hidden" name="id" th:value="${shoppingCart.id}">
                     <div class="col-md-12 col-lg-12">
                         <div class="odr-box">
                             <div class="title-left">
@@ -69,9 +83,9 @@
                                 <div class="media mb-2 border-bottom" th:each="item : ${shoppingCart.getCartItems()}">
                                     <div class="media-body"><a href="product-detail.html"
                                                                th:text="${item.product.name}"></a>
-                                        <div class="small text-muted">Price: [(${item.product.price})]$ <span
+                                        <div class="small text-muted">Price: [(${item.product.price})]BGN <span
                                                 class="mx-2">|</span> Qty: [(${item.quantity})]
-                                            <span class="mx-2">|</span> Subtotal: $ + [(${item.totalPrice})]
+                                            <span class="mx-2">|</span> Subtotal: BGN + [(${item.totalPrice})]
                                         </div>
                                     </div>
                                 </div>
@@ -94,23 +108,19 @@
                             </div>
                             <hr class="my-1">
                             <div class="d-flex">
-                                <h4>Tax</h4>
-                                <div class="ml-auto font-weight-bold"> $2</div>
-                            </div>
-                            <div class="d-flex">
                                 <h4>Shipping Cost</h4>
-                                <div class="ml-auto font-weight-bold"> Free</div>
+                                <div class="ml-auto font-weight-bold"> -----</div>
                             </div>
                             <hr>
                             <div class="d-flex gr-total">
                                 <h5>Grand Total</h5>
-                                <div class="ml-auto h5" th:text="${shoppingCart.totalPrice + 2}"></div>
+                                <div class="ml-auto h5" th:text="${shoppingCart.totalPrice}"></div>
                             </div>
                             <hr>
                         </div>
                     </div>
                     <div class="col-12 d-flex shopping-box">
-                        <button type="submit" class="ml-auto btn hvr-hover">Place Order</button>
+                        <button th:href="@{/add-order}" type="submit" class="ml-auto btn hvr-hover">Place Order</button>
                     </div>
                 </form>
             </div>

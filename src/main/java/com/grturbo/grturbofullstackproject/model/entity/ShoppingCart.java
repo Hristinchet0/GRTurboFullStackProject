@@ -76,10 +76,10 @@ public class ShoppingCart {
     public String toString() {
         return "ShoppingCart{" +
                 "id=" + id +
-                ", customer=" + customer +
+                ", customer=" + customer.getEmail() +
                 ", totalPrice=" + totalPrice +
                 ", totalItems=" + totalItems +
-                ", cartItems=" + cartItems +
+                ", cartItems=" + cartItems.size() +
                 '}';
     }
 }

@@ -47,11 +47,11 @@ public class User {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private ShoppingCart cart;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orders = new ArrayList<>();
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<UserRole> roles = new ArrayList<>();
 
     public User() {

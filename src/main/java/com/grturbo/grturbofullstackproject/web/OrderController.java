@@ -1,14 +1,20 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.model.entity.Order;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.service.OrderService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -17,9 +23,12 @@ public class OrderController {
 
     private final ShoppingCartService shoppingCartService;
 
-    public OrderController(UserService userService, ShoppingCartService shoppingCartService) {
+    private final OrderService orderService;
+
+    public OrderController(UserService userService, ShoppingCartService shoppingCartService, OrderService orderService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/check-out")
@@ -46,4 +55,41 @@ public class OrderController {
             }
         }
     }
+
+    @GetMapping("/order")
+    public String getOrders(Model model, Principal principal) {
+        if(principal == null) {
+            return "redirect:/login";
+        } else {
+            User user = userService.findByEmail(principal.getName()).get();
+            List<Order> orders = user.getOrders();
+
+            model.addAttribute("orders", orders);
+            model.addAttribute("title", "Orders");
+            model.addAttribute("page", "Order");
+
+            return "order";
+        }
+    }
+
+    @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
+    public String createOrder(Model model, Principal principal, HttpSession session) {
+        if(principal == null) {
+            return "redirect:/login";
+        } else {
+            User user = userService.findByEmail(principal.getName()).get();
+            ShoppingCart cart = user.getCart();
+            Order order = orderService.saveOrder(cart);
+
+            session.removeAttribute("totalItems");
+            model.addAttribute("orders", order);
+            model.addAttribute("title", "Order Detail");
+            model.addAttribute("page", "Order Detail");
+            model.addAttribute("success", "Add order successfully");
+
+            return "redirect:/order";
+        }
+    }
+
+
 }

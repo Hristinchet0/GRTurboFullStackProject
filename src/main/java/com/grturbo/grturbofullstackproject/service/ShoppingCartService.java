@@ -150,4 +150,19 @@ public class ShoppingCartService {
     }
 
 
+    public void deleteCartById(Long id) {
+        ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
+        shoppingCartRepository.delete(shoppingCart);
+
+//        for(CartItem cartItem : shoppingCart.getCartItems()) {
+//            System.out.println("CartItem ID: " + cartItem.getId());
+//
+//            cartItemRepository.deleteById(cartItem.getId());
+//        }
+//
+//        shoppingCart.getCartItems().clear();
+//        shoppingCart.setTotalPrice(0.0);
+//        shoppingCart.setTotalItems(0);
+//        shoppingCartRepository.save(shoppingCart);
+    }
 }
