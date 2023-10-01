@@ -28,6 +28,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th class="id-pr" >Id</th>
                             <th class="order-date">Order Date</th>
                             <th>Delivery Date</th>
                             <th class="price-pr">Order Status</th>
@@ -40,6 +41,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="order : ${orders}">
+                            <td class="id-pr">
+                                <p th:text="${order.id}" hidden></p>
+                            </td>
                             <td class="order-date">
                                 <span><b>[(${order.orderDate})]</b></span>
                             </td>
@@ -57,12 +61,11 @@
                                 <p style="color: red">$ [(${order.totalPrice})]</p>
                             </td>
                             <td class="total-pr" style="color: black">
-                                <span></span>[(${order.paymentMethod})]</span>
+                                <span>[(${order.paymentMethod})]</span>
                             </td>
                             <td>
-                                <a th:href="@{/cancel-order/(id = ${order.id})}" class="button-cancel">Cancel</a>
-                            </td>
-                            </a>
+<!--                                <a th:href="@{'/cancel-order/' + ${order.id}}" class="button-cancel">Cancel</a>-->
+
                             </td>
                         </tr>
                         </tbody>

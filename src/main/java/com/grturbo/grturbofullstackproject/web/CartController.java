@@ -92,24 +92,24 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @Transactional
-    @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
-    public String deleteItemInCart(@RequestParam("id") Long productId,
-                                   Model model,
-                                   Principal principal) {
-
-        if (principal == null) {
-            return "redirect:/login";
-        } else {
-//            User user = userService.findByEmail(principal.getName()).get();
-            String username = principal.getName();
-            Product product = productService.getProductByID(productId);
-            ShoppingCart cart = shoppingCartService.deleteItemFromCart(product, username);
-
-            model.addAttribute("shoppingCart", cart);
-            return "redirect:/cart";
-        }
-    }
+//    @Transactional
+//    @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
+//    public String deleteItemInCart(@RequestParam("id") Long productId,
+//                                   Model model,
+//                                   Principal principal) {
+//
+//        if (principal == null) {
+//            return "redirect:/login";
+//        } else {
+////            User user = userService.findByEmail(principal.getName()).get();
+//            String username = principal.getName();
+//            Product product = productService.getProductByID(productId);
+//            ShoppingCart cart = shoppingCartService.deleteItemFromCart(product, username);
+//
+//            model.addAttribute("shoppingCart", cart);
+//            return "redirect:/cart";
+//        }
+//    }
 
 
 }

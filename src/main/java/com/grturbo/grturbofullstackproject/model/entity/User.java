@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -48,10 +49,10 @@ public class User {
     private ShoppingCart cart;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orders = new ArrayList<>();
+    private Set<Order> orders;
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();
 
     public User() {
@@ -142,11 +143,11 @@ public class User {
         this.cart = cart;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
@@ -157,6 +158,4 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-
 }

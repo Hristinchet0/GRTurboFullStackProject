@@ -3,12 +3,16 @@ package com.grturbo.grturbofullstackproject.service;
 import com.grturbo.grturbofullstackproject.model.entity.*;
 import com.grturbo.grturbofullstackproject.repositority.OrderDetailRepository;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
+import com.grturbo.grturbofullstackproject.web.OrderController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -18,6 +22,8 @@ public class OrderService {
     private final ShoppingCartService shoppingCartService;
 
     private final OrderRepository orderRepository;
+
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     private final ProductService productService;
 
@@ -54,6 +60,18 @@ public class OrderService {
 
         order.setOrderDetailList(orderDetailList);
         shoppingCartService.deleteCartById(cart.getId());
+        return orderRepository.save(order);
+    }
+
+//    public void cancelOrder(Long id) {
+//        orderRepository.deleteById(id);
+//    }
+
+    public Order acceptOrder(Long id) {
+        Order order = orderRepository.getById(id);
+        order.setAccept(true);
+        order.setDeliveryDate(new Date());
+        order.setOrderStatus("SHIPPING");
         return orderRepository.save(order);
     }
 }

@@ -7,14 +7,18 @@ import com.grturbo.grturbofullstackproject.service.OrderService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class OrderController {
@@ -24,6 +28,8 @@ public class OrderController {
     private final ShoppingCartService shoppingCartService;
 
     private final OrderService orderService;
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     public OrderController(UserService userService, ShoppingCartService shoppingCartService, OrderService orderService) {
         this.userService = userService;
@@ -56,13 +62,13 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/order")
+    @GetMapping("/orders")
     public String getOrders(Model model, Principal principal) {
         if(principal == null) {
             return "redirect:/login";
         } else {
             User user = userService.findByEmail(principal.getName()).get();
-            List<Order> orders = user.getOrders();
+            Set<Order> orders = user.getOrders();
 
             model.addAttribute("orders", orders);
             model.addAttribute("title", "Orders");
@@ -82,14 +88,45 @@ public class OrderController {
             Order order = orderService.saveOrder(cart);
 
             session.removeAttribute("totalItems");
-            model.addAttribute("orders", order);
+            model.addAttribute("order", order);
             model.addAttribute("title", "Order Detail");
             model.addAttribute("page", "Order Detail");
             model.addAttribute("success", "Add order successfully");
 
-            return "redirect:/order";
+            return "order-detail";
         }
     }
 
-
+//    @Transactional
+//    @GetMapping("/cancel-order/{id}")
+//    public String cancelOrder(@PathVariable("id") Long id, Model model, Principal principal) {
+//        if(principal == null) {
+//            return "redirect:/login";
+//        }
+//
+//        logger.info("Canceling order with ID: {}", id);
+//
+//        User user = userService.findByEmail(principal.getName()).orElse(null);
+//        if (user == null) {
+//            return "redirect:/login";
+//        }
+//
+//        orderService.cancelOrder(id);
+//
+//        logger.info("Order with ID {} canceled successfully", id);
+//
+////        if (isCanceled) {
+////            model.addAttribute("success", "Order canceled successfully.");
+////        } else {
+////            model.addAttribute("error", "Unable to cancel the order.");
+////        }
+//
+//        Set<Order> orders = user.getOrders();
+//        model.addAttribute("orders", orders);
+//        model.addAttribute("title", "Orders");
+//        model.addAttribute("page", "Order");
+//
+//        return "redirect:/orders";
+//    }
 }
+

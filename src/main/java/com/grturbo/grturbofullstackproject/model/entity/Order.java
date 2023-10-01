@@ -130,6 +130,4 @@ public class Order {
         this.orderDetailList = orderDetailList;
     }
 
-
-
 }
