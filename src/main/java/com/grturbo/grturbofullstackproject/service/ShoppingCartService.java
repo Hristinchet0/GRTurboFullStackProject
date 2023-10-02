@@ -7,6 +7,7 @@ import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.repositority.CartItemRepository;
 import com.grturbo.grturbofullstackproject.repositority.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -82,24 +83,47 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
+//    public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
+//        ShoppingCart userShoppingCart = user.getShoppingCart();
+//
+//        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
+//
+//        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
+//
+//        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(userShoppingCart.getId());
+//
+//        int totalItems = totalItems(cartItems);
+//        double totalPrice = totalPrice(cartItems);
+//
+//        userShoppingCart.setCartItems(cartItems);
+//        userShoppingCart.setTotalItems(totalItems);
+//        userShoppingCart.setTotalPrice(totalPrice);
+//
+//        return shoppingCartRepository.save(userShoppingCart);
+//
+//    }
+
+    @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = user.getShoppingCart();
 
-        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
+        // Ensure that the userShoppingCart is managed
+        ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
+
+        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
 
         this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
 
-        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(userShoppingCart.getId());
+        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(managedCart.getId());
 
         int totalItems = totalItems(cartItems);
         double totalPrice = totalPrice(cartItems);
 
-        userShoppingCart.setCartItems(cartItems);
-        userShoppingCart.setTotalItems(totalItems);
-        userShoppingCart.setTotalPrice(totalPrice);
+        managedCart.setCartItems(cartItems);
+        managedCart.setTotalItems(totalItems);
+        managedCart.setTotalPrice(totalPrice);
 
-        return shoppingCartRepository.save(userShoppingCart);
-
+        return entityManager.merge(managedCart);
     }
 
     private CartItem findCartItem(Set<CartItem> cartItems, Long productId) {
