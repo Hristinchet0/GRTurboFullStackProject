@@ -7,7 +7,6 @@ import com.grturbo.grturbofullstackproject.service.ProductService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

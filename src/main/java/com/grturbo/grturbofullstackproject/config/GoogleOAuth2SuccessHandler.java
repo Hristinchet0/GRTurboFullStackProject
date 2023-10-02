@@ -15,43 +15,40 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 @Component
 public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserRoleRepository roleRepository;
-
     private final UserRepository userRepository;
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
-    public GoogleOAuth2SuccessHandler(UserRoleRepository authorityRepository, UserRepository userRepository) {
-        this.roleRepository = authorityRepository;
+    public GoogleOAuth2SuccessHandler(UserRoleRepository roleRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
         String email = token.getPrincipal().getAttributes().get("email").toString();
-        if (userRepository.findUserByEmail(email).isPresent()) {
 
-        } else {
-            User user = new User();
-            user.setFirstName(token.getPrincipal().getAttributes().get("given_name").toString());
-            user.setLastName(token.getPrincipal().getAttributes().get("family_name").toString());
-            user.setEmail(email);
+        userRepository.findUserByEmail(email).ifPresentOrElse(
+                user -> {},
+                () -> {
+                    User user = new User();
+                    user.setFirstName(token.getPrincipal().getAttributes().get("given_name").toString());
+                    user.setLastName(token.getPrincipal().getAttributes().get("family_name").toString());
+                    user.setEmail(email);
 
-            List<UserRole> roles = new ArrayList<>();
+                    UserRole userRole = roleRepository.findById(2L).orElseThrow();
 
-            roles.add(roleRepository.findById(2L).get());
+                    user.setRoles(Collections.singletonList(userRole));
+                    userRepository.save(user);
+                }
+        );
 
-            user.setRoles(roles);
-            userRepository.save(user);
-        }
-        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/");
+        redirectStrategy.sendRedirect(request, response, "/");
     }
-
 }

@@ -63,14 +63,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.
-                // define which requests are allowed and which not
                         authorizeRequests()
-                // everyone can download static resources (css, js, images)
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                // everyone can login and register
-                .antMatchers("/", "/shop/**", "/register", "/about", "/contactus", "/faq").permitAll()
+                .antMatchers("/", "/index", "/shop/**", "/register", "/about", "/contactus", "/faq").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                // all other pages are available for logger in users
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -85,10 +81,11 @@ public class SecurityConfig {
                 .oauth2Login()
                 .loginPage("/login")
                 .successHandler(googleOAuth2SuccessHandler)
+                .failureUrl("/login?error")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
