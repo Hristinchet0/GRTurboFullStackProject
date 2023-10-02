@@ -7,14 +7,12 @@ import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.repositority.CartItemRepository;
 import com.grturbo.grturbofullstackproject.repositority.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
-@Transactional
 public class ShoppingCartService {
 
     private final CartItemRepository cartItemRepository;
@@ -23,15 +21,18 @@ public class ShoppingCartService {
 
     private final UserService userService;
 
-    public ShoppingCartService(CartItemRepository cartItemRepository, ShoppingCartRepository shoppingCartRepository, UserService userService) {
+    private final EntityManager entityManager;
+
+    public ShoppingCartService(CartItemRepository cartItemRepository, ShoppingCartRepository shoppingCartRepository, UserService userService, EntityManager entityManager) {
         this.cartItemRepository = cartItemRepository;
         this.shoppingCartRepository = shoppingCartRepository;
         this.userService = userService;
+        this.entityManager = entityManager;
     }
 
 
     public ShoppingCart addItemToCart(Product product, int quantity, User user) {
-        ShoppingCart cart = user.getCart();
+        ShoppingCart cart = user.getShoppingCart();
 
         if (cart == null) {
             cart = new ShoppingCart();
@@ -40,34 +41,29 @@ public class ShoppingCartService {
 
         Set<CartItem> cartItems = cart.getCartItems();
 
-        // Check if the product is already in the cart
         CartItem cartItem = findCartItem(cartItems, product.getId());
 
         if (cartItem == null) {
-            // Create a new cart item
             cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
             cartItem.setTotalPrice(quantity * product.getPrice());
-            cartItem.setCart(cart);
+            cartItem.setShoppingCart(cart);
             cartItems.add(cartItem);
         } else {
-            // Update existing cart item
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             cartItem.setTotalPrice(cartItem.getTotalPrice() + (quantity * product.getPrice()));
         }
 
-        // Update cart properties
         cart.setCartItems(cartItems);
         cart.setTotalItems(totalItems(cartItems));
         cart.setTotalPrice(totalPrice(cartItems));
 
-        // Save the changes to the database
         return shoppingCartRepository.save(cart);
     }
 
     public ShoppingCart updateItemInCart(Product product, int quantity, User user) {
-        ShoppingCart cart = user.getCart();
+        ShoppingCart cart = user.getShoppingCart();
 
         Set<CartItem> cartItems = cart.getCartItems();
 
@@ -85,34 +81,20 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
-    @Transactional
-    public ShoppingCart deleteItemFromCart(Product product, String user) {
+    public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
+        ShoppingCart userShoppingCart = user.getShoppingCart();
 
-        Optional<User> customer = userService.findByEmail(user);
+        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
 
-        ShoppingCart cart = customer.get().getCart();
-
-        Set<CartItem> cartItems = cart.getCartItems();
-
-        CartItem item = findCartItem(cartItems, product.getId());
-
-        cartItems.remove(item);
-
-        cartItemRepository.delete(item);
-
+        cartItemRepository.deleteById(cartItemForDelete.getId());
+        Set<CartItem> cartItems = userShoppingCart.getCartItems();
+        int totalItems = totalItems(userShoppingCart.getCartItems());
         double totalPrice = totalPrice(cartItems);
+        userShoppingCart.setTotalItems(totalItems);
+        userShoppingCart.setTotalPrice(totalPrice);
 
-        int totalItems = totalItems(cartItems);
-
-        cart.setCartItems(cartItems);
-
-        cart.setTotalItems(totalItems);
-
-        cart.setTotalPrice(totalPrice);
-
-        return shoppingCartRepository.save(cart);
+        return shoppingCartRepository.save(userShoppingCart);
     }
-
 
     private CartItem findCartItem(Set<CartItem> cartItems, Long productId) {
 
@@ -154,15 +136,5 @@ public class ShoppingCartService {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
         shoppingCartRepository.delete(shoppingCart);
 
-//        for(CartItem cartItem : shoppingCart.getCartItems()) {
-//            System.out.println("CartItem ID: " + cartItem.getId());
-//
-//            cartItemRepository.deleteById(cartItem.getId());
-//        }
-//
-//        shoppingCart.getCartItems().clear();
-//        shoppingCart.setTotalPrice(0.0);
-//        shoppingCart.setTotalItems(0);
-//        shoppingCartRepository.save(shoppingCart);
     }
 }

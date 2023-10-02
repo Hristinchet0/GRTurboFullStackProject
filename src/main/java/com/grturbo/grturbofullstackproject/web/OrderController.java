@@ -7,10 +7,8 @@ import com.grturbo.grturbofullstackproject.service.OrderService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.slf4j.Logger;
@@ -51,7 +49,7 @@ public class OrderController {
                 model.addAttribute("page", "Profile");
                 return "user-profile";
             } else {
-                ShoppingCart cart = userService.findByEmail(principal.getName()).get().getCart();
+                ShoppingCart cart = userService.findByEmail(principal.getName()).get().getShoppingCart();
                 model.addAttribute("user", user);
                 model.addAttribute("title", "Check-Out");
                 model.addAttribute("page", "Check-Out");
@@ -84,7 +82,7 @@ public class OrderController {
             return "redirect:/login";
         } else {
             User user = userService.findByEmail(principal.getName()).get();
-            ShoppingCart cart = user.getCart();
+            ShoppingCart cart = user.getShoppingCart();
             Order order = orderService.saveOrder(cart);
 
             session.removeAttribute("totalItems");

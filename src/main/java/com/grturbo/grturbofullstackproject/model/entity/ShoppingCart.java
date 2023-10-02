@@ -21,7 +21,7 @@ public class ShoppingCart {
 
     private Integer totalItems;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cart")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shoppingCart")
     private Set<CartItem> cartItems;
 
 
@@ -72,14 +72,4 @@ public class ShoppingCart {
         this.cartItems = cartItems;
     }
 
-    @Override
-    public String toString() {
-        return "ShoppingCart{" +
-                "id=" + id +
-                ", customer=" + customer.getEmail() +
-                ", totalPrice=" + totalPrice +
-                ", totalItems=" + totalItems +
-                ", cartItems=" + cartItems.size() +
-                '}';
-    }
 }

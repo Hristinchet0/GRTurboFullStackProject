@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.web;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.service.CartItemService;
 import com.grturbo.grturbofullstackproject.service.ProductService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import java.security.Principal;
 
 @Controller
@@ -23,10 +25,13 @@ public class CartController {
 
     private final ProductService productService;
 
-    public CartController(UserService userService, ShoppingCartService shoppingCartService, ProductService productService) {
+    private final CartItemService cartItemService;
+
+    public CartController(UserService userService, ShoppingCartService shoppingCartService, ProductService productService, CartItemService cartItemService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
+        this.cartItemService = cartItemService;
     }
 
     @GetMapping("/cart")
@@ -37,7 +42,7 @@ public class CartController {
         }
 
         User user = userService.findByEmail(principal.getName()).get();
-        ShoppingCart cart = user.getCart();
+        ShoppingCart cart = user.getShoppingCart();
 
         if (cart == null) {
             model.addAttribute("check", "No item in your shopping cart");
@@ -91,24 +96,20 @@ public class CartController {
         return "redirect:/cart";
     }
 
-//    @Transactional
-//    @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
-//    public String deleteItemInCart(@RequestParam("id") Long productId,
-//                                   Model model,
-//                                   Principal principal) {
-//
-//        if (principal == null) {
-//            return "redirect:/login";
-//        } else {
-////            User user = userService.findByEmail(principal.getName()).get();
-//            String username = principal.getName();
-//            Product product = productService.getProductByID(productId);
-//            ShoppingCart cart = shoppingCartService.deleteItemFromCart(product, username);
-//
-//            model.addAttribute("shoppingCart", cart);
-//            return "redirect:/cart";
-//        }
-//    }
+    @GetMapping("/cart/delete/product/{id}")
+    public String deleteProduct(@PathVariable("id") Long id, Principal principal, Model model) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByEmail(principal.getName()).get();
+
+        ShoppingCart shoppingCart = shoppingCartService.deleteItemFromCart(id, user);
+
+        model.addAttribute("shoppingCart", shoppingCart);
+
+        return "redirect:/cart";
+    }
 
 
 }

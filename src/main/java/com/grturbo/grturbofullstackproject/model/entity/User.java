@@ -3,11 +3,8 @@ package com.grturbo.grturbofullstackproject.model.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +43,7 @@ public class User {
     private String address;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    private ShoppingCart cart;
+    private ShoppingCart shoppingCart;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
@@ -135,12 +132,12 @@ public class User {
         this.address = address;
     }
 
-    public ShoppingCart getCart() {
-        return cart;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void setCart(ShoppingCart cart) {
-        this.cart = cart;
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     public Set<Order> getOrders() {

@@ -1,6 +1,15 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "cart_items")
@@ -12,7 +21,7 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart_id", referencedColumnName = "shopping_cart_id")
-    private ShoppingCart cart = new ShoppingCart();
+    private ShoppingCart shoppingCart = new ShoppingCart();
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
@@ -33,12 +42,12 @@ public class CartItem {
         this.id = id;
     }
 
-    public ShoppingCart getCart() {
-        return cart;
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
-    public void setCart(ShoppingCart cart) {
-        this.cart = cart;
+    public void setShoppingCart(ShoppingCart cart) {
+        this.shoppingCart = cart;
     }
 
     public Product getProduct() {
@@ -66,14 +75,4 @@ public class CartItem {
     }
 
 
-    @Override
-    public String toString() {
-        return "CartItem{" +
-                "id=" + id +
-                ", cart=" + cart +
-                ", product=" + product.getName() +
-                ", quantity=" + quantity +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
 }

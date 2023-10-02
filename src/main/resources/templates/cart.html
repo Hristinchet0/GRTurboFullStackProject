@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -34,7 +34,8 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th>Action</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -69,12 +70,14 @@
                                                 class="btn btn-primary">
                                             Update
                                         </button>
-                                        <button type="submit" name="action" value="delete" title="Delete"
-                                                class="btn btn-danger">
-                                            Delete
-                                        </button>
                                     </td>
                                 </form>
+<!--                                <div th:action="@{/delete-cart/{id}(id=${cartItem.id})}" th:method="delete">-->
+
+                                    <td>
+                                        <a href="" th:href="@{/cart/delete/product/{id}(id=${cartItem.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
+
                             </tr>
                             </tbody>
                         </table>

@@ -63,10 +63,6 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-//    public void cancelOrder(Long id) {
-//        orderRepository.deleteById(id);
-//    }
-
     public Order acceptOrder(Long id) {
         Order order = orderRepository.getById(id);
         order.setAccept(true);

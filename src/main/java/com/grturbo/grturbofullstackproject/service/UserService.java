@@ -2,7 +2,6 @@ package com.grturbo.grturbofullstackproject.service;
 
 import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.model.dto.UserDto;
-import com.grturbo.grturbofullstackproject.model.dto.UserEditDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserUpdateDto;
 import com.grturbo.grturbofullstackproject.model.entity.User;
@@ -68,7 +67,7 @@ public class UserService {
             admin.setCity("Razlog");
             admin.setUsername("GrturboAdmin");
             admin.setPhoneNumber("0878363618");
-            admin.setCart(null);
+            admin.setShoppingCart(null);
             admin.setOrders(null);
             admin.addRole(roleAdmin);
 
