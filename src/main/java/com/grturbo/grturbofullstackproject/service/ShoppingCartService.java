@@ -9,6 +9,7 @@ import com.grturbo.grturbofullstackproject.repositority.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -86,14 +87,19 @@ public class ShoppingCartService {
 
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
 
-        cartItemRepository.deleteById(cartItemForDelete.getId());
-        Set<CartItem> cartItems = userShoppingCart.getCartItems();
-        int totalItems = totalItems(userShoppingCart.getCartItems());
+        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
+
+        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(userShoppingCart.getId());
+
+        int totalItems = totalItems(cartItems);
         double totalPrice = totalPrice(cartItems);
+
+        userShoppingCart.setCartItems(cartItems);
         userShoppingCart.setTotalItems(totalItems);
         userShoppingCart.setTotalPrice(totalPrice);
 
         return shoppingCartRepository.save(userShoppingCart);
+
     }
 
     private CartItem findCartItem(Set<CartItem> cartItems, Long productId) {
