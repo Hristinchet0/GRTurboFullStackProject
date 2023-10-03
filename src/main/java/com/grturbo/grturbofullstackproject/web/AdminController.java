@@ -1,21 +1,16 @@
 package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.*;
-import com.grturbo.grturbofullstackproject.model.entity.Category;
-import com.grturbo.grturbofullstackproject.model.entity.Product;
-import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.model.entity.UserRole;
-import com.grturbo.grturbofullstackproject.service.CategoryService;
-import com.grturbo.grturbofullstackproject.service.CloudinaryService;
-import com.grturbo.grturbofullstackproject.service.CustomUserDetailService;
-import com.grturbo.grturbofullstackproject.service.ProductService;
-import com.grturbo.grturbofullstackproject.service.RoleService;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.model.entity.*;
+import com.grturbo.grturbofullstackproject.service.*;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,18 +29,26 @@ public class AdminController {
 
     private final CloudinaryService cloudinaryService;
 
-    public AdminController(CategoryService categoryService, ProductService productService, CustomUserDetailService customUserDetailService, UserService userService, RoleService roleService, CloudinaryService cloudinaryService) {
+    private final OrderService orderService;
+
+    public AdminController(CategoryService categoryService, ProductService productService, CustomUserDetailService customUserDetailService, UserService userService, RoleService roleService, CloudinaryService cloudinaryService, OrderService orderService) {
         this.categoryService = categoryService;
         this.productService = productService;
         this.customUserDetailService = customUserDetailService;
         this.userService = userService;
         this.roleService = roleService;
         this.cloudinaryService = cloudinaryService;
+        this.orderService = orderService;
     }
+
+//    @GetMapping("/admin")
+//    public String adminHome() {
+//        return "admin-home";
+//    }
 
     @GetMapping("/admin")
     public String adminHome() {
-        return "admin-home";
+        return "admin-index";
     }
 
     @GetMapping("/admin/user")
@@ -80,77 +83,142 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/categories")
-    public String getCat(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategory());
-        return "admin-category-all";
+    @GetMapping("/categories")
+    public String categories(Model model) {
+
+        model.addAttribute("title", "Manage Category");
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
+        model.addAttribute("size", categories.size());
+        model.addAttribute("categoryNew", new Category());
+        return "admin-categories";
     }
 
-    @GetMapping("/admin/categories/add")
-    public String getCatAdd(Model model) {
-        model.addAttribute("category", new CategoryAddDto());
-        return "admin-category-add";
+    @PostMapping("/save-category")
+    public String save(@ModelAttribute("categoryNew") CategoryAddDto category, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.addCategory(category);
+            model.addAttribute("categoryNew", category);
+            redirectAttributes.addFlashAttribute("success", "Add successfully!");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Duplicate name of category, please check again!");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            model.addAttribute("categoryNew", category);
+            redirectAttributes.addFlashAttribute("error",
+                    "Error server");
+        }
+        return "redirect:/categories";
     }
 
-    @PostMapping("/admin/categories/add")
-    public String postCatAdd(@ModelAttribute("category") CategoryAddDto categoryAddDto) {
-        categoryService.addCategory(categoryAddDto);
-        return "redirect:/admin/categories";
+    @RequestMapping(value = "/delete-category", method = {RequestMethod.GET, RequestMethod.PUT})
+    public String delete(Long id, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.removeCategoryById(id);
+            redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "You cannot delete the category because it is still in use.");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server");
+        }
+        return "redirect:/categories";
     }
 
-    @GetMapping("/admin/categories/delete/{id}")
-    public String deleteCat(@PathVariable Long id) {
-        categoryService.removeCategoryById(id);
-        return "redirect:/admin/categories";
+    @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
+    @ResponseBody
+    public Optional<Category> findById(Long id) {
+        return categoryService.findCategoryById(id);
     }
 
-    @GetMapping("/admin/categories/update/{id}")
-    public String updateCat(@PathVariable Long id, Model model) {
-        Optional<Category> category = categoryService.getCategoryById(id);
-        if (category.isPresent()) {
-            model.addAttribute("category", category.get());
-            return "admin-category-add";
-        } else
-            return "404";
+    @GetMapping("/update-category")
+    public String update(CategoryAddDto category, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.addCategory(category);
+            redirectAttributes.addFlashAttribute("success", "Update successfully!");
+        } catch (DataIntegrityViolationException e1) {
+            e1.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Duplicate name of category, please check again!");
+        } catch (Exception e2) {
+            e2.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error from server or duplicate name of category, please check again!");
+        }
+        return "redirect:/categories";
     }
 
-    @GetMapping("/admin/products")
+    @GetMapping("/products")
     public String products(Model model) {
+        List<ProductViewDto> products = productService.findAll();
+        model.addAttribute("products", products);
+        model.addAttribute("size", products.size());
 
-        List<ProductViewDto> productViewDto = productService.findAll();
-
-        model.addAttribute("products", productViewDto);
-
-        return "admin-product-all";
+        return "admin-products";
     }
 
-
-    @GetMapping("/admin/products/add")
-    public String productAddGet(Model model) {
-        model.addAttribute("productAddDto", new ProductAddDto());
-        model.addAttribute("categories", categoryService.getAllCategory());
-        return "admin-product-add";
+    @GetMapping("/products/{pageNo}")
+    public String allProducts(@PathVariable("pageNo") int pageNo,
+                              @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                              Model model,
+                              Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        Page<ProductViewDto> products = productService.getAllProducts(pageNo, pageSize);
+        model.addAttribute("title", "Manage Products");
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "admin-products";
     }
 
-    @PostMapping("/admin/products/add")
-    public String productAddPost(Model model, @ModelAttribute("productAddDto")
-    ProductAddDto productAddDto) throws IOException {
+    @GetMapping("/add-product")
+    public String addProductPage(Model model) {
 
-        this.productService.addProduct(productAddDto);
-        model.addAttribute("products", this.productService.findAll());
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("title", "Add Product");
+        model.addAttribute("categories", categories);
+        model.addAttribute("productDto", new ProductAddDto());
 
-        return "redirect:/admin/products";
+        return "admin-add-product";
     }
 
-    @GetMapping("/admin/product/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Long id) {
-        productService.removeProductById(id);
-        return "redirect:/admin/products";
+    @PostMapping("/save-product")
+    public String saveProduct(@ModelAttribute("productDto") ProductAddDto product,
+                              RedirectAttributes redirectAttributes) {
+        try {
+            productService.addProduct(product);
+            redirectAttributes.addFlashAttribute("success", "Add new product successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Failed to add new product!");
+        }
+        return "redirect:/products/0";
     }
 
-    @GetMapping("/admin/product/update/{id}")
-    public String updateProductGet(@PathVariable Long id, Model model) {
+//    @GetMapping("/admin/product/delete/{id}")
+//    public String deleteProduct(@PathVariable("id") Long id) {
+//        productService.removeProductById(id);
+//        return "redirect:/admin/products";
+//    }
 
+    @RequestMapping(value = "/delete-product", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String deletedProduct(Long id, RedirectAttributes redirectAttributes) {
+        try {
+            productService.removeProductById(id);
+            redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Deleted failed!");
+        }
+        return "redirect:/products/0";
+    }
+
+    @GetMapping("/update-product/{id}")
+    public String updateProductForm(@PathVariable("id") Long id, Model model) {
+        List<Category> categories = categoryService.findAll();
         Product product = productService.getProductById(id).get();
         ProductEditDto productEditDto = new ProductEditDto();
         productEditDto.setId(product.getId());
@@ -159,21 +227,59 @@ public class AdminController {
         productEditDto.setPrice(product.getPrice());
         productEditDto.setDescription(product.getDescription());
         productEditDto.setImg(productEditDto.getImg());
-
-        model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("productEditDto", productEditDto);
-
-        return "admin-product-update";
+        model.addAttribute("title", "Add Product");
+        model.addAttribute("categories", categories);
+        model.addAttribute("productDto", productEditDto);
+        return "admin-update-product";
     }
 
-    @PostMapping("/admin/product/save")
-    public String saveProduct(Model model, @ModelAttribute("productEditDto") ProductEditDto productEditDto, Product product) throws IOException {
+    @PostMapping("/update-product/{id}")
+    public String updateProduct(@ModelAttribute("productDto") ProductEditDto productDto,
+                                Product product,
+                                RedirectAttributes redirectAttributes) {
+        try {
 
-        productService.saveProduct(productEditDto, product);
+            productService.saveProduct(productDto, product);
+            redirectAttributes.addFlashAttribute("success", "Update successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
+        }
+        return "redirect:/products/0";
+    }
 
-        model.addAttribute("productEntity", product);
-        model.addAttribute("products", this.productService.findAll());
-        return "redirect:/admin/products";
+    @GetMapping("/user-orders")
+    public String getAll(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            List<Order> orders = orderService.getOrdersWithDetails();
+
+            // Add orders to the model
+            model.addAttribute("orders", orders);
+            return "admin-user-orders";
+        }
+    }
+
+    @RequestMapping(value = "/accept-order", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String acceptOrder(Long id, RedirectAttributes attributes, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            orderService.acceptOrder(id);
+            attributes.addFlashAttribute("success", "Order Accepted");
+            return "redirect:/orders";
+        }
+    }
+
+    @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String cancelOrder(Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            orderService.cancelOrder(id);
+            return "redirect:/orders";
+        }
     }
 
 
