@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -46,13 +45,13 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminHome() {
-        return "adminHome";
+        return "admin-home";
     }
 
     @GetMapping("/admin/user")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "user";
+        return "admin-user-all";
     }
 
     @GetMapping("/admin/user/delete/{id}")
@@ -71,7 +70,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("roles", listRoles);
 
-        return "updateUser";
+        return "admin-user-update";
     }
 
     @PostMapping("/admin/user/save")
@@ -84,13 +83,13 @@ public class AdminController {
     @GetMapping("/admin/categories")
     public String getCat(Model model) {
         model.addAttribute("categories", categoryService.getAllCategory());
-        return "categories";
+        return "admin-category-all";
     }
 
     @GetMapping("/admin/categories/add")
     public String getCatAdd(Model model) {
         model.addAttribute("category", new CategoryAddDto());
-        return "categoriesAdd";
+        return "admin-category-add";
     }
 
     @PostMapping("/admin/categories/add")
@@ -110,7 +109,7 @@ public class AdminController {
         Optional<Category> category = categoryService.getCategoryById(id);
         if (category.isPresent()) {
             model.addAttribute("category", category.get());
-            return "categoriesAdd";
+            return "admin-category-add";
         } else
             return "404";
     }
@@ -122,7 +121,7 @@ public class AdminController {
 
         model.addAttribute("products", productViewDto);
 
-        return "products";
+        return "admin-product-all";
     }
 
 
@@ -130,7 +129,7 @@ public class AdminController {
     public String productAddGet(Model model) {
         model.addAttribute("productAddDto", new ProductAddDto());
         model.addAttribute("categories", categoryService.getAllCategory());
-        return "productsAdd";
+        return "admin-product-add";
     }
 
     @PostMapping("/admin/products/add")
@@ -164,7 +163,7 @@ public class AdminController {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("productEditDto", productEditDto);
 
-        return "updateProduct";
+        return "admin-product-update";
     }
 
     @PostMapping("/admin/product/save")
