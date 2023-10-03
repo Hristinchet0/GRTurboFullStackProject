@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
@@ -14,4 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Modifying
     @Query("DELETE FROM Order o WHERE o.id = :orderId AND o.orderStatus = 'PENDING'")
     void deletePendingOrderById(Long orderId);
+
+    @Query("SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.orderDetailList")
+    List<Order> findAllWithOrderDetails();
 }

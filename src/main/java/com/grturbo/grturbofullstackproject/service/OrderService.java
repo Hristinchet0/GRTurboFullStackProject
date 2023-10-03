@@ -3,16 +3,16 @@ package com.grturbo.grturbofullstackproject.service;
 import com.grturbo.grturbofullstackproject.model.entity.*;
 import com.grturbo.grturbofullstackproject.repositority.OrderDetailRepository;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
-import com.grturbo.grturbofullstackproject.web.OrderController;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -63,11 +63,37 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order acceptOrder(Long id) {
+    //    public Order acceptOrder(Long id) {
+//        Order order = orderRepository.getById(id);
+//        order.setAccept(true);
+//        order.setDeliveryDate(new Date());
+//        order.setOrderStatus("SHIPPING");
+//        return orderRepository.save(order);
+//    }
+
+    public List<Order> findALlOrders() {
+        return orderRepository.findAll();
+    }
+
+//    public void acceptOrder(Long id) {
+//        Order order = orderRepository.getById(id);
+//        order.setAccept(true);
+//        orderRepository.save(order);
+//    }
+
+    public void acceptOrder(Long id) {
         Order order = orderRepository.getById(id);
         order.setAccept(true);
         order.setDeliveryDate(new Date());
-        order.setOrderStatus("SHIPPING");
-        return orderRepository.save(order);
+        orderRepository.save(order);
+    }
+
+    public void cancelOrder(Long id) {
+        orderRepository.deleteById(id);
+    }
+
+    public List<Order> getOrdersWithDetails() {
+        List<Order> orders = orderRepository.findAllWithOrderDetails();
+        return orders;
     }
 }

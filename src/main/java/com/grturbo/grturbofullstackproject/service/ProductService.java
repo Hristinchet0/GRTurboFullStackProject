@@ -9,11 +9,14 @@ import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.repositority.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -129,4 +132,44 @@ public class ProductService {
                 });
 
     }
+
+
+//    public Page<ProductViewDto> getAllProducts(int pageNo) {
+//        Pageable pageable = PageRequest.of(pageNo, 6);
+//        List<ProductViewDto> productDtoLists = this.findAll();
+//        Page<ProductViewDto> productDtoPage = toPage(productDtoLists, pageable);
+//        return productDtoPage;
+//    }
+//
+//    private Page toPage(List list, Pageable pageable) {
+//        if (pageable.getOffset() >= list.size()) {
+//            return Page.empty();
+//        }
+//        int startIndex = (int) pageable.getOffset();
+//        int endIndex = ((pageable.getOffset() + pageable.getPageSize()) > list.size())
+//                ? list.size()
+//                : (int) (pageable.getOffset() + pageable.getPageSize());
+//        List subList = list.subList(startIndex, endIndex);
+//        return new PageImpl(subList, pageable, list.size());
+//    }
+
+    public Page<ProductViewDto> getAllProducts(int pageNo, int pageSize) {
+        List<ProductViewDto> productDtoList = findAll();
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        return toPage(productDtoList, pageable);
+    }
+
+    private Page<ProductViewDto> toPage(List<ProductViewDto> list, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), list.size());
+
+        if (start > end) {
+            return Page.empty();
+        }
+
+        List<ProductViewDto> subList = list.subList(start, end);
+        return new PageImpl<>(subList, pageable, list.size());
+    }
+
 }
