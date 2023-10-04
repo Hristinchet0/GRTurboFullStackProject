@@ -272,6 +272,24 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/view-order-detail")
+    public String viewOrderDetail(@RequestParam Long orderId, Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        Order order = orderService.getOrderWithDetails(orderId);
+        model.addAttribute("order", order);
+
+        return "admin-user-order-details";
+    }
+
+    @PostMapping("/view-order-detail")
+    public String viewOrderDetailPost(@RequestParam Long orderId, Model model) {
+
+        return "redirect:/view-order-detail?orderId=" + orderId;
+    }
+
     @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
     public String cancelOrder(Long id, Principal principal) {
         if (principal == null) {

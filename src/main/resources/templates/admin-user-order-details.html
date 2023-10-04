@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{/fragments/fragments::header}"></head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="~{/fragments/fragments::sidebar}"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="~{/fragments/fragments::top-navbar}"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-4 text-gray-800">Order Detail</h1>
+
+                <!-- Order Details -->
+                <div th:if="${order != null}">
+                    <h5>Order ID: <span th:text="${order.id}"></span></h5>
+                    <h5>Order Date: <span th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></span></h5>
+<!--                    <h5>Delivery Date: <span th:text="${#dates.format(order.deliveryDate, 'yyyy-MM-dd')}"></span></h5>-->
+                    <h5>Order Status: <span th:text="${order.orderStatus}"></span></h5>
+                    <h5>Total Price: <span th:text="${order.totalPrice}"></span></h5>
+                    <h5>Payment Method: <span th:text="${order.paymentMethod}"></span></h5>
+                    <!-- Add other fields as needed -->
+
+                    <!-- Customer Details -->
+                    <h2>Customer Details</h2>
+                    <h5>Email: <span th:text="${order.customer.email}"></span></h5>
+                    <h5>First Name: <span th:text="${order.customer.firstName}"></span></h5>
+                    <h5>Last Name: <span th:text="${order.customer.lastName}"></span></h5>
+                    <h5>Phone Number: <span th:text="${order.customer.phoneNumber}"></span></h5>
+                    <h5>City: <span th:text="${order.customer.city}"></span></h5>
+                    <h5>Address:  <span th:text="${order.customer.address}"></span></h5>
+                    <!-- Add other customer fields as needed -->
+
+                    <!-- Order Items -->
+                    <h2>Order Items</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="orderItem : ${order.orderDetailList}">
+                            <td th:text="${orderItem.product.name}"></td>
+                            <td th:text="${orderItem.quantity}"></td>
+                            <td th:text="${orderItem.product.price}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="~{/fragments/fragments::footer}"></footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="~{/fragments/fragments::scroll}"></a>
+
+<!--Add Categories Modal-->
+
+<!--End-->
+
+<!-- End -->
+<!-- Bootstrap core JavaScript-->
+<div th:replace="~{/fragments/fragments::script}"></div>
+
+<script th:src="@{/js/categories.js}"></script>
+</body>
+
+</html>

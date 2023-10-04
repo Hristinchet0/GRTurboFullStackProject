@@ -1,23 +1,22 @@
 package com.grturbo.grturbofullstackproject.service;
 
-import com.grturbo.grturbofullstackproject.model.entity.*;
-import com.grturbo.grturbofullstackproject.repositority.OrderDetailRepository;
+import com.grturbo.grturbofullstackproject.model.entity.CartItem;
+import com.grturbo.grturbofullstackproject.model.entity.Order;
+import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
+import com.grturbo.grturbofullstackproject.model.entity.Product;
+import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class OrderService {
-
-    private final OrderDetailRepository orderDetailRepository;
 
     private final ShoppingCartService shoppingCartService;
 
@@ -27,8 +26,7 @@ public class OrderService {
 
     private final ProductService productService;
 
-    public OrderService(OrderDetailRepository orderDetailRepository, ShoppingCartService shoppingCartService, OrderRepository orderRepository, ProductService productService) {
-        this.orderDetailRepository = orderDetailRepository;
+    public OrderService(ShoppingCartService shoppingCartService, OrderRepository orderRepository, ProductService productService) {
         this.shoppingCartService = shoppingCartService;
         this.orderRepository = orderRepository;
         this.productService = productService;
@@ -87,6 +85,14 @@ public class OrderService {
         order.setOrderStatus("ACCEPTED");
         order.setAccept(true);
         orderRepository.save(order);
+    }
+
+//    public Order getOrderWithDetails(Long id) {
+//        return orderRepository.findById(id).orElse(null);
+//    }
+
+    public Order getOrderWithDetails(Long id) {
+        return orderRepository.findOrderWithDetails(id);
     }
 
     public void cancelOrder(Long id) {

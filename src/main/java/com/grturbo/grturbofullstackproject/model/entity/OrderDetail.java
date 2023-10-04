@@ -19,6 +19,9 @@ public class OrderDetail {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
+    @Column(nullable = false)
+    private int quantity;
+
     public OrderDetail() {
     }
 
@@ -46,4 +49,11 @@ public class OrderDetail {
         this.product = product;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
