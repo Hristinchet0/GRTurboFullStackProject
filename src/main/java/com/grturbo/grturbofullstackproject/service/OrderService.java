@@ -53,31 +53,19 @@ public class OrderService {
             Long productId = item.getProduct().getId();
             Product product = productService.getProductByID(productId);
             orderDetail.setProduct(product);
+            orderDetail.setQuantity(item.getQuantity());
             orderDetailList.add(orderDetail);
         }
 
         order.setOrderDetailList(orderDetailList);
         shoppingCartService.deleteCartById(cart.getId());
+//        shoppingCartService.clearCart(order.getCustomer().getShoppingCart());
         return orderRepository.save(order);
     }
-
-    //    public Order acceptOrder(Long id) {
-//        Order order = orderRepository.getById(id);
-//        order.setAccept(true);
-//        order.setDeliveryDate(new Date());
-//        order.setOrderStatus("SHIPPING");
-//        return orderRepository.save(order);
-//    }
 
     public List<Order> findALlOrders() {
         return orderRepository.findAll();
     }
-
-//    public void acceptOrder(Long id) {
-//        Order order = orderRepository.getById(id);
-//        order.setAccept(true);
-//        orderRepository.save(order);
-//    }
 
     @Transactional
     public void acceptOrder(Long id) {
@@ -87,20 +75,25 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-//    public Order getOrderWithDetails(Long id) {
-//        return orderRepository.findById(id).orElse(null);
-//    }
-
     public Order getOrderWithDetails(Long id) {
         return orderRepository.findOrderWithDetails(id);
     }
 
     public void cancelOrder(Long id) {
-        orderRepository.deleteById(id);
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
+        order.setAccept(false);
+        order.setOrderStatus("CANCELLED");
+        orderRepository.save(order);
     }
 
     public List<Order> getOrdersWithDetails() {
         List<Order> orders = orderRepository.findAllWithOrderDetails();
         return orders;
+    }
+
+    public void sendOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
+        order.setOrderStatus("SHIPPED");
+        orderRepository.save(order);
     }
 }

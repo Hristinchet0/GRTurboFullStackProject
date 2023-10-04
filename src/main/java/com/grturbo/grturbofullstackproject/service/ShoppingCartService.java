@@ -167,4 +167,9 @@ public class ShoppingCartService {
         shoppingCartRepository.delete(shoppingCart);
 
     }
+
+    public void clearCart(ShoppingCart shoppingCart) {
+        shoppingCart.getCartItems().clear();
+        shoppingCartRepository.save(shoppingCart);
+    }
 }

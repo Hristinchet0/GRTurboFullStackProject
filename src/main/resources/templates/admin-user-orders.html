@@ -34,6 +34,8 @@
                         <th class="total-pr">Total Price</th>
                         <th class="payment-method">Payment Method</th>
                         <th>Action</th>
+                        <th>Action</th>
+                        <th>Action</th>
                         <th>Details</th>
                     </tr>
                     </thead>
@@ -56,8 +58,21 @@
                                 <input type="hidden" name="id" th:value="${order.id}" />
                                 <button type="submit" class="btn btn-secondary" th:if="${!order.accept}">Accept</button>
                             </form>
-                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>
+<!--                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>-->
                         </td>
+                        <td>
+                            <form th:action="@{/cancel-order}" method="post">
+                                <input type="hidden" name="id" th:value="${order.id}" />
+                                <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != 'SHIPPED'}">Cancel</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/send-order}" method="post">
+                                <input type="hidden" name="id" th:value="${order.id}" />
+                                <button type="submit" class="btn btn-primary" th:if="${order.accept}">Shipping Confirmation</button>
+                            </form>
+                        </td>
+
                         <td>
                             <form th:action="@{/view-order-detail}" method="post">
                                 <input type="hidden" name="orderId" th:value="${order.id}" />

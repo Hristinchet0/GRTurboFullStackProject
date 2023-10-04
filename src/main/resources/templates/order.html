@@ -48,10 +48,7 @@
                                 <span><b>[(${order.orderDate})]</b></span>
                             </td>
                             <td class="name-pr" >
-                                <a th:if = "${order.accept != null}" href="#">
-                                    [(${order.deliveryDate})]
-                                </a>
-                                <a th:if = "${order.accept == null}"><p>Pending</p> </a>
+                                <a th:if = "${order.accept == null}"><p>Pending</p></a>
                             </td>
                             <td class="price-pr">
                                 <p th:text="${order.orderStatus}"></p>

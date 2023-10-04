@@ -290,14 +290,16 @@ public class AdminController {
         return "redirect:/view-order-detail?orderId=" + orderId;
     }
 
-    @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String cancelOrder(Long id, Principal principal) {
-        if (principal == null) {
-            return "redirect:/login";
-        } else {
-            orderService.cancelOrder(id);
-            return "redirect:/orders";
-        }
+    @PostMapping("/cancel-order")
+    public String cancelOrder(@RequestParam Long id, Model model) {
+        orderService.cancelOrder(id);
+        return "redirect:/user-orders";
+    }
+
+    @PostMapping("/send-order")
+    public String shippingConfirmation(@RequestParam Long id, Model model) {
+        orderService.sendOrder(id);
+        return "redirect:/user-orders";
     }
 
 
