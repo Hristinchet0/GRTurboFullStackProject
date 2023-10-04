@@ -81,10 +81,11 @@ public class OrderService {
 //        orderRepository.save(order);
 //    }
 
+    @Transactional
     public void acceptOrder(Long id) {
         Order order = orderRepository.getById(id);
+        order.setOrderStatus("ACCEPTED");
         order.setAccept(true);
-        order.setDeliveryDate(new Date());
         orderRepository.save(order);
     }
 

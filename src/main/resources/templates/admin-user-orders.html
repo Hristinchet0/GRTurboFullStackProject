@@ -31,24 +31,23 @@
                         <th class="order-id">Order ID</th>
                         <th class="order-date">Order Date</th>
                         <th>Delivery Date</th>
-                        <th class="price-pr">Order Status</th>
-                        <th class="quantity-box">Total Price</th>
-                        <th class="total-pr">Payment Method</th>
+                        <th class="order-status">Order Status</th>
+                        <th class="total-pr">Total Price</th>
+                        <th class="payment-method">Payment Method</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="order : ${orders}">
-                        <td class="quantity-box" th:text="${order.id}"></td>
+                        <td class="order-id" th:text="${order.id}"></td>
                         <td class="order-date">
                             <span><b th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></b></span>
                         </td>
-                        <!-- Other properties that are directly accessible -->
-                        <td class="quantity-box" th:text="${order.orderStatus}"></td>
+                        <td class="order-status" th:text="${order.orderStatus}"></td>
                         <td class="total-pr">
                             <p style="color: red" th:text="${order.totalPrice}"></p>
                         </td>
-                        <td class="total-pr" style="color: black">
+                        <td class="payment-method" style="color: black">
                             <span th:text="${order.paymentMethod}"></span>
                         </td>
                         <!-- Accessing lazily loaded collection -->

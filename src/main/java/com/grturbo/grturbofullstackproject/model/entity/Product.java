@@ -20,6 +20,7 @@ public class Product {
 
     @NotEmpty
     @NotNull
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @NotNull

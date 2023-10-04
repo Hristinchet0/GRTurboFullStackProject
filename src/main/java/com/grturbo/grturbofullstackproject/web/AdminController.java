@@ -261,14 +261,14 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/accept-order", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/accept-order", method = {RequestMethod.POST})
     public String acceptOrder(Long id, RedirectAttributes attributes, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         } else {
             orderService.acceptOrder(id);
             attributes.addFlashAttribute("success", "Order Accepted");
-            return "redirect:/orders";
+            return "redirect:/user-orders";
         }
     }
 
