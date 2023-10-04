@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{/fragments/fragments::header}"></head>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!--Sidebar-->
+    <ul th:replace="~{/fragments/fragments::sidebar}"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="~{/fragments/fragments::top-navbar}"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div th:if="${success}" class="text-center alert alert-success">
+                <p th:text="${success}"></p>
+            </div>
+            <div class="table-main table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="order-id">Order ID</th>
+                        <th class="order-date">Order Date</th>
+                        <th>Delivery Date</th>
+                        <th class="price-pr">Order Status</th>
+                        <th class="quantity-box">Total Price</th>
+                        <th class="total-pr">Payment Method</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td class="quantity-box" th:text="${order.id}"></td>
+                        <td class="order-date">
+                            <span><b th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></b></span>
+                        </td>
+                        <!-- Other properties that are directly accessible -->
+                        <td class="quantity-box" th:text="${order.orderStatus}"></td>
+                        <td class="total-pr">
+                            <p style="color: red" th:text="${order.totalPrice}"></p>
+                        </td>
+                        <td class="total-pr" style="color: black">
+                            <span th:text="${order.paymentMethod}"></span>
+                        </td>
+                        <!-- Accessing lazily loaded collection -->
+                        <td>
+                            <form th:action="@{/accept-order}" method="post">
+                                <input type="hidden" name="id" th:value="${order.id}" />
+                                <button type="submit" class="btn btn-secondary" th:if="${!order.accept}">Accept</button>
+                            </form>
+                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>
+                        </td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer th:replace="~{/fragments/fragments::footer}"></footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+    </div>
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="~{/fragments/fragments::scroll}"></a>
+
+<!--Add Categories Modal-->
+
+<!--End-->
+
+<!-- End -->
+<!-- Bootstrap core JavaScript-->
+<div th:replace="~{/fragments/fragments::script}"></div>
+
+<script th:src="@{/js/categories.js}"></script>
+</body>
+
+</html>
