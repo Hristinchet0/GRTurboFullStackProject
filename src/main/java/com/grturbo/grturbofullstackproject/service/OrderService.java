@@ -33,7 +33,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order saveOrder(ShoppingCart cart) {
+    public Order saveOrder(ShoppingCart cart, String additionalInformation) {
         Order order = new Order();
 
         order.setOrderStatus("PENDING");
@@ -43,6 +43,7 @@ public class OrderService {
         order.setPaymentMethod("CASH");
         order.setQuantity(cart.getTotalItems());
         order.setAccept(false);
+        order.setAdditionalInformation(additionalInformation);
 
         List<OrderDetail> orderDetailList = new ArrayList<>();
 

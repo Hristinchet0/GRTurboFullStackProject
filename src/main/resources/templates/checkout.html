@@ -73,6 +73,7 @@
             </div>
             <div class="col-sm-6 col-lg-6 mb-3">
                 <form th:action="@{/add-order}" method="post" th:object="${shoppingCart}">
+
                     <input type="hidden" name="id" th:value="${shoppingCart.id}">
                     <div class="col-md-12 col-lg-12">
                         <div class="odr-box">
@@ -119,6 +120,9 @@
                             <hr>
                         </div>
                     </div>
+                    <label for="additionalInformation">Additional Information</label>
+                    <textarea class="form-control" id="additionalInformation" name="additionalInformation"></textarea>
+
                     <div class="col-12 d-flex shopping-box">
                         <button th:href="@{/add-order}" type="submit" class="ml-auto btn hvr-hover">Place Order</button>
                     </div>

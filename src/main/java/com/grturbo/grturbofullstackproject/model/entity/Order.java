@@ -39,6 +39,9 @@ public class Order {
 
     private boolean isAccept;
 
+    @Column(name = "additional_information", columnDefinition = "TEXT")
+    private String additionalInformation;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private User customer;
@@ -129,4 +132,11 @@ public class Order {
         this.orderDetailList = orderDetailList;
     }
 
+    public String getAdditionalInformation() {
+        return additionalInformation;
+    }
+
+    public void setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -77,13 +78,14 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
-    public String createOrder(Model model, Principal principal, HttpSession session) {
+    public String createOrder(Model model, Principal principal, HttpSession session,
+                              @RequestParam(value = "additionalInformation", required = false) String additionalInformation) {
         if(principal == null) {
             return "redirect:/login";
         } else {
             User user = userService.findByEmail(principal.getName()).get();
             ShoppingCart cart = user.getShoppingCart();
-            Order order = orderService.saveOrder(cart);
+            Order order = orderService.saveOrder(cart, additionalInformation);
 
             session.removeAttribute("totalItems");
             model.addAttribute("order", order);
@@ -127,4 +129,3 @@ public class OrderController {
 //        return "redirect:/orders";
 //    }
 }
-
