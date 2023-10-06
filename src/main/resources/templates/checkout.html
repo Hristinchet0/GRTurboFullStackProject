@@ -72,6 +72,55 @@
                 </div>
             </div>
             <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="invoice-data">
+                    <div class="title-left">
+                        <h3>Invoice information</h3>
+                    </div>
+                    <form class="needs-validation" novalidate th:object="${user.invoiceData}">
+
+                        <div class="mb-3">
+                            <label for="firstName">Company Name *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{companyName}" id="companyName"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName">Registered Address *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{registeredAddress}" id="registeredAddress"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">VAT Registration *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" th:field="*{vatRegistration}" id="vatRegistration"
+                                       placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Identification NumberUIC *</label>
+                            <input type="text" class="form-control" th:field="*{identificationNumberUIC}" id="identificationNumberUIC" placeholder=""
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Financially Accountable PersonName *</label>
+                            <input type="text" class="form-control" th:field="*{financiallyAccountablePersonName}" id="financiallyAccountablePersonName" placeholder=""
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Phone Number *</label>
+                            <input type="text" class="form-control" th:field="*{phoneNumber}" id="phoneNumber" placeholder=""
+                                   readonly>
+                        </div>
+                        <a th:href="@{/profile/invoice-data}" class="btn btn-primary"> Change information</a>
+                        <hr class="mb-4">
+                        <hr class="mb-1">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6 mb-3">
                 <form th:action="@{/add-order}" method="post" th:object="${shoppingCart}">
 
                     <input type="hidden" name="id" th:value="${shoppingCart.id}">

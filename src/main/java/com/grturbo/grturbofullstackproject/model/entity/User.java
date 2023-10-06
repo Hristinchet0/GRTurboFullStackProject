@@ -52,6 +52,9 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private InvoiceData invoiceData;
+
     public User() {
     }
 
@@ -154,5 +157,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public InvoiceData getInvoiceData() {
+        return invoiceData;
+    }
+
+    public void setInvoiceData(InvoiceData invoiceData) {
+        this.invoiceData = invoiceData;
     }
 }

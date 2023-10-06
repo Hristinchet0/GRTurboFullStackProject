@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"><!--<![endif]-->
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GR TURBO USER PROFILE</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--    <script src="Change-Password.js"></script>-->
+
+<body id="body">
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div class="mainDiv">
+    <div class="cardStyle">
+        <h2 class="formTitle">
+            <i>Invoice Information</i>
+        </h2>
+        <div th:if="${success}" class="text-center alert alert-success">
+            <p th:text="${success}"></p>
+        </div>
+        <div th:if="${information}" class="text-center alert alert-warning">
+            <p th:text="${information}"></p>
+        </div>
+        <form th:action="@{/update-profile-invoice}" method="post" name="signupFormInvoice" id="signupFormInvoice" th:object="${invoiceData}">
+            <div class="inputDiv">
+                <label class="inputLabel" for="companyName"> Company name * </label>
+                <input type="text"  th:field="*{companyName}"
+                       id="companyName" name="companyName">
+            </div>
+
+            <div class="inputDiv">
+                <label class="inputLabel" for="registeredAddress">Registered Address *</label>
+                <input type="text" th:field="*{registeredAddress}"
+                       id="registeredAddress" name="registeredAddress" >
+            </div>
+
+            <div class="inputDiv">
+                <label for="vatRegistration">VAT Registration *</label>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input"
+                           id="vatRegistration" name="vatRegistration"
+                           th:field="*{vatRegistration}">
+                    <label class="custom-control-label" for="vatRegistration">VAT
+                        Registered</label>
+                </div>
+            </div>
+
+            <div class="inputDiv">
+                <label class="inputLabel" for="identificationNumberUIC">identification Number UIC *</label>
+                <input type="text" th:field="*{identificationNumberUIC}"
+                       id="identificationNumberUIC" name="identificationNumberUIC">
+            </div>
+
+            <div class="inputDiv">
+                <label class="inputLabel" for="financiallyAccountablePersonName">Financially Accountable Person Name *</label>
+                <input type="text" th:field="*{financiallyAccountablePersonName}"
+                       id="financiallyAccountablePersonName" name="financiallyAccountablePersonName">
+            </div>
+            <div class="inputDiv">
+                <label class="inputLabel" for="phoneNumber">Phone Number *</label>
+                <input type="text" th:field="*{phoneNumber}"
+                       id="phoneNumber" name="phoneNumber">
+            </div>
+
+            <div class="buttonWrapper">
+                <button type="submit" id="submitButtonInvoice" class="submitButton pure-button pure-button-primary">
+                    <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+
+<div th:replace="fragments/footer">Footer</div>
+
+<div th:replace="fragments/scripts"></div>
+</body>

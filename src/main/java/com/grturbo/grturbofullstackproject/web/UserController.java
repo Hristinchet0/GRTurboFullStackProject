@@ -1,7 +1,9 @@
 package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.UserUpdateDto;
+import com.grturbo.grturbofullstackproject.model.entity.InvoiceData;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.service.InvoiceDataService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +22,11 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final InvoiceDataService invoiceDataService;
+
+    public UserController(UserService userService, InvoiceDataService invoiceDataService) {
         this.userService = userService;
+        this.invoiceDataService = invoiceDataService;
     }
 
     @GetMapping("/profile")
@@ -42,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/update-profile")
-    private String updateProfile(@Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
+    public String updateProfile(@Valid @ModelAttribute("user") UserUpdateDto userUpdateDto,
                                  BindingResult result,
                                  RedirectAttributes redirectAttributes,
                                  Model model,
@@ -53,7 +58,6 @@ public class UserController {
         } else {
 
             String userEmail = principal.getName();
-            UserUpdateDto user = userService.getUser(userEmail);
 
             if (result.hasErrors()) {
                 return "user-profile";
@@ -69,5 +73,49 @@ public class UserController {
 
             return "redirect:/profile";
         }
+    }
+
+    @GetMapping("/profile-invoice")
+    public String profileInvoice(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+
+        } else {
+
+            User user = userService.findByEmail(principal.getName()).get();
+
+            InvoiceData initialInvoiceData = user.getInvoiceData();
+
+            if (initialInvoiceData == null) {
+                initialInvoiceData = new InvoiceData();
+            }
+
+            model.addAttribute("invoiceData", initialInvoiceData);
+
+            return "user-invoice-data";
+        }
+    }
+
+    @PostMapping("/update-profile-invoice")
+    public String updateInvoiceData(@ModelAttribute("invoiceData") InvoiceData invoiceData,
+                                    Principal principal,
+                                    Model model) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByEmail(principal.getName()).get();
+
+        if(invoiceData == null) {
+            invoiceData = new InvoiceData();
+        }
+
+        invoiceDataService.saveInvoiceData(invoiceData, user);
+
+
+        model.addAttribute("success", "Invoice information updated successfully!");
+
+        // Пренасочване към страницата за потребителски профил или друга страница по ваш избор
+        return "redirect:/profile-invoice";
     }
 }
