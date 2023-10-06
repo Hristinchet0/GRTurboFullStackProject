@@ -13,28 +13,26 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="Aviato E-Commerce Template">
+    <meta name="description" content="GR TURBO e-commerce">
 
-    <meta name="author" content="Themefisher.com">
+    <meta name="author" content="Hristina Racheva">
 
     <title>GR Turbo</title>
 
     <!-- Mobile Specific Meta-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="/css/style1.css">
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/product/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-
-    <!--link rel="stylesheet" href="static/css/home.css"-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="nav.css" th:href="@{/css/nav.css}">
 </head>
 
 <body>
@@ -73,11 +71,11 @@
 <!--                </li>-->
                 <li class="dropdown">
                     <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"
-                       th:text="${session.username != null} ? ${session.username} : 'Authentication'"></a>
+                       th:text="${session.username != null} ? ${session.username} : ''"></a>
                     <ul class="dropdown-menu">
-                        <!--                            <li><a th:href="@{/shop-detail}">Shop Detail</a></li>-->
                         <li><a th:href="@{/orders}">Your order</a></li>
                         <li><a th:href="@{/profile}">My Account</a></li>
+                        <li><a th:href="@{/profile-invoice}">Invoice details</a></li>
                     </ul>
                 </li>
                 <li class="nav-item active">
