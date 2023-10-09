@@ -42,7 +42,7 @@
                         <tbody>
                         <tr th:each="order : ${orders}">
                             <td class="id-pr">
-                                <p th:text="${order.id}" hidden></p>
+                                <p th:text="${order.id}"></p>
                             </td>
                             <td class="order-date">
                                 <span><b>[(${order.orderDate})]</b></span>
@@ -61,8 +61,7 @@
                                 <span>[(${order.paymentMethod})]</span>
                             </td>
                             <td>
-<!--                                <a th:href="@{'/cancel-order/' + ${order.id}}" class="button-cancel">Cancel</a>-->
-
+                                <a th:href="@{'/order-details/' + ${order.id}}" class="button-cancel">Order Details</a>
                             </td>
                         </tr>
                         </tbody>
