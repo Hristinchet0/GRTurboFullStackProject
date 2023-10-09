@@ -8,19 +8,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM Order o WHERE o.id = :orderId AND o.orderStatus = 'PENDING'")
-    void deletePendingOrderById(Long orderId);
 
     @Query("SELECT DISTINCT o FROM Order o LEFT JOIN FETCH o.orderDetailList")
     List<Order> findAllWithOrderDetails();
 
     @Query("SELECT o FROM Order o JOIN FETCH o.orderDetailList WHERE o.id = :orderId")
     Order findOrderWithDetails(@Param("orderId") Long orderId);
+
+    List<Order> findByOrderDateAfterAndOrderStatus(Date date, String orderStatus);
+
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -96,5 +97,41 @@ public class OrderService {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
         order.setOrderStatus("SHIPPED");
         orderRepository.save(order);
+    }
+
+    public List<Order> findShippedOrdersForLastMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+
+        Date lastMonth = calendar.getTime();
+
+        return orderRepository.findByOrderDateAfterAndOrderStatus(lastMonth, "SHIPPED");
+    }
+
+    public double calculateTotalPriceForLastMonth() {
+        List<Order> shippedOrdersForLastMonth = findShippedOrdersForLastMonth();
+
+        return shippedOrdersForLastMonth.stream()
+                .mapToDouble(Order::getTotalPrice)
+                .sum();
+    }
+
+    public List<Order> findShippedOrdersForLastYear() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+
+        Date lastYear = calendar.getTime();
+
+        return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, "SHIPPED");
+    }
+
+    public double calculateAnnualEarnings() {
+        List<Order> shippedOrdersForLastYear = findShippedOrdersForLastYear();
+
+        double annualEarnings = shippedOrdersForLastYear.stream()
+                .mapToDouble(Order::getTotalPrice)
+                .sum();
+
+        return annualEarnings;
     }
 }
