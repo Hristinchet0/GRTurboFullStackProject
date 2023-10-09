@@ -43,7 +43,7 @@
                     <tbody>
                     <tr th:each="order : ${orders}">
                         <td class="order-id" th:text="${order.id}"></td>
-                        <td class="user-name" th:text="${order.customer.firstName + '' + order.customer.lastName}"></td>
+                        <td class="user-name" th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></td>
                         <td class="order-date">
                             <span><b th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></b></span>
                         </td>

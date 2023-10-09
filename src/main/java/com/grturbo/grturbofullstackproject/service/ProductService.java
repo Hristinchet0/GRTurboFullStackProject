@@ -60,6 +60,7 @@ public class ProductService {
 
         Product newProduct = new Product();
         newProduct.setName(productAddDto.getName());
+        newProduct.setBrand(productAddDto.getBrand());
         newProduct.setCategory(categoryService.getCategoryById(productAddDto.getCategoryId()).get());
         newProduct.setDescription(productAddDto.getDescription());
         newProduct.setPrice(productAddDto.getPrice());
@@ -90,6 +91,7 @@ public class ProductService {
         String currentImg = product.getImgUrl();
 
         product.setName(productEditDto.getName());
+        product.setBrand(productEditDto.getBrand());
         product.setCategory(categoryService.getCategoryById(productEditDto.getCategoryId()).get());
         product.setDescription(productEditDto.getDescription());
         product.setPrice(productEditDto.getPrice());

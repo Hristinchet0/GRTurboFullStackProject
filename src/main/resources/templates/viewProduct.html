@@ -24,6 +24,7 @@
         </div>
         <div class="col-sm-7 mt-5">
             <h2 th:text="${product.name}"></h2>
+            <p class="card-text" th:text="${product.brand}"></p>
             <p th:text="${product.category.name}"></p>
             <h2>BGN <span th:text="${product.price}"></span></h2>
             <p th:text="${product.description}"></p>

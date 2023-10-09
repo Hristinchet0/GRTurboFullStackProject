@@ -31,6 +31,7 @@
                             <tr>
                                 <th>Images</th>
                                 <th>Product Name</th>
+                                <th>Brand</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
@@ -48,6 +49,9 @@
                                 </td>
                                 <td class="name-pr">
                                     <p th:text="${cartItem.product.name}"></p>
+                                </td>
+                                <td class="brand-pr">
+                                    <p th:text="${cartItem.product.brand}"></p>
                                 </td>
                                 <td class="price-pr">
                                     <p th:text="'BGN' + ${cartItem.product.price}"></p>
@@ -72,8 +76,6 @@
                                         </button>
                                     </td>
                                 </form>
-<!--                                <div th:action="@{/delete-cart/{id}(id=${cartItem.id})}" th:method="delete">-->
-
                                     <td>
                                         <a href="" th:href="@{/cart/delete/product/{id}(id=${cartItem.id})}" class="btn btn-danger">Delete</a>
                                     </td>

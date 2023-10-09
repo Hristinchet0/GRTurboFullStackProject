@@ -41,11 +41,6 @@ public class AdminController {
         this.orderService = orderService;
     }
 
-//    @GetMapping("/admin")
-//    public String adminHome() {
-//        return "admin-home";
-//    }
-
     @GetMapping("/admin")
     public String adminHome() {
         return "admin-index";
@@ -198,11 +193,6 @@ public class AdminController {
         return "redirect:/products/0";
     }
 
-//    @GetMapping("/admin/product/delete/{id}")
-//    public String deleteProduct(@PathVariable("id") Long id) {
-//        productService.removeProductById(id);
-//        return "redirect:/admin/products";
-//    }
 
     @RequestMapping(value = "/delete-product", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deletedProduct(Long id, RedirectAttributes redirectAttributes) {
@@ -223,6 +213,7 @@ public class AdminController {
         ProductEditDto productEditDto = new ProductEditDto();
         productEditDto.setId(product.getId());
         productEditDto.setName(product.getName());
+        productEditDto.setBrand(product.getBrand());
         productEditDto.setCategoryId(product.getCategory().getId());
         productEditDto.setPrice(product.getPrice());
         productEditDto.setDescription(product.getDescription());

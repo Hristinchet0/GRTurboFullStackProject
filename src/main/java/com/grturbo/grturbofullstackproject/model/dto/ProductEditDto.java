@@ -8,6 +8,8 @@ public class ProductEditDto {
 
     private String name;
 
+    private String brand;
+
     private Long categoryId;
 
     private Double price;
@@ -66,5 +68,13 @@ public class ProductEditDto {
 
     public void setImg(MultipartFile img) {
         this.img = img;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

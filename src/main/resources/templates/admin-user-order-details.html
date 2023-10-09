@@ -66,6 +66,7 @@
                         <thead>
                         <tr>
                             <th>Product Name</th>
+                            <th>Brand</th>
                             <th>Quantity</th>
                             <th>Price</th>
                         </tr>
@@ -73,6 +74,7 @@
                         <tbody>
                         <tr th:each="orderItem : ${order.orderDetailList}">
                             <td th:text="${orderItem.product.name}"></td>
+                            <td th:text="${orderItem.product.brand}"></td>
                             <td th:text="${orderItem.quantity}"></td>
                             <td th:text="${orderItem.product.price}"></td>
                         </tr>

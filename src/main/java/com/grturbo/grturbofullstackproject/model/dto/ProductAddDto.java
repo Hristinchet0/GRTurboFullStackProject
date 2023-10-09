@@ -14,6 +14,10 @@ public class ProductAddDto {
     @NotNull
     private String name;
 
+    @NotEmpty
+    @NotNull
+    private String brand;
+
     private Long categoryId;
 
     @NotNull
@@ -78,5 +82,13 @@ public class ProductAddDto {
 
     public void setImg(MultipartFile img) {
         this.img = img;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

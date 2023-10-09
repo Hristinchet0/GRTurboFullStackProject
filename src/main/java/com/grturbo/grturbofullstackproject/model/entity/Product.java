@@ -16,6 +16,10 @@ public class Product {
 
     @NotEmpty
     @NotNull
+    private String brand;
+
+    @NotEmpty
+    @NotNull
     private String name;
 
     @NotEmpty
@@ -95,5 +99,13 @@ public class Product {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

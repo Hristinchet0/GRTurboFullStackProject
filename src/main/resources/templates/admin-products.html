@@ -47,6 +47,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Brand</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
@@ -57,6 +58,7 @@
                     <tbody>
                     <tr th:each = "product : ${products}">
                         <th scope="row" th:text = "${product.name}"></th>
+                        <th scope="row" th:text = "${product.brand}"></th>
                         <td th:text = "${product.category}"></td>
                         <td th:text = "${product.price}"></td>
                         <td>

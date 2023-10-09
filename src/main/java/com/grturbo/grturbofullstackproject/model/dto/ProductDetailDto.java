@@ -6,6 +6,8 @@ public class ProductDetailDto {
 
     private String name;
 
+    private String brand;
+
     private String category;
 
     private Double price;
@@ -64,5 +66,17 @@ public class ProductDetailDto {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

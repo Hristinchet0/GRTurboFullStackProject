@@ -6,6 +6,8 @@ public class ProductViewDto {
 
     private String name;
 
+    private String brand;
+
     private String category;
 
     private String price;
@@ -63,5 +65,13 @@ public class ProductViewDto {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }
