@@ -47,19 +47,18 @@
                     <h5>Additional Information:  <span th:text="${order.additionalInformation}"></span></h5>
                     <!-- Add other customer fields as needed -->
 
-<!--                    <div th:if="${invoice != null}">-->
-<!--                        <h2>Invoice Details</h2>-->
-<!--                        <h5>Invoice ID: <span th:text="${invoice.id}"></span></h5>-->
-<!--                        <h5>Invoice Company Name: <span th:text="${invoice.companyName}"></span></h5>-->
-<!--                        <h5>Invoice VAT Registration: <span th:text="${invoice.vatRegistration} ? 'No' : 'Yes'"></span></h5>-->
-<!--                        <h5>Invoice Identification Number UIC:-->
-<!--                            <span th:text="${invoice.identificationNumberUIC} != null ? invoice.identificationNumberUIC : ''"></span>-->
-<!--                        </h5>-->
-<!--                        <h5>Invoice Registered Address: <span th:text="${invoice.registeredAddress}"></span></h5>-->
-<!--                        <h5>Invoice Financially Accountable Person Name: <span th:text="${invoice.financiallyAccountablePersonName}"></span></h5>-->
-<!--                        <h5>Invoice Phone Number: <span th:text="${invoice.phoneNumber}"></span></h5>-->
-<!--                        &lt;!&ndash; Други полета за фактурата &ndash;&gt;-->
-<!--                    </div>-->
+                    <div th:if="${order.customer.invoiceData != null}">
+                        <h2>Invoice Details</h2>
+                        <h5>ID: <span th:text="${order.customer.invoiceData.id}"></span></h5>
+                        <h5>Company Name: <span th:text="${order.customer.invoiceData.companyName}"></span></h5>
+                        <h5>VAT Registration: <span th:text="${order.customer.invoiceData.vatRegistration} ? 'No' : 'Yes'"></span></h5>
+                        <h5>Identification Number UIC:
+                            <span th:text="${order.customer.invoiceData.identificationNumberUIC}"></span>
+                        </h5>
+                        <h5>Registered Address: <span th:text="${order.customer.invoiceData.registeredAddress}"></span></h5>
+                        <h5>Financially Accountable Person Name: <span th:text="${order.customer.invoiceData.financiallyAccountablePersonName}"></span></h5>
+                        <h5>Phone Number: <span th:text="${order.customer.invoiceData.phoneNumber}"></span></h5>
+                    </div>
 
                     <!-- Order Items -->
                     <h2>Order Items</h2>
