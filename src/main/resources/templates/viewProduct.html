@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,7 +17,9 @@
 
 <div th:replace="fragments/navbar">Navbar</div>
 <div class="container mt-5">
+
     <div class="row">
+        <form th:action="@{/add-to-cart}" method="post">
         <div class="col-sm-5 d-flex justify-content-center">
             <img class="mt-5" height="300px" width="300px" src="" th:src="${product.imgUrl}"
                  alt="">
@@ -28,8 +30,10 @@
             <p th:text="${product.category.name}"></p>
             <h2>BGN <span th:text="${product.price}"></span></h2>
             <p th:text="${product.description}"></p>
-            <a href="" th:href="@{/addToCart/{id}(id = ${product.id})}" class="btn btn-primary">Add to cart</a>
+            <input type="hidden" th:value="${product.id}" name="id" class="form-control">
+            <input type="submit" class="btn hvr-hover" value="Add to cart">
         </div>
+        </form>
     </div>
 </div>
 

@@ -91,7 +91,6 @@ public class OrderController {
             model.addAttribute("order", order);
             model.addAttribute("title", "Order Detail");
             model.addAttribute("page", "Order Detail");
-            model.addAttribute("success", "Add order successfully");
 
             return "order-detail";
         }

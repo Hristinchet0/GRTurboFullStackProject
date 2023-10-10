@@ -62,7 +62,8 @@ public class CartController {
     public String addItemToCart(@RequestParam("id") Long productId,
                                 @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
                                 Principal principal,
-                                HttpServletRequest request) {
+                                HttpServletRequest request,
+                                Model model) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -73,6 +74,8 @@ public class CartController {
         User user = userService.findByEmail(principal.getName()).get();
 
         ShoppingCart cart = shoppingCartService.addItemToCart(product, quantity, user);
+        model.addAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
+
 
         return "redirect:" + request.getHeader("Referer");
     }

@@ -1,6 +1,5 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.global.GlobalDataCard;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
 import com.grturbo.grturbofullstackproject.service.ProductService;
@@ -36,7 +35,6 @@ public class ShopController {
                        Pageable pageable){
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProducts(pageable));
-        model.addAttribute("cartCount", GlobalDataCard.cart.size());
 
         return "shop";
     }
@@ -50,7 +48,6 @@ public class ShopController {
 
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProductsByCategoryId(id, pageable));
-        model.addAttribute("cartCount", GlobalDataCard.cart.size());
 
         return "shop";
     }
@@ -59,9 +56,16 @@ public class ShopController {
     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(Model model, @PathVariable Long id){
         model.addAttribute("product", productService.getProductById(id).get());
-        model.addAttribute("cartCount", GlobalDataCard.cart.size());
+        model.addAttribute("success", "Add order successfully");
 
         return "viewProduct";
+    }
+
+    @GetMapping("/search")
+    public String searchProduct(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("noResultsMessage", "No results found");
+        return "shop-search";
     }
 
     @PostMapping("/search")
@@ -75,7 +79,6 @@ public class ShopController {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", searchResults);
 
-        // Връщайте страницата с резултатите от търсенето
         return "shop-search";
     }
 }
