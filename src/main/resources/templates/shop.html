@@ -50,7 +50,8 @@
                                     <h5 class="card-title" th:text="${product.name}">Name</h5>
                                     <p class="card-text" th:text="${product.brand}"></p>
                                     <h4>BGN <span th:text="${product.price}">Price</span></h4>
-                                    <p class="card-text" th:text="${product.description}">Description</p>
+                                    <p class="card-text" style=" display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;overflow: hidden;"
+                                       th:text="${product.description}">Description</p>
                                     <a href="#" th:href="@{/shop/viewproduct/{id}(id=${product.id})}"
                                        class="btn btn-primary">View Product</a>
                                     <input type="hidden" th:value="${product.id}" name="id" class="form-control">

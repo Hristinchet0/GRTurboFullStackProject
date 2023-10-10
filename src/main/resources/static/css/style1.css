@@ -2732,8 +2732,9 @@ font header .navbar-default .navbar-nav li a:hover {
 .footer {
     background: #A0A1A1;
     text-align: center;
-    padding-top: 48px;
-    padding-bottom: 55px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 15px;
 }
 
 .footer p {

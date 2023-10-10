@@ -31,7 +31,7 @@ public class ShopController {
     public String shop(Model model,
                        @PageableDefault(
                                page = 0,
-                               size = 5 )
+                               size = 12 )
                        Pageable pageable){
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProducts(pageable));
@@ -43,7 +43,7 @@ public class ShopController {
     public String shopByCategory(@PathVariable Long id, Model model,
                                  @PageableDefault(
                                          page = 0,
-                                         size = 5 )
+                                         size = 12 )
                                  Pageable pageable) {
 
         model.addAttribute("categories", categoryService.getAllCategory());
