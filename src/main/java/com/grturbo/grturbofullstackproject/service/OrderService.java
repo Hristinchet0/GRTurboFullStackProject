@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -134,4 +139,24 @@ public class OrderService {
 
         return annualEarnings;
     }
+
+    public long getSentOrdersForCurrentMonth() {
+        LocalDate startDateTime = LocalDate.now().withDayOfMonth(1);
+        LocalDate endDateTime = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
+
+        return orderRepository.countByOrderDateBetweenAndOrderStatus(
+                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), "SHIPPED"
+        );
+    }
+
+    public long getSentOrdersForCurrentYear() {
+        LocalDate startDateTime = LocalDate.now().withDayOfYear(1);
+        LocalDate endDateTime = LocalDate.now().withDayOfYear(LocalDate.now().lengthOfYear());
+
+        return orderRepository.countByOrderDateBetweenAndOrderStatus(
+                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), "SHIPPED"
+        );
+    }
+
+
 }

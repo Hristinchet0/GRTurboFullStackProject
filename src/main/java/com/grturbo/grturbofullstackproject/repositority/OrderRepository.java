@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -22,5 +25,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByOrderDateAfterAndOrderStatus(Date date, String orderStatus);
 
+    long countByOrderDateBetweenAndOrderStatus(
+            Timestamp startDateTime, Timestamp endDateTime, String orderStatus
+    );
 
 }

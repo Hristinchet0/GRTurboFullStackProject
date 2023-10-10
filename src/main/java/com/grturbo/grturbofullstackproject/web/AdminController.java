@@ -5,7 +5,6 @@ import com.grturbo.grturbofullstackproject.model.entity.*;
 import com.grturbo.grturbofullstackproject.service.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +45,13 @@ public class AdminController {
     public String adminHome(Model model) {
         double monthlyEarnings = orderService.calculateTotalPriceForLastMonth();
         double annualEarnings = orderService.calculateAnnualEarnings();
+        long sentOrdersCount = orderService.getSentOrdersForCurrentMonth();
+        long sentOrdersCountForYear = orderService.getSentOrdersForCurrentYear();
 
         model.addAttribute("monthlyEarnings", monthlyEarnings);
         model.addAttribute("annualEarnings", annualEarnings);
+        model.addAttribute("sentOrdersCount", sentOrdersCount);
+        model.addAttribute("sentOrdersCountForYear", sentOrdersCountForYear);
         return "admin-index";
     }
 
