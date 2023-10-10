@@ -46,7 +46,7 @@
              class="d-inline-block align-top"
              alt=""/>
     </a>
-    <div class="container-fluid d-flex flex-column flex-md-row ">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-end">
         <!-- Brand and toggle get grouped for better mobile display -->
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,7 +59,7 @@
 
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav container d-flex flex-column flex-md-row justify-content-evenly">
+            <ul class="navbar-nav container d-flex flex-column flex-md-row justify-content-end">
 <!--                <li class="nav-item active">-->
 <!--                    <a class="p-2 d-none d-md-inline-block font-weight-bold"-->
 <!--                       th:text="${session.username != null} ? ${session.username} : 'Authentication'" href="">-->
@@ -79,18 +79,18 @@
                     </ul>
                 </li>
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-md-inline-block font-weight-bold"
+                    <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="hasRole('ADMIN')"
                        th:href="@{/admin}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                             stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="3"></circle>
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                         </svg>
                         Admin</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-sm-inline-block font-weight-bold"
+                    <a class="p-2 d-sm-inline-block font-weight-bold"
                        th:href="@{/}" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-house-door" viewBox="0 0 16 16">
@@ -99,7 +99,7 @@
                         Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-md-inline-block font-weight-bold"
+                    <a class="p-2 d-md-inline-block font-weight-bold"
                        th:href="@{/shop}" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-shop" viewBox="0 0 16 16">
@@ -107,8 +107,8 @@
                         </svg>
                         Shop</a>
                 </li>
-                <li class="nav-item active ">
-                    <a class=" p-2 d-none d-md-inline-block font-weight-bold"
+                <li class="nav-item active">
+                    <a class=" p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="isAnonymous()"
                        th:href="@{/login}" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -117,8 +117,8 @@
                         </svg>
                         Login</a>
                 </li>
-                <li class="nav-item active ">
-                    <a class="p-2 d-none d-md-inline-block font-weight-bold"
+                <li class="nav-item active">
+                    <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="isAuthenticated()"
                        th:href="@{/logout}" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -132,7 +132,7 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-sm-inline-block font-weight-bold"
+                    <a class="p-2 d-sm-inline-block font-weight-bold"
                        sec:authorize="isAuthenticated()"
                        th:href="@{/cart}" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -145,6 +145,13 @@
                                   d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                         </svg>
                         Cart(<span th:text="${session.totalItems == null} ? '0' : ${session.totalItems}">0</span>)</a>
+                </li>
+
+                <li>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </li>
 
             </ul>
