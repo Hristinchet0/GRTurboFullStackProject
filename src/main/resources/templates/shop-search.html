@@ -37,6 +37,9 @@
             </ul>
         </div>
         <div class="col-sm-9">
+            <div th:if="${noResultsMessage}" class="alert alert-warning">
+                <p th:text="${noResultsMessage}"></p>
+            </div>
             <div class="card-deck">
                 <div class="col-auto mb-4"
                      th:each="product: ${products}"
@@ -63,53 +66,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid container-fluid row justify-content-center">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${products.isFirst()} ? 'disabled' : ''">
-                <a th:unless="${products.isFirst()}"
-                   th:href="@{/shop(size=${products.getSize()},page=0)}"
-                   class="page-link" href="#">First</a>
-                <a th:if="${products.isFirst()}"
-                   class="page-link" href="#">First</a>
-            </li>
-        </ul>
-    </nav>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${products.hasPrevious() ? '' : 'disabled'}">
-                <a th:if="${products.hasPrevious()}"
-                   th:href="@{/shop(size=${products.getSize()},page=${products.getNumber() - 1})}"
-                   class="page-link" href="#">Previous</a>
-                <a th:unless="${products.hasPrevious()}"
-                   class="page-link" href="#">Previous</a>
-            </li>
-        </ul>
-    </nav>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${products.hasNext() ? '' : 'disabled'}">
-                <a th:if="${products.hasNext()}"
-                   th:href="@{/shop(size=${products.getSize()},page=${products.getNumber() + 1})}"
-                   class="page-link" href="#">Next</a>
-                <a th:unless="${products.hasNext()}"
-                   class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-    <nav>
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${products.isLast()} ? 'disabled' : ''">
-                <a th:unless="${products.isLast()}"
-                   th:href="@{/shop(size=${products.getSize()},page=${products.getTotalPages() - 1})}"
-                   class="page-link" href="#">Last</a>
-                <a th:if="${products.isLast()}"
-                   class="page-link" href="#">Last</a>
-            </li>
-        </ul>
-    </nav>
 </div>
 
 <div th:replace="fragments/footer">Footer</div>

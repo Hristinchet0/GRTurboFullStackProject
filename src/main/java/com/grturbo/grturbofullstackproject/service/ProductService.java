@@ -174,4 +174,7 @@ public class ProductService {
         return new PageImpl<>(subList, pageable, list.size());
     }
 
+    public List<Product> searchProducts(String query) {
+        return productRepository.findByNameContaining(query);
+    }
 }
