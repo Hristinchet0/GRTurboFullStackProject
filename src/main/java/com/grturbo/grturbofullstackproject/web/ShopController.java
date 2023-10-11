@@ -1,5 +1,6 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
 import com.grturbo.grturbofullstackproject.service.ProductService;
@@ -31,8 +32,11 @@ public class ShopController {
     public String shop(Model model,
                        @PageableDefault(
                                page = 0,
-                               size = 12 )
+                               size = 10 )
                        Pageable pageable){
+        List<ProductRecentDto> recentProducts = productService.findRecentProducts(10);
+
+        model.addAttribute("recentProducts", recentProducts);
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProducts(pageable));
 
@@ -43,9 +47,11 @@ public class ShopController {
     public String shopByCategory(@PathVariable Long id, Model model,
                                  @PageableDefault(
                                          page = 0,
-                                         size = 12 )
+                                         size = 10 )
                                  Pageable pageable) {
+        List<ProductRecentDto> recentProducts = productService.findRecentProducts(10);
 
+        model.addAttribute("recentProducts", recentProducts);
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", productService.getAllProductsByCategoryId(id, pageable));
 

@@ -1,17 +1,11 @@
 package com.grturbo.grturbofullstackproject.service;
 
-import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
-import com.grturbo.grturbofullstackproject.model.dto.ProductDetailDto;
-import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
-import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
+import com.grturbo.grturbofullstackproject.model.dto.*;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.repositority.ProductRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -176,5 +170,11 @@ public class ProductService {
 
     public List<Product> searchProducts(String query) {
         return productRepository.findByNameContaining(query);
+    }
+
+    public List<ProductRecentDto> findRecentProducts(int count) {
+        List<ProductRecentDto> recentProducts  = productRepository.findRecentProducts(PageRequest.of(0, count, Sort.by("id").descending()));
+
+        return recentProducts;
     }
 }
