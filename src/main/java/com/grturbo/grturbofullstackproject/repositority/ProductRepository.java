@@ -20,8 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Product findProductById(Long id);
 
-    List<Product> findByNameContaining(String query);
-
     @Query(value = "SELECT new com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto(" +
             "p.name, p.brand, p.price) FROM Product p " +
             "ORDER BY p.id DESC")

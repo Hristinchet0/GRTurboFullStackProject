@@ -149,7 +149,7 @@ public class ProductService {
     }
 
     public List<Product> searchProducts(String query) {
-        return productRepository.findByNameContaining(query);
+        return productRepository.findAllByNameOrDescription(query);
     }
 
     public List<ProductRecentDto> findRecentProducts(int count) {
@@ -159,8 +159,6 @@ public class ProductService {
     }
 
     public Page<ProductViewDto> searchProducts(int pageNo, String keyword) {
-        List<Product> products = productRepository.findAllByNameOrDescription(keyword);
-//        List<ProductViewDto> productDtoList = transferData(products);
         List<ProductViewDto> productDtoList = productRepository.findAllByNameOrDescription(keyword)
                 .stream()
                 .map(product -> {
