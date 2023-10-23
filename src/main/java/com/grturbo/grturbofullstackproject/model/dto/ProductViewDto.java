@@ -1,5 +1,7 @@
 package com.grturbo.grturbofullstackproject.model.dto;
 
+import com.grturbo.grturbofullstackproject.model.entity.Product;
+
 public class ProductViewDto {
 
     private Long id;
@@ -17,6 +19,20 @@ public class ProductViewDto {
     private String imgUrl;
 
     public ProductViewDto() {
+    }
+
+    public ProductViewDto(Long id, String name, String brand, String category, String price, String description, String imgUrl) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+        this.description = description;
+        this.imgUrl = imgUrl;
+    }
+
+    public ProductViewDto(ProductViewDto productViewDto) {
+
     }
 
     public Long getId() {

@@ -77,7 +77,6 @@ public class ProductService {
     }
 
 
-
     public void saveProduct(ProductEditDto productEditDto, Product product) throws IOException {
 
         MultipartFile img = productEditDto.getImg();
@@ -90,7 +89,7 @@ public class ProductService {
         product.setDescription(productEditDto.getDescription());
         product.setPrice(productEditDto.getPrice());
 
-        if(img.isEmpty()) {
+        if (img.isEmpty()) {
             product.setImgUrl(currentImg);
         } else {
             String imageUrl = cloudinaryService.uploadImage(img);
@@ -130,25 +129,6 @@ public class ProductService {
     }
 
 
-//    public Page<ProductViewDto> getAllProducts(int pageNo) {
-//        Pageable pageable = PageRequest.of(pageNo, 6);
-//        List<ProductViewDto> productDtoLists = this.findAll();
-//        Page<ProductViewDto> productDtoPage = toPage(productDtoLists, pageable);
-//        return productDtoPage;
-//    }
-//
-//    private Page toPage(List list, Pageable pageable) {
-//        if (pageable.getOffset() >= list.size()) {
-//            return Page.empty();
-//        }
-//        int startIndex = (int) pageable.getOffset();
-//        int endIndex = ((pageable.getOffset() + pageable.getPageSize()) > list.size())
-//                ? list.size()
-//                : (int) (pageable.getOffset() + pageable.getPageSize());
-//        List subList = list.subList(startIndex, endIndex);
-//        return new PageImpl(subList, pageable, list.size());
-//    }
-
     public Page<ProductViewDto> getAllProducts(int pageNo, int pageSize) {
         List<ProductViewDto> productDtoList = findAll();
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -173,8 +153,28 @@ public class ProductService {
     }
 
     public List<ProductRecentDto> findRecentProducts(int count) {
-        List<ProductRecentDto> recentProducts  = productRepository.findRecentProducts(PageRequest.of(0, count, Sort.by("id").descending()));
+        List<ProductRecentDto> recentProducts = productRepository.findRecentProducts(PageRequest.of(0, count, Sort.by("id").descending()));
 
         return recentProducts;
+    }
+
+    public Page<ProductViewDto> searchProducts(int pageNo, String keyword) {
+        List<Product> products = productRepository.findAllByNameOrDescription(keyword);
+//        List<ProductViewDto> productDtoList = transferData(products);
+        List<ProductViewDto> productDtoList = productRepository.findAllByNameOrDescription(keyword)
+                .stream()
+                .map(product -> {
+                    ProductViewDto productViewDto = modelMapper.map(product, ProductViewDto.class);
+
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
+
+                    productViewDto.setCategory(categoryById.get().getName());
+
+                    return productViewDto;
+        })
+                .collect(Collectors.toList());
+        Pageable pageable = PageRequest.of(pageNo, 5);
+        Page<ProductViewDto> dtoPage = toPage(productDtoList, pageable);
+        return dtoPage;
     }
 }

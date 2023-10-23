@@ -248,6 +248,25 @@ public class AdminController {
         return "redirect:/products/0";
     }
 
+    @GetMapping("/search-products/{pageNo}")
+    public String searchProduct(@PathVariable("pageNo") int pageNo,
+                                @RequestParam(value = "keyword") String keyword,
+                                Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+
+        Page<ProductViewDto> products = productService.searchProducts(pageNo, keyword);
+        model.addAttribute("title", "Result Search Products");
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "admin-products";
+
+    }
+
     @GetMapping("/user-orders")
     public String getAll(Model model, Principal principal) {
         if (principal == null) {
@@ -301,9 +320,6 @@ public class AdminController {
         orderService.sendOrder(id);
         return "redirect:/user-orders";
     }
-
-
-
 
 
 }
