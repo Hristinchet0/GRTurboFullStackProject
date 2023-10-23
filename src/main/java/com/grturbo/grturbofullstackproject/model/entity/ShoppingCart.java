@@ -21,7 +21,7 @@ public class ShoppingCart {
 
     private Integer totalItems;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shoppingCart")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shoppingCart", orphanRemoval = true)
     private Set<CartItem> cartItems;
 
 

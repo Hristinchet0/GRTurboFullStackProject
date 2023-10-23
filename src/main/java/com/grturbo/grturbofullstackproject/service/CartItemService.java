@@ -16,8 +16,6 @@ public class CartItemService {
         this.cartItemRepository = cartItemRepository;
     }
 
-    public void removeProductById(Long id) {
-        Optional<CartItem> byId = this.cartItemRepository.findById(id);
-        this.cartItemRepository.delete(byId.get());
-    }
+
+
 }

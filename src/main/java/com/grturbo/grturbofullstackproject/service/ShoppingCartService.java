@@ -83,31 +83,10 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
-//    public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
-//        ShoppingCart userShoppingCart = user.getShoppingCart();
-//
-//        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
-//
-//        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
-//
-//        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(userShoppingCart.getId());
-//
-//        int totalItems = totalItems(cartItems);
-//        double totalPrice = totalPrice(cartItems);
-//
-//        userShoppingCart.setCartItems(cartItems);
-//        userShoppingCart.setTotalItems(totalItems);
-//        userShoppingCart.setTotalPrice(totalPrice);
-//
-//        return shoppingCartRepository.save(userShoppingCart);
-//
-//    }
-
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = user.getShoppingCart();
 
-        // Ensure that the userShoppingCart is managed
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
 
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
@@ -164,12 +143,11 @@ public class ShoppingCartService {
 
     public void deleteCartById(Long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
-        shoppingCartRepository.delete(shoppingCart);
-
-    }
-
-    public void clearCart(ShoppingCart shoppingCart) {
         shoppingCart.getCartItems().clear();
+        shoppingCart.setTotalPrice(0.0);
+        shoppingCart.setTotalItems(0);
         shoppingCartRepository.save(shoppingCart);
+
     }
+
 }

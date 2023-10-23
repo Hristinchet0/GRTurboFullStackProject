@@ -36,21 +36,21 @@ public class OrderService {
     }
 
     @Transactional
-    public Order saveOrder(ShoppingCart cart, String additionalInformation) {
+    public Order saveOrder(ShoppingCart shoppingCart, String additionalInformation) {
         Order order = new Order();
 
         order.setOrderStatus("PENDING");
         order.setOrderDate(new Date());
-        order.setCustomer(cart.getCustomer());
-        order.setTotalPrice(cart.getTotalPrice());
+        order.setCustomer(shoppingCart.getCustomer());
+        order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setPaymentMethod("CASH");
-        order.setQuantity(cart.getTotalItems());
+        order.setQuantity(shoppingCart.getTotalItems());
         order.setAccept(false);
         order.setAdditionalInformation(additionalInformation);
 
         List<OrderDetail> orderDetailList = new ArrayList<>();
 
-        for (CartItem item : cart.getCartItems()) {
+        for (CartItem item : shoppingCart.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrder(order);
 
@@ -62,8 +62,8 @@ public class OrderService {
         }
 
         order.setOrderDetailList(orderDetailList);
-        shoppingCartService.deleteCartById(cart.getId());
-//        shoppingCartService.clearCart(order.getCustomer().getShoppingCart());
+        shoppingCart.getCartItems().clear();
+        shoppingCartService.deleteCartById(shoppingCart.getId());
         return orderRepository.save(order);
     }
 
