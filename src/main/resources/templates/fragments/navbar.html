@@ -32,7 +32,7 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="nav.css" th:href="@{/css/nav.css}">
+    <link rel="stylesheet" href="/css/nav.css" th:href="@{/css/nav.css}">
 </head>
 
 <body>
@@ -60,24 +60,27 @@
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav container d-flex flex-column flex-md-row justify-content-end">
-<!--                <li class="nav-item active">-->
-<!--                    <a class="p-2 d-none d-md-inline-block font-weight-bold"-->
-<!--                       th:text="${session.username != null} ? ${session.username} : 'Authentication'" href="">-->
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
-<!--                             class="bi bi-person" viewBox="0 0 16 16">-->
-<!--                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>-->
-<!--                        </svg>-->
-<!--                </a>-->
-<!--                </li>-->
-                <li class="dropdown">
-                    <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"
-                       th:text="${session.username != null} ? ${session.username} : ''"></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/orders}">Your order</a></li>
-                        <li><a th:href="@{/profile}">My Account</a></li>
-                        <li><a th:href="@{/profile-invoice}">Invoice details</a></li>
-                    </ul>
-                </li>
+                <!--                <li class="nav-item active">-->
+                <!--                    <a class="p-2 d-none d-md-inline-block font-weight-bold"-->
+                <!--                       th:text="${session.username != null} ? ${session.username} : 'Authentication'" href="">-->
+                <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+                <!--                             class="bi bi-person" viewBox="0 0 16 16">-->
+                <!--                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>-->
+                <!--                        </svg>-->
+                <!--                </a>-->
+                <!--                </li>-->
+
+                <th:block th:if="${session.username != null}">
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"
+                           th:text="${session.username != null} ? ${session.username} : ''"></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/orders}">Your order</a></li>
+                            <li><a th:href="@{/profile}">My Account</a></li>
+                            <li><a th:href="@{/profile-invoice}">Invoice details</a></li>
+                        </ul>
+                    </li>
+                </th:block>
                 <li class="nav-item active">
                     <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="hasRole('ADMIN')"
@@ -149,7 +152,8 @@
 
                 <li>
                     <form th:action="@{/search}" method="post" class="form-inline">
-                        <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search"
+                               aria-label="Search">
                         <button class="btn btn btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </li>
