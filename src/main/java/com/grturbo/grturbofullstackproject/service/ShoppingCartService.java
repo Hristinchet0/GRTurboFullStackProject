@@ -7,6 +7,7 @@ import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.repositority.CartItemRepository;
 import com.grturbo.grturbofullstackproject.repositority.ShoppingCartRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -83,27 +84,50 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
+//    @Transactional
+//    public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
+//        ShoppingCart userShoppingCart = user.getShoppingCart();
+//
+//        ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
+//
+//        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
+//
+//        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
+//
+//        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(managedCart.getId());
+//
+//        int totalItems = totalItems(cartItems);
+//        double totalPrice = totalPrice(cartItems);
+//
+//        managedCart.setCartItems(cartItems);
+//        managedCart.setTotalItems(totalItems);
+//        managedCart.setTotalPrice(totalPrice);
+//
+//        return entityManager.merge(managedCart);
+//    }
+
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = user.getShoppingCart();
-
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
 
+        // Намерете cartItem
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
 
-        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
-
-        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(managedCart.getId());
-
+        // Обновете ShoppingCart с актуалните cartItems и цена
+        Set<CartItem> cartItems = managedCart.getCartItems();
+        cartItems.remove(cartItemForDelete); // Изтрийте cartItem
         int totalItems = totalItems(cartItems);
         double totalPrice = totalPrice(cartItems);
-
-        managedCart.setCartItems(cartItems);
         managedCart.setTotalItems(totalItems);
         managedCart.setTotalPrice(totalPrice);
 
-        return entityManager.merge(managedCart);
+        // Запазете актуализирания ShoppingCart
+        entityManager.merge(managedCart);
+
+        return managedCart;
     }
+
 
     private CartItem findCartItem(Set<CartItem> cartItems, Long productId) {
 
@@ -141,12 +165,23 @@ public class ShoppingCartService {
     }
 
 
-    public void deleteCartById(Long id) {
+    public void deleteCartItemsByShoppingCartId(Long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
         shoppingCart.getCartItems().clear();
         shoppingCart.setTotalPrice(0.0);
         shoppingCart.setTotalItems(0);
         shoppingCartRepository.save(shoppingCart);
+    }
+
+    public void deleteAllCartItemsInShoppingCarts() {
+        List<ShoppingCart> shoppingCarts = shoppingCartRepository.findAllCartsWithItems();
+
+        for (ShoppingCart shoppingCart : shoppingCarts) {
+            shoppingCart.getCartItems().clear();
+            shoppingCart.setTotalPrice(0.0);
+            shoppingCart.setTotalItems(0);
+            shoppingCartRepository.save(shoppingCart);
+        }
 
     }
 

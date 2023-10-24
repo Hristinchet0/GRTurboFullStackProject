@@ -63,7 +63,7 @@ public class OrderService {
 
         order.setOrderDetailList(orderDetailList);
         shoppingCart.getCartItems().clear();
-        shoppingCartService.deleteCartById(shoppingCart.getId());
+        shoppingCartService.deleteCartItemsByShoppingCartId(shoppingCart.getId());
         return orderRepository.save(order);
     }
 
