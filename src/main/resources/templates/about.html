@@ -17,120 +17,15 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="nav.css" th:href="@{/css/nav.css}">
 
     <title>About Us</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light site-header sticky-top py-1">
-        <a class="navbar-brand" th:href="@{/}" href="/">
-            <img th:src="@{/images/logo.png}" src="logo.png" width="auto" height="40" class="d-inline-block align-top"
-                alt="" />
-        </a>
-        <div class="container-fluid d-flex flex-column flex-md-row ">
-            <!-- Brand and toggle get grouped for better mobile display -->
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto"></ul>
-                <ul class="navbar-nav container d-flex flex-column flex-md-row justify-content-evenly">
-                    <li class="nav-item active">
-                        <a class="p-2 d-none d-md-inline-block font-weight-bold" sec:authorize="isAuthenticated()"
-                            href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-person" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                            </svg>
-
-                            [[${#request.userPrincipal.principal.fullName}]]
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="p-2 d-none d-md-inline-block font-weight-bold" sec:authorize="hasRole('ADMIN')"
-                            th:href="@{/admin}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path
-                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                </path>
-                            </svg>
-                            Admin</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-house-door" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
-                            </svg>
-                            Home</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="p-2 d-none d-md-inline-block font-weight-bold" th:href="@{/shop}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-shop" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
-                            </svg>
-                            Shop</a>
-                    </li>
-                    <li class="nav-item active ">
-                        <a class=" p-2 d-none d-md-inline-block font-weight-bold" sec:authorize="isAnonymous()"
-                            th:href="@{/login}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
-                            </svg>
-                            Login</a>
-                    </li>
-                    <li class="nav-item active ">
-                        <a class="p-2 d-none d-md-inline-block font-weight-bold" sec:authorize="isAuthenticated()"
-                            th:href="@{/logout}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-                                <path fill-rule="evenodd"
-                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-                            </svg>
-                            Logout</a>
-                    </li>
-
-                    <li class="nav-item active">
-                        <a class="p-2 d-none d-sm-inline-block font-weight-bold" sec:authorize="isAuthenticated()"
-                            th:href="@{/cart}" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-cart" viewBox="0 0 16 16">
-                                <path
-                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
-                            </svg>
-                            Cart(<span th:text="${cartCount}">0</span>)</a>
-                    </li>
-
-                </ul>
-
-            </div>
-        </div>
-    </nav><!-- /.navbar-collapse -->
+<div th:replace="fragments/navbar">Navbar</div>
     <div class="photos">
-        <h2>About Us</h2>
+        <h2 th:text="#{about_h2}">About Us</h2>
         <!-- Slider main container -->
         <div class="swiper">
             <!-- Additional required wrapper -->
@@ -160,9 +55,9 @@
         <div class="about">
             <div class="row1">
                 <div class="col1">
-                    <h2>GR TURBO – STORY AND TEAM</h2>
+                    <h2 th:text="#{about_storyH2}">GR TURBO – STORY AND TEAM</h2>
 
-            <p>
+            <p th:text="#{about_p1}">
                 Gr Turbo is a sole-owned company, established in 2010 to provide high-quality repairs to all types of
                 turbochargers for light, light commercial vehicles, buses and road construction machinery. Over the
                 years,
@@ -170,7 +65,7 @@
                 Bulgaria, proof of which are our satisfied customers from across the country.
             </p>
 
-            <p>
+            <p th:text="#{about_p2}">
                 We at GR Turbo have the latest generation high-speed vibro-balance stands for turbochargers. We have
                 stands
                 for high-velocity vibro-balance of medium-speed turbochargers as well as for tuned turbochargers.
@@ -181,28 +76,28 @@
                 revolutions.
             </p>
 
-            <p> After each turbocharger has passed through our stands, we are authorized to issue a certificate of
+            <p th:text="#{about_p3}"> After each turbocharger has passed through our stands, we are authorized to issue a certificate of
                 authenticity and vibro-balance of the turbochargers. The certificate is under ISO standards. After each
                 repair we have issued, a turbocharger warranty card and a certificate of a high-speed stand are issued.
             </p>
 
-            <h2>CIMAT TURBOTEST EXPERT FLOWBENCH – </h2>
-            <h2>STAND FOR TEST AND SET UP OF TURBOCHARGERS</h2>
+            <h2 th:text="#{about_cimath2}">CIMAT TURBOTEST EXPERT FLOWBENCH – </h2>
+            <h2 th:text="#{about_standh2}">STAND FOR TEST AND SET UP OF TURBOCHARGERS</h2>
 
-            <p>Nowadays it's good to know that balancing is not the final stage of the turbocharger repair process.
+            <p th:text="#{about_p4}">Nowadays it's good to know that balancing is not the final stage of the turbocharger repair process.
                 Modern turbines are a complex mechanism, and the management of their work is a problem, but only for the
                 unprepared.
                 World leaders are: Borg Warner, Garrett, Holset, IHI, Mitsubishi Turbo Systems.
             </p>
 
-            <p>
+            <p th:text="#{about_p5}">
                 According to their competent opinion,it is not possible to repair the turbo variable geometry outside
                 their official garage and to achieve factory quality. And for the most incompetent, it is clear that a
                 specialized equipment is needed. This, of course, is true, but recently we at GR Turbo have a stand,
                 last word on innovative technology solutions.
             </p>
 
-            <p>
+            <p th:text="#{about_p6}">
                 It allows us to test and adjust almost all of the turbochargers on the current market. With our Cimat
                 Turbo Test Expert, it is not a problem to set and test any variable geometry or wastage
                 turbine. It does not matter if the turbo is with an electronic or pneumatic actuator. The stand measures
@@ -210,14 +105,13 @@
                 simultaneously counts the turbine speed.
             </p>
 
-            <p>
+            <p th:text="#{about_p7}">
                 Another important factor is that the turbocharger is lubricated with oil under the necessary temperature
                 and pressure, mimicking precisely the work of the turbo in the car. All important parameters for the
                 optimal work of the turbo are monitored after reparation by measuring and analyzing.
             </p>
 
-            <p>
-
+            <p th:text="#{about_p8}">
                 Each repair is completed by testing and adjusting the actuator and the stop bolt. This is necessary
                 because most of the modern tubular compressors are controlled and monitored by complex mechanisms -
                 electronic and pneumatic actuators, position sensors and even combined ones (vacuum actuator and
@@ -227,31 +121,31 @@
                 or wastegate of a turbine without geometry can be opened or closed.
             </p>
 
-            <p>
+            <p th:text="#{about_p9}">
                 From what has been said so far, it is necessary to conclude that in order for a turbine to work
                 properly, the correct condition is a working actuator and variable geometry, and this is just a piece of
                 the strength of our Cimat Turbo Test Expert.
             </p>
 
-            <p>
+            <p th:text="#{about_p10}">
                 The electronics also have defects - most often we encounter broken reducing agents or defective
                 electronics, leading to incorrect control, turbocharger bad operation and power loss. Fine tuning is a
                 must when replacing any types of actuators. Failure to do so will cause the car to be
                 in an emergency mode.
             </p>
 
-            <p>
+            <p th:text="#{about_p11}">
                 Our database, containing parameters for turbine tuning, operation and performance, is continually being
                 enriched. We aim for a 100 percent match in the settings set by the manufacturer. The stand counts the
                 fatigue of the actuator, worn connections between the bearing body and variable geometry, and at the
                 same time shows in real terms what adjustments are to be made for the correct adjustment.
             </p>
 
-            <h2>
+            <h2 th:text="#{about_compressorh2}">
                 COMPRESSOR POWER TEST
             </h2>
 
-            <p>
+            <p th:text="#{about_p12}">
                 This is an unique feature that is possible ONLY at our stand in Bulgaria. Until now, this test was only
                 possible in turbine laboratories of the manufacturers. It compares and measures the pressure produced by
                 the turbocharger, taking into account the atmospheric pressure and the speed at which it rotates. It is
@@ -259,9 +153,9 @@
                 car.
             </p>
 
-            <h2>EDUCATION AND SOFTWARE UPDATE OF ELECTRONIC ACTUATORS</h2>
+            <h2 th:text="#{about_educationh2}">EDUCATION AND SOFTWARE UPDATE OF ELECTRONIC ACTUATORS</h2>
 
-            <p>
+            <p th:text="#{about_p13}">
                 This is another feature that proves our technique has no analogue at the moment. None of the other "flow
                 benches" in the market supports this feature, along with the above. You probably know that, for example,
                 new VDO actuators are bought "empty" - without software. In other words, the actuator is mounted on the
@@ -269,7 +163,8 @@
                 make the new actuator work correctly. Which, however, is a very expensive and time-wasting operation.
                 <br>
                 <br>
-                <b>Well, you will no longer need it because we can teach (pour software) almost all types of electronic actuators known in the market - VDO / SIEMENS, HELLA, MITSUBISHI, TOYOTA, SONCEBOZ and others.</b>
+                <b th:text="#{about_b}">Well, you will no longer need it because we can teach (pour software) almost all types of electronic actuators known in the market
+                    - VDO / SIEMENS, HELLA, MITSUBISHI, TOYOTA, SONCEBOZ and others.</b>
             </p>
                 </div>
             </div>
@@ -279,29 +174,12 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="footer-manu">
-                        <ul>
-                            <li><a th:href="@{/about}" href="/about">About Us</a></li>
-                            <li><a th:href="@{/contactus}" href="/contactus">Contact us</a></li>
-                            <li><a href="#">Terms</a></li>
-                        </ul>
-                    </div>
-                    <p class="copyright">Copyright 2022 &copy; GR TURBO by grturbo.com. All rights reserved.
-                        <br>
-                        Visit us on grturbo.com
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<div th:replace="fragments/footer">Footer</div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="/GrTurboWebProject/src/main/resources/static/js/swiper-slide.js"
         th:src="@{/js/swiper-slide.js}"></script>
+<div th:replace="fragments/scripts"></div>
 
 </body>
 

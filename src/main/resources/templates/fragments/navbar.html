@@ -60,31 +60,22 @@
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav container d-flex flex-column flex-md-row justify-content-end">
-                <!--                <li class="nav-item active">-->
-                <!--                    <a class="p-2 d-none d-md-inline-block font-weight-bold"-->
-                <!--                       th:text="${session.username != null} ? ${session.username} : 'Authentication'" href="">-->
-                <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
-                <!--                             class="bi bi-person" viewBox="0 0 16 16">-->
-                <!--                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>-->
-                <!--                        </svg>-->
-                <!--                </a>-->
-                <!--                </li>-->
-
                 <th:block th:if="${session.username != null}">
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"
                            th:text="${session.username != null} ? ${session.username} : ''"></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/orders}">Your order</a></li>
-                            <li><a th:href="@{/profile}">My Account</a></li>
-                            <li><a th:href="@{/profile-invoice}">Invoice details</a></li>
+                            <li><a th:href="@{/orders}" th:text="#{navbar_order}">Your order</a></li>
+                            <li><a th:href="@{/profile}" th:text="#{navbar_account}">My Account</a></li>
+                            <li><a th:href="@{/profile-invoice}" th:text="#{navbar_invoice}">Invoice details</a></li>
                         </ul>
                     </li>
                 </th:block>
                 <li class="nav-item active">
                     <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="hasRole('ADMIN')"
-                       th:href="@{/admin}">
+                       th:href="@{/admin}"
+                       th:text="#{navbar_admin}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
                              stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="3"></circle>
@@ -94,7 +85,8 @@
                 </li>
                 <li class="nav-item active">
                     <a class="p-2 d-sm-inline-block font-weight-bold"
-                       th:href="@{/}" href="#">
+                       th:href="@{/}" href="/"
+                       th:text="#{navbar_home}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-house-door" viewBox="0 0 16 16">
                             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
@@ -103,7 +95,8 @@
                 </li>
                 <li class="nav-item active">
                     <a class="p-2 d-md-inline-block font-weight-bold"
-                       th:href="@{/shop}" href="#">
+                       th:href="@{/shop}" href="/shop"
+                       th:text="#{navbar_shop}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-shop" viewBox="0 0 16 16">
                             <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
@@ -113,7 +106,8 @@
                 <li class="nav-item active">
                     <a class=" p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="isAnonymous()"
-                       th:href="@{/login}" href="#">
+                       th:href="@{/login}" href="/login"
+                       th:text="#{navbar_login}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/>
@@ -123,7 +117,8 @@
                 <li class="nav-item active">
                     <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="isAuthenticated()"
-                       th:href="@{/logout}" href="#">
+                       th:href="@{/logout}" href="/logout"
+                       th:text="#{navbar_logout}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -137,7 +132,8 @@
                 <li class="nav-item active">
                     <a class="p-2 d-sm-inline-block font-weight-bold"
                        sec:authorize="isAuthenticated()"
-                       th:href="@{/cart}" href="#">
+                       th:href="@{/cart}" href="/cart"
+                       th:text="#{navbar_cart}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-cart" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
@@ -154,7 +150,21 @@
                     <form th:action="@{/search}" method="post" class="form-inline">
                         <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search"
                                aria-label="Search">
-                        <button class="btn btn btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                        <button th:text="#{navbar_search}"
+                                class="btn btn btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+
+                <li class="nav-item">
+                    <form th:method="get">
+                        <label class="text-white" th:text="#{navbar_language}" for="lang"></label>
+                        <select
+                                onchange="this.form.submit()"
+                                id="lang"
+                                name="lang">
+                            <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                            <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                        </select>
                     </form>
                 </li>
 
