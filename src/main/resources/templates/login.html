@@ -23,7 +23,7 @@
   <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light site-header sticky-top py-1" >
- <a class="navbar-brand" href="#">
+ <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
         </a>
     <div class="container-fluid d-flex flex-column flex-md-row ">
@@ -35,15 +35,12 @@
              <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav d-flex flex-column flex-md-row justify-content-center">
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/}" href="#">Home</a>
+                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/}" href="#" th:text="#{login_home}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/shop}" href="#">Shop</a>
+                    <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/shop}" href="#" th:text="#{login_shop}">Shop</a>
                 </li>
-
-
             </ul>
-
     </div>
 </nav>
 
@@ -54,7 +51,7 @@
                 th:action="@{/login}"
                 th:method="post"
                 class="sign-in-form">
-            <h2 class="title">Sign in</h2>
+            <h2 class="title" th:text="#{login_sign_in}">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
               <input for="email"
@@ -62,14 +59,14 @@
                      type="email"
                      name="email"
                      id="email"
-                     placeholder="Your Email" />
+                     th:placeholder="#{login_email}" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input for="password"
 
                      type="password"
-                     placeholder="Password"
+                     th:placeholder="#{login_password}"
                      name="password"
                      id="password"/>
             </div>
@@ -78,8 +75,8 @@
              </div>
 
 
-            <input type="submit" value="Login" class="btn solid" />
-            <p class="social-text">Or Sign in with social platforms</p>
+            <input type="submit" th:value="#{login_login}" class="btn solid" />
+            <p class="social-text" th:text="#{login_social}">Or Sign in with social platforms</p>
             <div class="social-media">
 
               <a href="/oauth2/authorization/google"  class="social-icon">
@@ -95,14 +92,14 @@
                   th:object="${userModel}"
                   method="post"
                   class="sign-up-form">
-            <h2 class="title">Sign up</h2>
+            <h2 class="title" th:text="#{login_sign_up}">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
               <input type="text"
                      name="firstName"
                      th:field="*{firstName}"
                      id="firstName" required
-                     placeholder="Your Firstname" />
+                     th:placeholder="#{login_first_name}" />
             </div>
 			<div class="input-field">
               <i class="fas fa-user"></i>
@@ -110,11 +107,11 @@
                      name="lastName"
                      th:field="*{lastName}"
                      id="lastName" required
-                     placeholder="Your Lastname" />
+                     th:placeholder="#{login_last_name}" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" required minlength="6" placeholder="Email"
+              <input type="email" required minlength="6" th:placeholder="#{login_email2}"
                      name="email"
                      th:field="*{email}"
                      id="eemail"
@@ -126,25 +123,25 @@
                          name="firstName"
                          th:field="*{username}"
                          id="username" required
-                         placeholder="Your Username" />
+                         th:placeholder="#{login_username}" />
               </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" required
                      th:field="*{password}"
-                     placeholder="Password"
+                     th:placeholder="#{login_password}"
                      name="password"
                      id="ppassword" />
             </div>
               <div class="input-field">
                   <i class="fas fa-lock"></i>
-                  <input type="password" required placeholder="Confirm Password"
+                  <input type="password" required th:placeholder="#{login_confirm}"
                          th:field="*{confirmPassword}"
                          name="confirmPassword"
                          id="confirmPassword" />
               </div>
-            <input type="submit" value="Register" class="btn" />
-            <p class="social-text">Or Sign up with social platforms</p>
+            <input type="submit" th:value="#{login_register}" class="btn" />
+            <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>
             <div class="social-media">
 
               <a href="/oauth2/authorization/google"  class="social-icon">
@@ -159,11 +156,11 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>New here ?</h3>
-            <p>
+            <h3 th:text="#{login_new_here}">New here ?</h3>
+            <p th:text="#{login_join}">
               Please join us by registering with our website.
             </p>
-            <button class="btn transparent" id="sign-up-btn">
+            <button class="btn transparent" id="sign-up-btn" th:text="#{login_sign_up}">
               Sign up
             </button>
           </div>
@@ -171,11 +168,11 @@
         </div>
         <div class="panel right-panel">
           <div class="content">
-            <h3>One of us ?</h3>
-            <p>
+            <h3 th:text="#{login_one}">One of us ?</h3>
+            <p th:text="#{login_need}">
               Then no need to register, please login with your credentials.
             </p>
-            <button class="btn transparent" id="sign-in-btn">
+            <button class="btn transparent" id="sign-in-btn" th:text="#{login_sign_in}">
               Sign in
             </button>
           </div>
