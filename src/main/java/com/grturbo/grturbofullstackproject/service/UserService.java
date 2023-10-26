@@ -130,7 +130,7 @@ public class UserService {
     }
 
     public User findByUsername(String name) {
-        return userRepository.findByUsername(name);
+        return userRepository.findByUsername(name).orElse(null);
     }
 
     public Optional<User> findByEmail(String name) {

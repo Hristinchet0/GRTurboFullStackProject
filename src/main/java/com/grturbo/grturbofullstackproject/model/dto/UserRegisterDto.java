@@ -2,11 +2,9 @@ package com.grturbo.grturbofullstackproject.model.dto;
 
 import com.grturbo.grturbofullstackproject.model.validations.FieldMatch;
 import com.grturbo.grturbofullstackproject.model.validations.UniqueUserEmail;
+import com.grturbo.grturbofullstackproject.model.validations.UniqueUsername;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @FieldMatch(firstField = "password", secondField = "confirmPassword", message = "The passwords do not match")
 public class UserRegisterDto {
@@ -16,19 +14,17 @@ public class UserRegisterDto {
     @UniqueUserEmail(message = "User email should be unique.")
     private String email;
 
-    @NotEmpty
-    @NotNull
-    @Size(min = 5)
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 5, max = 20, message = "Password length must be between 5 and 20 characters.")
     private String password;
 
-    @NotEmpty
-    @NotNull
-    @Size(min = 5)
+    @NotBlank(message = "Confirm Password cannot be empty")
+    @Size(min = 5, max = 20, message = "Password length must be between 5 and 20 characters.")
     private String confirmPassword;
 
-    @NotEmpty
-    @NotNull
-    @Size(min = 2, max = 20)
+    @NotBlank(message = "Username cannot be empty")
+    @Size(min = 2, max = 20, message = "Username length must be between 2 and 20 characters.")
+    @UniqueUsername
     private String username;
 
     @NotEmpty

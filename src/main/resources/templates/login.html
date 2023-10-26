@@ -104,6 +104,7 @@
                            th:field="*{firstName}"
                            id="firstName" required
                            th:placeholder="#{login_first_name}"/>
+                    <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="invalid-feedback text-danger">Last name error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -112,6 +113,7 @@
                            th:field="*{lastName}"
                            id="lastName" required
                            th:placeholder="#{login_last_name}"/>
+                    <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback text-danger">Last name error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-envelope"></i>
@@ -120,6 +122,7 @@
                            th:field="*{email}"
                            id="eemail"
                            aria-describedby="emailHelp"/>
+                    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback text-danger">Email error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -128,6 +131,7 @@
                            th:field="*{username}"
                            id="username" required
                            th:placeholder="#{login_username}"/>
+                    <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback text-danger">Username error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
@@ -136,6 +140,7 @@
                            th:placeholder="#{login_password}"
                            name="password"
                            id="ppassword"/>
+                    <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback text-danger">Password error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
@@ -143,6 +148,7 @@
                            th:field="*{confirmPassword}"
                            name="confirmPassword"
                            id="confirmPassword"/>
+                    <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="invalid-feedback text-danger">Password error message</small>
                 </div>
                 <input type="submit" th:value="#{login_register}" class="btn"/>
                 <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>
