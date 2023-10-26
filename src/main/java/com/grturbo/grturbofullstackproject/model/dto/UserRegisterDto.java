@@ -23,18 +23,18 @@ public class UserRegisterDto {
     private String confirmPassword;
 
     @NotBlank(message = "Username cannot be empty")
-    @Size(min = 2, max = 20, message = "Username length must be between 2 and 20 characters.")
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters.")
     @UniqueUsername
     private String username;
 
     @NotEmpty
     @NotNull
-    @Size(min = 2, max = 20)
+    @Size(min = 3, max = 20, message = "First name length must be between 3 and 20 characters.")
     private String firstName;
 
     @NotEmpty
     @NotNull
-    @Size(min = 2, max = 20)
+    @Size(min = 3, max = 20, message = "Last name length must be between 3 and 20 characters.")
     private String lastName;
 
     public UserRegisterDto() {

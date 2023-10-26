@@ -102,6 +102,7 @@
                     <input type="text"
                            name="firstName"
                            th:field="*{firstName}"
+                           th:errorclass="is-invalid"
                            id="firstName" required
                            th:placeholder="#{login_first_name}"/>
                     <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="invalid-feedback text-danger">Last name error message</small>
@@ -111,44 +112,49 @@
                     <input type="text"
                            name="lastName"
                            th:field="*{lastName}"
+                           th:errorclass="is-invalid"
                            id="lastName" required
                            th:placeholder="#{login_last_name}"/>
-                    <small th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback text-danger">Last name error message</small>
+                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback text-danger">Last name error message</div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-envelope"></i>
                     <input type="email" required minlength="6" th:placeholder="#{login_email2}"
                            name="email"
                            th:field="*{email}"
+                           th:errorclass="is-invalid"
                            id="eemail"
                            aria-describedby="emailHelp"/>
-                    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback text-danger">Email error message</small>
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback text-danger">Email error message</div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
                     <input type="text"
                            name="firstName"
                            th:field="*{username}"
+                           th:errorclass="is-invalid"
                            id="username" required
                            th:placeholder="#{login_username}"/>
-                    <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback text-danger">Username error message</small>
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback text-danger">Username error message</div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" required
                            th:field="*{password}"
+                           th:errorclass="is-invalid"
                            th:placeholder="#{login_password}"
                            name="password"
                            id="ppassword"/>
-                    <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback text-danger">Password error message</small>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback text-danger">Password error message</div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" required th:placeholder="#{login_confirm}"
                            th:field="*{confirmPassword}"
+                           th:errorclass="is-invalid"
                            name="confirmPassword"
                            id="confirmPassword"/>
-                    <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="invalid-feedback text-danger">Password error message</small>
+                    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="invalid-feedback text-danger">Password error message</div>
                 </div>
                 <input type="submit" th:value="#{login_register}" class="btn"/>
                 <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>

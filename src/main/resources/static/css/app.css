@@ -70,11 +70,9 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: #f0f0f0;
-  margin: 10px 0;
+  margin: 15px 0;
   height: 55px;
   border-radius: 55px;
-  display: grid;
-  grid-template-columns: 15% 85%;
   padding: 0 0.4rem;
   position: relative;
 }
@@ -85,6 +83,8 @@ form.sign-in-form {
   color: #acacac;
   transition: 0.5s;
   font-size: 1.1rem;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 
 .input-field input {
