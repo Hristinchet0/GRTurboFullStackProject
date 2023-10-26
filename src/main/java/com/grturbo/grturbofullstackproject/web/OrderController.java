@@ -77,6 +77,11 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/successful-order")
+    public String successful() {
+        return "success";
+    }
+
     @RequestMapping(value = "/add-order", method = {RequestMethod.POST})
     public String createOrder(Model model, Principal principal, HttpSession session,
                               @RequestParam(value = "additionalInformation", required = false) String additionalInformation) {
@@ -92,39 +97,8 @@ public class OrderController {
             model.addAttribute("title", "Order Detail");
             model.addAttribute("page", "Order Detail");
 
-            return "order-detail";
+            return "redirect:/successful-order";
         }
     }
 
-//    @Transactional
-//    @GetMapping("/cancel-order/{id}")
-//    public String cancelOrder(@PathVariable("id") Long id, Model model, Principal principal) {
-//        if(principal == null) {
-//            return "redirect:/login";
-//        }
-//
-//        logger.info("Canceling order with ID: {}", id);
-//
-//        User user = userService.findByEmail(principal.getName()).orElse(null);
-//        if (user == null) {
-//            return "redirect:/login";
-//        }
-//
-//        orderService.cancelOrder(id);
-//
-//        logger.info("Order with ID {} canceled successfully", id);
-//
-////        if (isCanceled) {
-////            model.addAttribute("success", "Order canceled successfully.");
-////        } else {
-////            model.addAttribute("error", "Unable to cancel the order.");
-////        }
-//
-//        Set<Order> orders = user.getOrders();
-//        model.addAttribute("orders", orders);
-//        model.addAttribute("title", "Orders");
-//        model.addAttribute("page", "Order");
-//
-//        return "redirect:/orders";
-//    }
 }
