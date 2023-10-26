@@ -176,4 +176,10 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public User changePass(UserUpdateDto userUpdate) {
+        User user = userRepository.findByEmail(userUpdate.getEmail());
+        user.setPassword(userUpdate.getPassword());
+        return userRepository.save(user);
+    }
 }

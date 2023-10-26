@@ -5,12 +5,14 @@ import com.grturbo.grturbofullstackproject.model.entity.InvoiceData;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.InvoiceDataService;
 import com.grturbo.grturbofullstackproject.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -24,9 +26,12 @@ public class UserController {
 
     private final InvoiceDataService invoiceDataService;
 
-    public UserController(UserService userService, InvoiceDataService invoiceDataService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService, InvoiceDataService invoiceDataService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.invoiceDataService = invoiceDataService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/profile")
@@ -112,10 +117,47 @@ public class UserController {
 
         invoiceDataService.saveInvoiceData(invoiceData, user);
 
-
         model.addAttribute("success", "Invoice information updated successfully!");
 
-        // Пренасочване към страницата за потребителски профил или друга страница по ваш избор
         return "redirect:/profile-invoice";
     }
+
+    @GetMapping("/change-password")
+    public String changePassword(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("title", "Change password");
+        model.addAttribute("page", "Change password");
+        return "change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePass(@RequestParam("oldPassword") String oldPassword,
+                             @RequestParam("newPassword") String newPassword,
+                             @RequestParam("repeatNewPassword") String repeatPassword,
+                             RedirectAttributes attributes,
+                             Model model,
+                             Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        } else {
+            UserUpdateDto userUpdate = userService.getUser(principal.getName());
+            if (passwordEncoder.matches(oldPassword, userUpdate.getPassword())
+                    && !passwordEncoder.matches(newPassword, oldPassword)
+                    && !passwordEncoder.matches(newPassword, userUpdate.getPassword())
+                    && repeatPassword.equals(newPassword) && newPassword.length() >= 5) {
+                userUpdate.setPassword(passwordEncoder.encode(newPassword));
+                userService.changePass(userUpdate);
+                attributes.addFlashAttribute("success", "Your password has been changed successfully!");
+                return "redirect:/profile";
+            } else {
+                model.addAttribute("message", "Your password is wrong");
+                return "change-password";
+            }
+        }
+    }
+
+
 }
