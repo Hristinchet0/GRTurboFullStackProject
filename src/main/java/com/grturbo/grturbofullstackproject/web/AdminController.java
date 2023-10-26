@@ -274,7 +274,6 @@ public class AdminController {
         } else {
             List<Order> orders = orderService.getOrdersWithDetails();
 
-            // Add orders to the model
             model.addAttribute("orders", orders);
             return "admin-user-orders";
         }

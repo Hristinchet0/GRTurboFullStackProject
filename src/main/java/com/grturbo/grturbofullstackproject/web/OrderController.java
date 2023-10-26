@@ -1,22 +1,23 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.model.dto.OrderDetailViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Order;
+import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.service.OrderDetailService;
 import com.grturbo.grturbofullstackproject.service.OrderService;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -28,12 +29,15 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    private final OrderDetailService orderDetailService;
+
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    public OrderController(UserService userService, ShoppingCartService shoppingCartService, OrderService orderService) {
+    public OrderController(UserService userService, ShoppingCartService shoppingCartService, OrderService orderService, OrderDetailService orderDetailService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
         this.orderService = orderService;
+        this.orderDetailService = orderDetailService;
     }
 
     @GetMapping("/check-out")
@@ -100,5 +104,28 @@ public class OrderController {
             return "redirect:/successful-order";
         }
     }
+
+    @ModelAttribute
+    public OrderDetailViewDto orderDetailViewDto() {
+        return new OrderDetailViewDto();
+    }
+
+    @GetMapping("/order-details/{id}")
+    public String getOrderDetails(@PathVariable Long id,
+                                  Principal principal,
+                                  Model model) {
+        if(principal == null) {
+            return "redirect:/login";
+        }
+
+        List<OrderDetailViewDto> orderDetail = orderDetailService.findByOrderId(id);
+
+        model.addAttribute("order", orderDetail);
+
+        return "order-detail";
+
+    }
+
+
 
 }

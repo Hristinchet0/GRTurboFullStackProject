@@ -27,39 +27,43 @@
                         <tr>
                             <th>Images</th>
                             <th>Product Name</th>
+                            <th>Quantity</th>
                             <th>Price</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="orderdetail : ${order.orderDetailList}">
+                        <tr th:each="order : ${order}">
                             <td class="thumbnail-img">
                                 <a href="#">
                                     <img class="img-fluid"
-                                         th:src="${orderdetail.product.imgUrl}" alt=""/>
+                                         th:src="${order.productImg}" alt=""/>
                                 </a>
                             </td>
                             <td class="name-pr">
-                                <p th:text="${orderdetail.product.name}"></p>
+                                <p th:text="${order.productName}"></p>
+                            </td>
+                            <td class="quantity">
+                                <p th:text="${order.quantity}"></p>
                             </td>
                             <td class="price-pr">
-                                <p th:text="'BGN' + ${orderdetail.product.price}"></p>
+                                <p th:text="${#numbers.formatDecimal(order.productPrice * order.quantity, 2, 'COMMA', 2, 'POINT')} + ' BGN'"></p>
+
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="row my-5">
-                        <div class="col-lg-8 col-sm-12"></div>
-                        <div class="col-lg-4 col-sm-12">
-                            <div class="order-box">
-                                <h3>Order summary</h3>
-                                <div class="d-flex">
-                                    <p>Total Quantity [(${order.quantity})]</p>
-                                    <h4>Sub Total</h4>
-                                    <div class="ml-auto font-weight-bold" th:text="${order.totalPrice}"> </div>
-                                </div>
-                                <hr class="my-1">
-                            </div>
-                        </div>
+<!--                    <div class="row my-5">-->
+<!--                        <div class="col-lg-4 col-sm-12">-->
+<!--                            <div class="order-box">-->
+<!--                                <h3>Order summary</h3>-->
+<!--                                <div class="d-flex">-->
+<!--                                    <h4>Total</h4>-->
+<!--                                    <p>Total Quantity</p>-->
+<!--                                    <div class="ml-auto font-weight-bold" th:text=""> </div>-->
+<!--                                </div>-->
+<!--                                <hr class="my-1">-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -70,5 +74,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 </html>
