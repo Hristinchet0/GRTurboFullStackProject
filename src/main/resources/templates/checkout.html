@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html"
+      xmlns:h3th="http://www.w3.org/1999/html">
 <!-- Basic -->
 
 <head th:replace="fragments/head">
@@ -22,50 +23,50 @@
             <div class="col-sm-6 col-lg-6 mb-3">
                 <div class="checkout-address">
                     <div class="title-left">
-                        <h3>Billing address</h3>
+                        <h3 th:text="#{checkout_billing}">Billing and Shipping address</h3>
                     </div>
                     <form class="needs-validation" novalidate th:object="${user}">
 
                         <div class="mb-3">
-                            <label for="firstName">First Name *</label>
+                            <label for="firstName" th:text="#{checkout_firstName}">First Name *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
                                        placeholder="" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="lastName">Last Name *</label>
+                            <label for="lastName" th:text="#{checkout_lastName}">Last Name *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
                                        placeholder="" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="email">Email *</label>
+                            <label for="email" th:text="#{checkout_email}">Email *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{email}" id="email"
                                        placeholder="" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="phone">Phone Number *</label>
+                            <label for="phone" th:text="#{checkout_phone}">Phone Number *</label>
                             <input type="text" class="form-control" th:field="*{phoneNumber}" id="phone" placeholder=""
                                    readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="address">Address *</label>
+                            <label for="address" th:text="#{checkout_address}">Address *</label>
                             <input type="text" class="form-control"
                                    th:value="${user.address + ' ' + user.city}"
                                    id="address" placeholder="" readonly>
                         </div>
-                        <a th:href="@{/profile}" class="btn btn-primary"> Change information</a>
+                        <a th:href="@{/profile}" class="btn btn-primary" th:text="#{checkout_change_information}">Change information</a>
                         <hr class="mb-4">
-                        <div class="title"><span>Payment Methods</span></div>
+                        <div class="title"><span th:text="#{checkout_payment}">Payment Methods</span></div>
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
                                 <input id="debit" name="paymentMethod" type="radio" checked class="custom-control-input"
                                        required>
-                                <label class="custom-control-label" for="debit">Cash</label>
+                                <label class="custom-control-label" for="debit" th:text="#{checkout_pay}">Cash</label>
                             </div>
                         </div>
                         <hr class="mb-1">
@@ -75,19 +76,19 @@
             <div class="col-sm-6 col-lg-6 mb-3">
                 <div class="invoice-data">
                     <div class="title-left">
-                        <h3>Invoice information</h3>
+                        <h3 th:text="#{checkout_invoice}">Invoice information</h3>
                     </div>
                     <form class="needs-validation" novalidate th:object="${user.invoiceData}">
 
                         <div class="mb-3">
-                            <label for="firstName">Company Name *</label>
+                            <label for="firstName" th:text="#{checkout_company}">Company Name *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{companyName}" id="companyName"
                                        placeholder="" readonly>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="lastName">Registered Address *</label>
+                            <label for="lastName" th:text="#{checkout_reg_address}">Registered Address *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{registeredAddress}"
                                        id="registeredAddress"
@@ -95,7 +96,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="email">VAT Registration *</label>
+                            <label for="email" th:text="#{checkout_vat_reg}">VAT Registration *</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" th:field="*{vatRegistration}"
                                        id="vatRegistration"
@@ -103,24 +104,24 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="phone">Identification NumberUIC *</label>
+                            <label for="phone" th:text="#{checkout_uic}">Identification NumberUIC *</label>
                             <input type="text" class="form-control" th:field="*{identificationNumberUIC}"
                                    id="identificationNumberUIC" placeholder=""
                                    readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="phone">Financially Accountable PersonName *</label>
+                            <label for="phone" th:text="#{checkout_person_name}">Financially Accountable PersonName *</label>
                             <input type="text" class="form-control" th:field="*{financiallyAccountablePersonName}"
                                    id="financiallyAccountablePersonName" placeholder=""
                                    readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="phone">Phone Number *</label>
+                            <label for="phone" th:text="#{checkout_phone}">Phone Number *</label>
                             <input type="text" class="form-control" th:field="*{phoneNumber}" id="phoneNumber"
                                    placeholder=""
                                    readonly>
                         </div>
-                        <a th:href="@{/profile/invoice-data}" class="btn btn-primary"> Change information</a>
+                        <a th:href="@{/profile/invoice-data}" class="btn btn-primary" th:text="#{checkout_change_information}"> Change information</a>
                         <hr class="mb-4">
                         <hr class="mb-1">
                     </form>
@@ -133,7 +134,7 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="odr-box">
                             <div class="title-left">
-                                <h3>Shopping cart</h3>
+                                <h3 th:text="#{checkout_shopping_cart}">Shopping cart</h3>
                             </div>
                             <div class="rounded p-2 bg-light">
                                 <div class="media mb-2 border-bottom" th:each="item : ${shoppingCart.getCartItems()}">
@@ -151,36 +152,36 @@
                         <div class="col-md-12 col-lg-12">
                             <div class="order-box">
                                 <div class="title-left">
-                                    <h2><b>Your order</b></h2>
+                                    <h2 th:text="#{checkout_order}"><b>Your order</b></h2>
                                 </div>
                                 <div class="d-flex">
-                                    <div class="font-weight-bold">Product</div>
-                                    <div class="ml-auto font-weight-bold">Total</div>
-                                </div>
-                                <hr class="my-1">
-                                <div class="d-flex">
-                                    <h4>Sub Total</h4>
-                                    <div class="ml-auto font-weight-bold" th:text="${shoppingCart.totalPrice}"></div>
+                                    <div class="font-weight-bold" th:text="#{checkout_product}">Product</div>
+                                    <div class="ml-auto font-weight-bold" th:text="#{checkout_total}">Total</div>
                                 </div>
                                 <hr class="my-1">
                                 <div class="d-flex">
-                                    <h4>Shipping Cost</h4>
-                                    <div class="ml-auto font-weight-bold"> -----</div>
+                                    <h4 th:text="#{checkout_sub}">Sub Total</h4>
+                                    <div class="ml-auto font-weight-bold" th:text="${shoppingCart.totalPrice} + 'BGN'"></div>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4 th:text="#{checkout_shipping_cost}">Shipping Cost</h4>
+                                    <div class="ml-auto font-weight-bold"> ---</div>
                                 </div>
                                 <hr>
                                 <div class="d-flex gr-total">
-                                    <h5>Grand Total</h5>
-                                    <div class="ml-auto h5" th:text="${shoppingCart.totalPrice}"></div>
+                                    <h5 th:text="#{checkout_grand}">Grand Total</h5>
+                                    <div class="ml-auto h5" th:text="${shoppingCart.totalPrice} + 'BGN'"></div>
                                 </div>
                                 <hr>
                             </div>
                         </div>
-                        <label for="additionalInformation">Additional Information</label>
+                        <label for="additionalInformation" th:text="#{checkout_inf}">Additional Information</label>
                         <textarea class="form-control" id="additionalInformation"
                                   name="additionalInformation"></textarea>
 
                         <div class="col-12 d-flex shopping-box">
-                            <button th:href="@{/add-order}" type="submit" class="ml-auto btn hvr-hover">Place Order
+                            <button th:href="@{/add-order}" type="submit" class="ml-auto btn hvr-hover" th:text="#{checkout_place_order}">Place Order
                             </button>
                         </div>
                     </div>
