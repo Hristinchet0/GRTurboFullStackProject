@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject;
 
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class GrTurboFullStackProjectApplication implements CommandLineRunner {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    public GrTurboFullStackProjectApplication(UserService userService) {
-        this.userService = userService;
+    public GrTurboFullStackProjectApplication(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
 
@@ -23,6 +23,6 @@ public class GrTurboFullStackProjectApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        userService.init();
+        userServiceImpl.init();
     }
 }

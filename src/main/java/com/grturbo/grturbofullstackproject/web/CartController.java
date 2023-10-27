@@ -3,10 +3,10 @@ package com.grturbo.grturbofullstackproject.web;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.service.CartItemService;
-import com.grturbo.grturbofullstackproject.service.ProductService;
-import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.CartItemServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.ProductServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.ShoppingCartServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,19 +22,19 @@ import java.security.Principal;
 @Controller
 public class CartController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    private final ShoppingCartService shoppingCartService;
+    private final ShoppingCartServiceImpl shoppingCartServiceImpl;
 
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
-    private final CartItemService cartItemService;
+    private final CartItemServiceImpl cartItemServiceImpl;
 
-    public CartController(UserService userService, ShoppingCartService shoppingCartService, ProductService productService, CartItemService cartItemService) {
-        this.userService = userService;
-        this.shoppingCartService = shoppingCartService;
-        this.productService = productService;
-        this.cartItemService = cartItemService;
+    public CartController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl, ProductServiceImpl productServiceImpl, CartItemServiceImpl cartItemServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.shoppingCartServiceImpl = shoppingCartServiceImpl;
+        this.productServiceImpl = productServiceImpl;
+        this.cartItemServiceImpl = cartItemServiceImpl;
     }
 
     @GetMapping("/cart")
@@ -44,7 +44,7 @@ public class CartController {
             return "redirect:/login";
         }
 
-        User user = userService.findByEmail(principal.getName()).get();
+        User user = userServiceImpl.findByEmail(principal.getName()).get();
         ShoppingCart cart = user.getShoppingCart();
 
         if (cart == null) {
@@ -72,11 +72,11 @@ public class CartController {
             return "redirect:/login";
         }
 
-        Product product = productService.getProductByID(productId);
+        Product product = productServiceImpl.getProductByID(productId);
 
-        User user = userService.findByEmail(principal.getName()).get();
+        User user = userServiceImpl.findByEmail(principal.getName()).get();
 
-        ShoppingCart cart = shoppingCartService.addItemToCart(product, quantity, user);
+        ShoppingCart cart = shoppingCartServiceImpl.addItemToCart(product, quantity, user);
         model.addAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
 
         return "redirect:" + request.getHeader("Referer");
@@ -92,9 +92,9 @@ public class CartController {
             return "redirect:/login";
         }
 
-        User user = userService.findByEmail(principal.getName()).get();
-        Product product = productService.getProductByID(productId);
-        ShoppingCart cart = shoppingCartService.updateItemInCart(product, quantity, user);
+        User user = userServiceImpl.findByEmail(principal.getName()).get();
+        Product product = productServiceImpl.getProductByID(productId);
+        ShoppingCart cart = shoppingCartServiceImpl.updateItemInCart(product, quantity, user);
 
         model.addAttribute("shoppingCart", cart);
 
@@ -107,9 +107,9 @@ public class CartController {
             return "redirect:/login";
         }
 
-        User user = userService.findByEmail(principal.getName()).get();
+        User user = userServiceImpl.findByEmail(principal.getName()).get();
 
-        ShoppingCart shoppingCart = shoppingCartService.deleteItemFromCart(id, user);
+        ShoppingCart shoppingCart = shoppingCartServiceImpl.deleteItemFromCart(id, user);
 
         model.addAttribute("shoppingCart", shoppingCart);
 

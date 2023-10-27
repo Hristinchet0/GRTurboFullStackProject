@@ -105,8 +105,12 @@
                         <hr>
                     </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
-                </div>
+                <th:block th:if="${shoppingCart.cartItems.size() > 0}">
+                    <div class="col-12 d-flex shopping-box">
+                        <a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
+                    </div>
+                </th:block>
+
             </div>
         </div>
     </div>

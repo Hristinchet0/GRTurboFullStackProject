@@ -3,8 +3,8 @@ package com.grturbo.grturbofullstackproject.web;
 import com.grturbo.grturbofullstackproject.model.dto.UserUpdateDto;
 import com.grturbo.grturbofullstackproject.model.entity.InvoiceData;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.service.InvoiceDataService;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.InvoiceDataServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +21,15 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    private final InvoiceDataService invoiceDataService;
+    private final InvoiceDataServiceImpl invoiceDataServiceImpl;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, InvoiceDataService invoiceDataService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.invoiceDataService = invoiceDataService;
+    public UserController(UserServiceImpl userServiceImpl, InvoiceDataServiceImpl invoiceDataServiceImpl, PasswordEncoder passwordEncoder) {
+        this.userServiceImpl = userServiceImpl;
+        this.invoiceDataServiceImpl = invoiceDataServiceImpl;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -40,7 +40,7 @@ public class UserController {
 
         } else {
 
-            User user = userService.findByEmail(principal.getName()).get();
+            User user = userServiceImpl.findByEmail(principal.getName()).get();
 
             model.addAttribute("user", user);
             model.addAttribute("title", "Profile");
@@ -67,9 +67,9 @@ public class UserController {
                 return "user-profile";
             }
 
-            userService.update(userUpdateDto);
+            userServiceImpl.update(userUpdateDto);
 
-            UserUpdateDto userUpdate = userService.getUser(principal.getName());
+            UserUpdateDto userUpdate = userServiceImpl.getUser(principal.getName());
 
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
 
@@ -86,7 +86,7 @@ public class UserController {
 
         } else {
 
-            User user = userService.findByEmail(principal.getName()).get();
+            User user = userServiceImpl.findByEmail(principal.getName()).get();
 
             InvoiceData initialInvoiceData = user.getInvoiceData();
 
@@ -108,13 +108,13 @@ public class UserController {
             return "redirect:/login";
         }
 
-        User user = userService.findByEmail(principal.getName()).get();
+        User user = userServiceImpl.findByEmail(principal.getName()).get();
 
         if(invoiceData == null) {
             invoiceData = new InvoiceData();
         }
 
-        invoiceDataService.saveInvoiceData(invoiceData, user);
+        invoiceDataServiceImpl.saveInvoiceData(invoiceData, user);
 
         model.addAttribute("success", "Invoice information updated successfully!");
 
@@ -143,13 +143,13 @@ public class UserController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            UserUpdateDto userUpdate = userService.getUser(principal.getName());
+            UserUpdateDto userUpdate = userServiceImpl.getUser(principal.getName());
             if (passwordEncoder.matches(oldPassword, userUpdate.getPassword())
                     && !passwordEncoder.matches(newPassword, oldPassword)
                     && !passwordEncoder.matches(newPassword, userUpdate.getPassword())
                     && repeatPassword.equals(newPassword) && newPassword.length() >= 5) {
                 userUpdate.setPassword(passwordEncoder.encode(newPassword));
-                userService.changePass(userUpdate);
+                userServiceImpl.changePass(userUpdate);
 
                 attributes.addFlashAttribute("success", "Your password has been changed successfully!");
                 return "redirect:/profile";

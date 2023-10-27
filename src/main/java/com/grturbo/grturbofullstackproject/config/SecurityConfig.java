@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.config;
 
-import com.grturbo.grturbofullstackproject.service.CustomUserDetailService;
+import com.grturbo.grturbofullstackproject.service.impl.CustomUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

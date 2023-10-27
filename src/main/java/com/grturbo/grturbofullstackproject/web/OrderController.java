@@ -4,10 +4,10 @@ import com.grturbo.grturbofullstackproject.model.dto.OrderDetailViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Order;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.service.OrderDetailService;
-import com.grturbo.grturbofullstackproject.service.OrderService;
-import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.OrderDetailServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.OrderServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.ShoppingCartServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.slf4j.Logger;
@@ -27,21 +27,21 @@ import java.util.Set;
 @Controller
 public class OrderController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    private final ShoppingCartService shoppingCartService;
+    private final ShoppingCartServiceImpl shoppingCartServiceImpl;
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderServiceImpl;
 
-    private final OrderDetailService orderDetailService;
+    private final OrderDetailServiceImpl orderDetailServiceImpl;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    public OrderController(UserService userService, ShoppingCartService shoppingCartService, OrderService orderService, OrderDetailService orderDetailService) {
-        this.userService = userService;
-        this.shoppingCartService = shoppingCartService;
-        this.orderService = orderService;
-        this.orderDetailService = orderDetailService;
+    public OrderController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl, OrderServiceImpl orderServiceImpl, OrderDetailServiceImpl orderDetailServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.shoppingCartServiceImpl = shoppingCartServiceImpl;
+        this.orderServiceImpl = orderServiceImpl;
+        this.orderDetailServiceImpl = orderDetailServiceImpl;
     }
 
     @GetMapping("/check-out")
@@ -50,7 +50,7 @@ public class OrderController {
             return "redirect:/login";
         } else {
             String username = principal.getName();
-            User user = userService.findByEmail(principal.getName()).get();
+            User user = userServiceImpl.findByEmail(username).get();
             if (user.getAddress() == null || user.getCity() == null || user.getPhoneNumber() == null) {
                 model.addAttribute("information", "You need update your information before check out");
                 model.addAttribute("user", user);
@@ -59,7 +59,7 @@ public class OrderController {
 
                 return "user-profile";
             } else {
-                ShoppingCart cart = userService.findByEmail(principal.getName()).get().getShoppingCart();
+                ShoppingCart cart = userServiceImpl.findByEmail(principal.getName()).get().getShoppingCart();
                 model.addAttribute("user", user);
                 model.addAttribute("title", "Check-Out");
                 model.addAttribute("page", "Check-Out");
@@ -76,7 +76,7 @@ public class OrderController {
         if(principal == null) {
             return "redirect:/login";
         } else {
-            User user = userService.findByEmail(principal.getName()).get();
+            User user = userServiceImpl.findByEmail(principal.getName()).get();
             Set<Order> orders = user.getOrders();
 
             model.addAttribute("orders", orders);
@@ -98,9 +98,9 @@ public class OrderController {
         if(principal == null) {
             return "redirect:/login";
         } else {
-            User user = userService.findByEmail(principal.getName()).get();
+            User user = userServiceImpl.findByEmail(principal.getName()).get();
             ShoppingCart cart = user.getShoppingCart();
-            Order order = orderService.saveOrder(cart, additionalInformation);
+            Order order = orderServiceImpl.saveOrder(cart, additionalInformation);
 
             session.removeAttribute("totalItems");
             model.addAttribute("order", order);
@@ -124,7 +124,7 @@ public class OrderController {
             return "redirect:/login";
         }
 
-        List<OrderDetailViewDto> orderDetail = orderDetailService.findByOrderId(id);
+        List<OrderDetailViewDto> orderDetail = orderDetailServiceImpl.findByOrderId(id);
 
         model.addAttribute("order", orderDetail);
 

@@ -1,4 +1,4 @@
-package com.grturbo.grturbofullstackproject.service;
+package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.model.entity.CartItem;
 import com.grturbo.grturbofullstackproject.model.entity.Order;
@@ -6,6 +6,7 @@ import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
+import com.grturbo.grturbofullstackproject.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,23 +20,24 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class OrderService {
+public class OrderServiceImpl implements OrderService {
 
-    private final ShoppingCartService shoppingCartService;
+    private final ShoppingCartServiceImpl shoppingCartServiceImpl;
 
     private final OrderRepository orderRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
-    public OrderService(ShoppingCartService shoppingCartService, OrderRepository orderRepository, ProductService productService) {
-        this.shoppingCartService = shoppingCartService;
+    public OrderServiceImpl(ShoppingCartServiceImpl shoppingCartServiceImpl, OrderRepository orderRepository, ProductServiceImpl productServiceImpl) {
+        this.shoppingCartServiceImpl = shoppingCartServiceImpl;
         this.orderRepository = orderRepository;
-        this.productService = productService;
+        this.productServiceImpl = productServiceImpl;
     }
 
     @Transactional
+    @Override
     public Order saveOrder(ShoppingCart shoppingCart, String additionalInformation) {
         Order order = new Order();
 
@@ -55,7 +57,7 @@ public class OrderService {
             orderDetail.setOrder(order);
 
             Long productId = item.getProduct().getId();
-            Product product = productService.getProductByID(productId);
+            Product product = productServiceImpl.getProductByID(productId);
             orderDetail.setProduct(product);
             orderDetail.setQuantity(item.getQuantity());
             orderDetailList.add(orderDetail);
@@ -63,11 +65,12 @@ public class OrderService {
 
         order.setOrderDetailList(orderDetailList);
         shoppingCart.getCartItems().clear();
-        shoppingCartService.deleteCartItemsByShoppingCartId(shoppingCart.getId());
+        shoppingCartServiceImpl.deleteCartItemsByShoppingCartId(shoppingCart.getId());
 
         return orderRepository.save(order);
     }
 
+    @Override
     @Transactional
     public void acceptOrder(Long id) {
         Order order = orderRepository.getById(id);
@@ -76,10 +79,12 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    @Override
     public Order getOrderWithDetails(Long id) {
         return orderRepository.findOrderWithDetails(id);
     }
 
+    @Override
     public void cancelOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
         order.setAccept(false);
@@ -87,16 +92,19 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    @Override
     public List<Order> getOrdersWithDetails() {
         return orderRepository.findAllWithOrderDetails();
     }
 
+    @Override
     public void sendOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
         order.setOrderStatus("SHIPPED");
         orderRepository.save(order);
     }
 
+    @Override
     public List<Order> findShippedOrdersForLastMonth() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
@@ -106,7 +114,8 @@ public class OrderService {
         return orderRepository.findByOrderDateAfterAndOrderStatus(lastMonth, "SHIPPED");
     }
 
-    public double calculateTotalPriceForLastMonth() {
+    @Override
+    public Double calculateTotalPriceForLastMonth() {
         List<Order> shippedOrdersForLastMonth = findShippedOrdersForLastMonth();
 
         return shippedOrdersForLastMonth.stream()
@@ -114,16 +123,8 @@ public class OrderService {
                 .sum();
     }
 
-    public List<Order> findShippedOrdersForLastYear() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -1);
-
-        Date lastYear = calendar.getTime();
-
-        return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, "SHIPPED");
-    }
-
-    public double calculateAnnualEarnings() {
+    @Override
+    public Double calculateAnnualEarnings() {
         List<Order> shippedOrdersForLastYear = findShippedOrdersForLastYear();
 
         return shippedOrdersForLastYear.stream()
@@ -131,7 +132,8 @@ public class OrderService {
                 .sum();
     }
 
-    public long getSentOrdersForCurrentMonth() {
+    @Override
+    public Long getSentOrdersForCurrentMonth() {
         LocalDate startDateTime = LocalDate.now().withDayOfMonth(1);
         LocalDate endDateTime = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
 
@@ -140,13 +142,23 @@ public class OrderService {
         );
     }
 
-    public long getSentOrdersForCurrentYear() {
+    @Override
+    public Long getSentOrdersForCurrentYear() {
         LocalDate startDateTime = LocalDate.now().withDayOfYear(1);
         LocalDate endDateTime = LocalDate.now().withDayOfYear(LocalDate.now().lengthOfYear());
 
         return orderRepository.countByOrderDateBetweenAndOrderStatus(
                 Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), "SHIPPED"
         );
+    }
+
+    private List<Order> findShippedOrdersForLastYear() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+
+        Date lastYear = calendar.getTime();
+
+        return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, "SHIPPED");
     }
 
 }

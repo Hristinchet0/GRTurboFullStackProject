@@ -1,4 +1,4 @@
-package com.grturbo.grturbofullstackproject.service;
+package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.model.entity.CartItem;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
@@ -6,6 +6,7 @@ import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.repositority.CartItemRepository;
 import com.grturbo.grturbofullstackproject.repositority.ShoppingCartRepository;
+import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,23 +16,24 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
-public class ShoppingCartService {
+public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final CartItemRepository cartItemRepository;
 
     private final ShoppingCartRepository shoppingCartRepository;
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     private final EntityManager entityManager;
 
-    public ShoppingCartService(CartItemRepository cartItemRepository, ShoppingCartRepository shoppingCartRepository, UserService userService, EntityManager entityManager) {
+    public ShoppingCartServiceImpl(CartItemRepository cartItemRepository, ShoppingCartRepository shoppingCartRepository, UserServiceImpl userServiceImpl, EntityManager entityManager) {
         this.cartItemRepository = cartItemRepository;
         this.shoppingCartRepository = shoppingCartRepository;
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
         this.entityManager = entityManager;
     }
 
+    @Override
     public ShoppingCart addItemToCart(Product product, int quantity, User user) {
         ShoppingCart cart = user.getShoppingCart();
 
@@ -63,6 +65,7 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
+    @Override
     public ShoppingCart updateItemInCart(Product product, int quantity, User user) {
         ShoppingCart cart = user.getShoppingCart();
 
@@ -82,38 +85,33 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(cart);
     }
 
+    @Override
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = user.getShoppingCart();
 
-        // Fetch the ShoppingCart within the same transaction
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
 
-        // Find the cartItem
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
 
         if (cartItemForDelete != null) {
-            // Remove cartItem
             Set<CartItem> cartItems = managedCart.getCartItems();
             cartItems.remove(cartItemForDelete);
 
-            // Update the managedCart with the modified cartItems and price
             int totalItems = totalItems(cartItems);
             double totalPrice = totalPrice(cartItems);
             managedCart.setTotalItems(totalItems);
             managedCart.setTotalPrice(totalPrice);
 
-            // Merge the changes back to the database
             entityManager.merge(managedCart);
 
-            // You can also explicitly delete the cartItem from the database
             cartItemRepository.delete(cartItemForDelete);
         }
 
         return managedCart;
     }
 
-
+    @Override
     public void deleteCartItemsByShoppingCartId(Long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
         shoppingCart.getCartItems().clear();
@@ -122,6 +120,7 @@ public class ShoppingCartService {
         shoppingCartRepository.save(shoppingCart);
     }
 
+    @Override
     public void deleteAllCartItemsInShoppingCarts() {
         List<ShoppingCart> shoppingCarts = shoppingCartRepository.findAllCartsWithItems();
 

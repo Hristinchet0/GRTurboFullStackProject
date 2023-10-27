@@ -9,13 +9,7 @@ import com.grturbo.grturbofullstackproject.model.entity.Order;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;
-import com.grturbo.grturbofullstackproject.service.CategoryService;
-import com.grturbo.grturbofullstackproject.service.CloudinaryService;
-import com.grturbo.grturbofullstackproject.service.CustomUserDetailService;
-import com.grturbo.grturbofullstackproject.service.OrderService;
-import com.grturbo.grturbofullstackproject.service.ProductService;
-import com.grturbo.grturbofullstackproject.service.RoleService;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -37,36 +30,36 @@ import java.util.Optional;
 @Controller
 public class AdminController {
 
-    private final CategoryService categoryService;
+    private final CategoryServiceImpl categoryServiceImpl;
 
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
     private final CustomUserDetailService customUserDetailService;
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    private final RoleService roleService;
+    private final RoleServiceImpl roleServiceImpl;
 
-    private final CloudinaryService cloudinaryService;
+    private final CloudinaryServiceImpl cloudinaryServiceImpl;
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderServiceImpl;
 
-    public AdminController(CategoryService categoryService, ProductService productService, CustomUserDetailService customUserDetailService, UserService userService, RoleService roleService, CloudinaryService cloudinaryService, OrderService orderService) {
-        this.categoryService = categoryService;
-        this.productService = productService;
+    public AdminController(CategoryServiceImpl categoryServiceImpl, ProductServiceImpl productServiceImpl, CustomUserDetailService customUserDetailService, UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl, CloudinaryServiceImpl cloudinaryServiceImpl, OrderServiceImpl orderServiceImpl) {
+        this.categoryServiceImpl = categoryServiceImpl;
+        this.productServiceImpl = productServiceImpl;
         this.customUserDetailService = customUserDetailService;
-        this.userService = userService;
-        this.roleService = roleService;
-        this.cloudinaryService = cloudinaryService;
-        this.orderService = orderService;
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
+        this.cloudinaryServiceImpl = cloudinaryServiceImpl;
+        this.orderServiceImpl = orderServiceImpl;
     }
 
     @GetMapping("/admin")
     public String adminHome(Model model) {
-        double monthlyEarnings = orderService.calculateTotalPriceForLastMonth();
-        double annualEarnings = orderService.calculateAnnualEarnings();
-        long sentOrdersCount = orderService.getSentOrdersForCurrentMonth();
-        long sentOrdersCountForYear = orderService.getSentOrdersForCurrentYear();
+        Double monthlyEarnings = orderServiceImpl.calculateTotalPriceForLastMonth();
+        Double annualEarnings = orderServiceImpl.calculateAnnualEarnings();
+        Long sentOrdersCount = orderServiceImpl.getSentOrdersForCurrentMonth();
+        Long sentOrdersCountForYear = orderServiceImpl.getSentOrdersForCurrentYear();
 
         model.addAttribute("monthlyEarnings", monthlyEarnings);
         model.addAttribute("annualEarnings", annualEarnings);
@@ -77,22 +70,22 @@ public class AdminController {
 
     @GetMapping("/admin/user")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userServiceImpl.getAllUsers());
         return "admin-user-all";
     }
 
     @GetMapping("/admin/user/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
-        userService.removeUserById(id);
+        userServiceImpl.removeUserById(id);
 
         return "redirect:/admin/user";
     }
 
     @GetMapping("/admin/user/update/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
-        User user = userService.getUserById(id).get();
+        User user = userServiceImpl.getUserById(id).get();
 
-        List<UserRole> listRoles = roleService.listRoles();
+        List<UserRole> listRoles = roleServiceImpl.listRoles();
 
         model.addAttribute("user", user);
         model.addAttribute("roles", listRoles);
@@ -102,7 +95,7 @@ public class AdminController {
 
     @PostMapping("/admin/user/save")
     public String saveUser(User user) {
-        userService.save(user);
+        userServiceImpl.save(user);
 
         return "redirect:/admin/user";
     }
@@ -111,7 +104,7 @@ public class AdminController {
     public String categories(Model model) {
 
         model.addAttribute("title", "Manage Category");
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryServiceImpl.getAllCategory();
         model.addAttribute("categories", categories);
         model.addAttribute("size", categories.size());
         model.addAttribute("categoryNew", new Category());
@@ -121,7 +114,7 @@ public class AdminController {
     @PostMapping("/save-category")
     public String save(@ModelAttribute("categoryNew") CategoryAddDto category, Model model, RedirectAttributes redirectAttributes) {
         try {
-            categoryService.addCategory(category);
+            categoryServiceImpl.addCategory(category);
             model.addAttribute("categoryNew", category);
             redirectAttributes.addFlashAttribute("success", "Add successfully!");
         } catch (DataIntegrityViolationException e1) {
@@ -139,7 +132,7 @@ public class AdminController {
     @RequestMapping(value = "/delete-category", method = {RequestMethod.GET, RequestMethod.PUT})
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
-            categoryService.removeCategoryById(id);
+            categoryServiceImpl.removeCategoryById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
@@ -153,13 +146,13 @@ public class AdminController {
 
     @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
     public Optional<Category> findById(Long id) {
-        return categoryService.findCategoryById(id);
+        return categoryServiceImpl.findCategoryById(id);
     }
 
     @GetMapping("/update-category")
     public String update(CategoryAddDto category, RedirectAttributes redirectAttributes) {
         try {
-            categoryService.addCategory(category);
+            categoryServiceImpl.addCategory(category);
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
@@ -173,7 +166,7 @@ public class AdminController {
 
     @GetMapping("/products")
     public String products(Model model) {
-        List<ProductViewDto> products = productService.findAll();
+        List<ProductViewDto> products = productServiceImpl.findAll();
         model.addAttribute("products", products);
         model.addAttribute("size", products.size());
 
@@ -188,7 +181,7 @@ public class AdminController {
         if (principal == null) {
             return "redirect:/login";
         }
-        Page<ProductViewDto> products = productService.getAllProducts(pageNo, pageSize);
+        Page<ProductViewDto> products = productServiceImpl.getAllProducts(pageNo, pageSize);
         model.addAttribute("title", "Manage Products");
         model.addAttribute("size", products.getSize());
         model.addAttribute("products", products);
@@ -200,7 +193,7 @@ public class AdminController {
     @GetMapping("/add-product")
     public String addProductPage(Model model) {
 
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = categoryServiceImpl.findAll();
         model.addAttribute("title", "Add Product");
         model.addAttribute("categories", categories);
         model.addAttribute("productDto", new ProductAddDto());
@@ -212,7 +205,7 @@ public class AdminController {
     public String saveProduct(@ModelAttribute("productDto") ProductAddDto product,
                               RedirectAttributes redirectAttributes) {
         try {
-            productService.addProduct(product);
+            productServiceImpl.addProduct(product);
             redirectAttributes.addFlashAttribute("success", "Add new product successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -224,7 +217,7 @@ public class AdminController {
     @RequestMapping(value = "/delete-product", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deletedProduct(Long id, RedirectAttributes redirectAttributes) {
         try {
-            productService.removeProductById(id);
+            productServiceImpl.removeProductById(id);
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,8 +228,8 @@ public class AdminController {
 
     @GetMapping("/update-product/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
-        List<Category> categories = categoryService.findAll();
-        Product product = productService.getProductById(id).get();
+        List<Category> categories = categoryServiceImpl.findAll();
+        Product product = productServiceImpl.getProductById(id).get();
         ProductEditDto productEditDto = new ProductEditDto();
         productEditDto.setId(product.getId());
         productEditDto.setName(product.getName());
@@ -257,7 +250,7 @@ public class AdminController {
                                 RedirectAttributes redirectAttributes) {
         try {
 
-            productService.saveProduct(productDto, product);
+            productServiceImpl.saveProduct(productDto, product);
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -275,7 +268,7 @@ public class AdminController {
             return "redirect:/login";
         }
 
-        Page<ProductViewDto> products = productService.searchProducts(pageNo, keyword);
+        Page<ProductViewDto> products = productServiceImpl.searchProducts(pageNo, keyword);
         model.addAttribute("title", "Result Search Products");
         model.addAttribute("size", products.getSize());
         model.addAttribute("products", products);
@@ -290,7 +283,7 @@ public class AdminController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            List<Order> orders = orderService.getOrdersWithDetails();
+            List<Order> orders = orderServiceImpl.getOrdersWithDetails();
 
             model.addAttribute("orders", orders);
             return "admin-user-orders";
@@ -302,7 +295,7 @@ public class AdminController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            orderService.acceptOrder(id);
+            orderServiceImpl.acceptOrder(id);
             attributes.addFlashAttribute("success", "Order Accepted");
             return "redirect:/user-orders";
         }
@@ -314,7 +307,7 @@ public class AdminController {
             return "redirect:/login";
         }
 
-        Order order = orderService.getOrderWithDetails(orderId);
+        Order order = orderServiceImpl.getOrderWithDetails(orderId);
         model.addAttribute("order", order);
 
         return "admin-user-order-details";
@@ -328,13 +321,13 @@ public class AdminController {
 
     @PostMapping("/cancel-order")
     public String cancelOrder(@RequestParam Long id, Model model) {
-        orderService.cancelOrder(id);
+        orderServiceImpl.cancelOrder(id);
         return "redirect:/user-orders";
     }
 
     @PostMapping("/send-order")
     public String shippingConfirmation(@RequestParam Long id, Model model) {
-        orderService.sendOrder(id);
+        orderServiceImpl.sendOrder(id);
         return "redirect:/user-orders";
     }
 }

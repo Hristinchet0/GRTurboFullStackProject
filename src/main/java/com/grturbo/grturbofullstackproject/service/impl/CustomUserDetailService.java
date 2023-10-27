@@ -1,4 +1,4 @@
-package com.grturbo.grturbofullstackproject.service;
+package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.entity.UserRole;

@@ -1,7 +1,7 @@
 package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
-import com.grturbo.grturbofullstackproject.service.UserService;
+import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    public LoginController(UserService userService) {
-        this.userService = userService;
+    public LoginController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping("/login")
@@ -45,7 +45,7 @@ public class LoginController {
             return "redirect:/login";
         }
 
-        userService.registerAndLogin(userModel);
+        userServiceImpl.registerAndLogin(userModel);
 
         return "redirect:/";
     }

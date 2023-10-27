@@ -1,20 +1,22 @@
-package com.grturbo.grturbofullstackproject.service;
+package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.model.entity.InvoiceData;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.repositority.InvoiceDataRepository;
+import com.grturbo.grturbofullstackproject.service.InvoiceDataService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InvoiceDataService {
+public class InvoiceDataServiceImpl implements InvoiceDataService {
 
     private final InvoiceDataRepository invoiceDataRepository;
 
-    public InvoiceDataService(InvoiceDataRepository invoiceDataRepository) {
+    public InvoiceDataServiceImpl(InvoiceDataRepository invoiceDataRepository) {
         this.invoiceDataRepository = invoiceDataRepository;
     }
 
-    public InvoiceData saveInvoiceData(InvoiceData data, User user) {
+    @Override
+    public void saveInvoiceData(InvoiceData data, User user) {
 
         InvoiceData invoiceData = user.getInvoiceData();
 
@@ -31,6 +33,6 @@ public class InvoiceDataService {
         invoiceData.setIdentificationNumberUIC(data.getIdentificationNumberUIC());
         invoiceData.setCustomer(user);
 
-        return invoiceDataRepository.save(invoiceData);
+        invoiceDataRepository.save(invoiceData);
     }
 }

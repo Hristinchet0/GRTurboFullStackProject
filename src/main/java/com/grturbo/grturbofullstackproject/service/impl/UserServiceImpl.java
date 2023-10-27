@@ -1,4 +1,4 @@
-package com.grturbo.grturbofullstackproject.service;
+package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.model.dto.UserDto;
@@ -10,6 +10,7 @@ import com.grturbo.grturbofullstackproject.model.enums.RoleEnum;
 import com.grturbo.grturbofullstackproject.model.mapper.UserMapper;
 import com.grturbo.grturbofullstackproject.repositority.UserRoleRepository;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
+import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -39,7 +40,7 @@ public class UserService {
     @Value("${app.admin.password}")
     public String adminPassword;
 
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.userDetailsService = userDetailsService;
@@ -47,6 +48,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    @Override
     public void init() {
         if(userRoleRepository.count() == 0 && userRepository.count() == 0) {
             UserRole roleAdmin = new UserRole();
@@ -76,7 +78,8 @@ public class UserService {
         }
     }
 
-    public UserDetails registerAndLogin(UserRegisterDto userRegisterDto) {
+    @Override
+    public void registerAndLogin(UserRegisterDto userRegisterDto) {
 
         User newUser = userMapper.userDtoToUserEntity(userRegisterDto);
         newUser.setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
@@ -84,8 +87,90 @@ public class UserService {
 
         userRepository.save(newUser);
 
-        return login(newUser.getUsername());
+        login(newUser.getUsername());
 
+    }
+
+    @Override
+    public void removeUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() {
+        List<UserDto> users = new ArrayList<>();
+        for (User user : userRepository
+                .findAll()) {
+            UserDto userDto = userMapper.userEntityToUserDto(user);
+            users.add(userDto);
+        }
+        return users;
+    }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String name) {
+        return userRepository.findUserByEmail(name);
+    }
+
+    @Override
+    public User saveProfile(User user) {
+        User updatedUser = userRepository.findByEmail(user.getEmail());
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setPhoneNumber(user.getPhoneNumber());
+        updatedUser.setAddress(user.getAddress());
+        updatedUser.setCity(user.getCity());
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public UserUpdateDto getUser(String userEmail) {
+        UserUpdateDto userUpdateDto = new UserUpdateDto();
+
+        User user = userRepository.findByEmail(userEmail);
+
+        userUpdateDto.setFirstName(user.getFirstName());
+        userUpdateDto.setLastName(user.getLastName());
+        userUpdateDto.setPhoneNumber(user.getPhoneNumber());
+        userUpdateDto.setUsername(user.getUsername());
+        userUpdateDto.setAddress(user.getAddress());
+        userUpdateDto.setCity(user.getCity());
+        userUpdateDto.setEmail(user.getEmail());
+        userUpdateDto.setPassword(user.getPassword());
+
+        return userUpdateDto;
+    }
+
+    @Override
+    public User update(UserUpdateDto userUpdateDto) {
+        User user = userRepository.findByEmail(userUpdateDto.getEmail());
+
+        user.setFirstName(userUpdateDto.getFirstName());
+        user.setLastName(userUpdateDto.getLastName());
+        user.setAddress(userUpdateDto.getAddress());
+        user.setCity(userUpdateDto.getCity());
+        user.setPhoneNumber(userUpdateDto.getPhoneNumber());
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void changePass(UserUpdateDto userUpdate) {
+        User user = userRepository.findByEmail(userUpdate.getEmail());
+        user.setPassword(userUpdate.getPassword());
+        userRepository.save(user);
     }
 
     private CustomUserDetail login(String userName) {
@@ -104,78 +189,5 @@ public class UserService {
 
         return (CustomUserDetail) authentication.getPrincipal();
 
-    }
-
-    public void removeUserById(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public List<UserDto> getAllUsers() {
-        List<UserDto> users = new ArrayList<>();
-        for (User user : userRepository
-                .findAll()) {
-            UserDto userDto = userMapper.userEntityToUserDto(user);
-            users.add(userDto);
-        }
-        return users;
-    }
-
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    public void save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
-    public Optional<User> findByEmail(String name) {
-        return userRepository.findUserByEmail(name);
-    }
-
-    public User saveProfile(User user) {
-        User updatedUser = userRepository.findByEmail(user.getEmail());
-        updatedUser.setFirstName(user.getFirstName());
-        updatedUser.setLastName(user.getLastName());
-        updatedUser.setPhoneNumber(user.getPhoneNumber());
-        updatedUser.setAddress(user.getAddress());
-        updatedUser.setCity(user.getCity());
-
-        return userRepository.save(user);
-    }
-
-    public UserUpdateDto getUser(String userEmail) {
-        UserUpdateDto userUpdateDto = new UserUpdateDto();
-
-        User user = userRepository.findByEmail(userEmail);
-
-        userUpdateDto.setFirstName(user.getFirstName());
-        userUpdateDto.setLastName(user.getLastName());
-        userUpdateDto.setPhoneNumber(user.getPhoneNumber());
-        userUpdateDto.setUsername(user.getUsername());
-        userUpdateDto.setAddress(user.getAddress());
-        userUpdateDto.setCity(user.getCity());
-        userUpdateDto.setEmail(user.getEmail());
-        userUpdateDto.setPassword(user.getPassword());
-
-        return userUpdateDto;
-    }
-
-    public User update(UserUpdateDto userUpdateDto) {
-        User user = userRepository.findByEmail(userUpdateDto.getEmail());
-
-        user.setFirstName(userUpdateDto.getFirstName());
-        user.setLastName(userUpdateDto.getLastName());
-        user.setAddress(userUpdateDto.getAddress());
-        user.setCity(userUpdateDto.getCity());
-        user.setPhoneNumber(userUpdateDto.getPhoneNumber());
-
-        return userRepository.save(user);
-    }
-
-    public User changePass(UserUpdateDto userUpdate) {
-        User user = userRepository.findByEmail(userUpdate.getEmail());
-        user.setPassword(userUpdate.getPassword());
-        return userRepository.save(user);
     }
 }
