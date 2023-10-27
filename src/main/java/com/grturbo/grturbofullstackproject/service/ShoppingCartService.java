@@ -85,21 +85,34 @@ public class ShoppingCartService {
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = user.getShoppingCart();
+
+        // Fetch the ShoppingCart within the same transaction
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
 
+        // Find the cartItem
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
 
-        Set<CartItem> cartItems = managedCart.getCartItems();
-        cartItems.remove(cartItemForDelete);
-        int totalItems = totalItems(cartItems);
-        double totalPrice = totalPrice(cartItems);
-        managedCart.setTotalItems(totalItems);
-        managedCart.setTotalPrice(totalPrice);
+        if (cartItemForDelete != null) {
+            // Remove cartItem
+            Set<CartItem> cartItems = managedCart.getCartItems();
+            cartItems.remove(cartItemForDelete);
 
-        entityManager.merge(managedCart);
+            // Update the managedCart with the modified cartItems and price
+            int totalItems = totalItems(cartItems);
+            double totalPrice = totalPrice(cartItems);
+            managedCart.setTotalItems(totalItems);
+            managedCart.setTotalPrice(totalPrice);
+
+            // Merge the changes back to the database
+            entityManager.merge(managedCart);
+
+            // You can also explicitly delete the cartItem from the database
+            cartItemRepository.delete(cartItemForDelete);
+        }
 
         return managedCart;
     }
+
 
     public void deleteCartItemsByShoppingCartId(Long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
