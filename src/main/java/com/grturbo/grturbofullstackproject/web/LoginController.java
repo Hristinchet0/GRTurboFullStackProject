@@ -23,7 +23,6 @@ public class LoginController {
         return "login";
     }
 
-
     @GetMapping("/register")
     public String registerGet() {
         return "register";
@@ -48,12 +47,6 @@ public class LoginController {
 
         userService.registerAndLogin(userModel);
 
-
         return "redirect:/";
     }
-
-
-
-
-
 }

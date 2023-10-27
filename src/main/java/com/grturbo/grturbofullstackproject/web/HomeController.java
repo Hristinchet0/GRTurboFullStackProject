@@ -32,6 +32,7 @@ public class HomeController {
         }else{
             session.removeAttribute("username");
         }
+
         return "index";
     }
 

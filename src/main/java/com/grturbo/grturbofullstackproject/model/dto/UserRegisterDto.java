@@ -27,13 +27,11 @@ public class UserRegisterDto {
     @UniqueUsername
     private String username;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank(message = "First name cannot be empty")
     @Size(min = 3, max = 20, message = "First name length must be between 3 and 20 characters.")
     private String firstName;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank(message = "Last name cannot be empty")
     @Size(min = 3, max = 20, message = "Last name length must be between 3 and 20 characters.")
     private String lastName;
 

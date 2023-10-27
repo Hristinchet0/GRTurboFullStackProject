@@ -1,8 +1,17 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,8 +27,10 @@ public class ShoppingCart {
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private User customer;
 
+    @Column(name = "total_price")
     private Double totalPrice;
 
+    @Column(name = "total_items")
     private Integer totalItems;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shoppingCart", orphanRemoval = true)
@@ -69,19 +80,6 @@ public class ShoppingCart {
 
     public void setCartItems(Set<CartItem> cartItems) {
         this.cartItems = cartItems;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ShoppingCart that = (ShoppingCart) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
 }

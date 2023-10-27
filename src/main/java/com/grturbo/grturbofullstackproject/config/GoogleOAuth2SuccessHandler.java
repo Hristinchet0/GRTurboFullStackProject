@@ -21,7 +21,9 @@ import java.util.Collections;
 public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserRoleRepository roleRepository;
+
     private final UserRepository userRepository;
+
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     public GoogleOAuth2SuccessHandler(UserRoleRepository roleRepository, UserRepository userRepository) {

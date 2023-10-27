@@ -71,6 +71,7 @@ public class ShopController {
     public String searchProduct(Model model) {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("noResultsMessage", "No results found");
+
         return "shop-search";
     }
 

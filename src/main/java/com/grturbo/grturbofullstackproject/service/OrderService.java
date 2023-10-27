@@ -64,11 +64,8 @@ public class OrderService {
         order.setOrderDetailList(orderDetailList);
         shoppingCart.getCartItems().clear();
         shoppingCartService.deleteCartItemsByShoppingCartId(shoppingCart.getId());
-        return orderRepository.save(order);
-    }
 
-    public List<Order> findALlOrders() {
-        return orderRepository.findAll();
+        return orderRepository.save(order);
     }
 
     @Transactional
@@ -91,8 +88,7 @@ public class OrderService {
     }
 
     public List<Order> getOrdersWithDetails() {
-        List<Order> orders = orderRepository.findAllWithOrderDetails();
-        return orders;
+        return orderRepository.findAllWithOrderDetails();
     }
 
     public void sendOrder(Long id) {
@@ -130,11 +126,9 @@ public class OrderService {
     public double calculateAnnualEarnings() {
         List<Order> shippedOrdersForLastYear = findShippedOrdersForLastYear();
 
-        double annualEarnings = shippedOrdersForLastYear.stream()
+        return shippedOrdersForLastYear.stream()
                 .mapToDouble(Order::getTotalPrice)
                 .sum();
-
-        return annualEarnings;
     }
 
     public long getSentOrdersForCurrentMonth() {

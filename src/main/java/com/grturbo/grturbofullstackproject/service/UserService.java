@@ -129,10 +129,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findByUsername(String name) {
-        return userRepository.findByUsername(name).orElse(null);
-    }
-
     public Optional<User> findByEmail(String name) {
         return userRepository.findUserByEmail(name);
     }

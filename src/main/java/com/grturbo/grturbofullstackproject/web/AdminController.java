@@ -1,13 +1,33 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.model.dto.*;
-import com.grturbo.grturbofullstackproject.model.entity.*;
-import com.grturbo.grturbofullstackproject.service.*;
+import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
+import com.grturbo.grturbofullstackproject.model.entity.Category;
+import com.grturbo.grturbofullstackproject.model.entity.Order;
+import com.grturbo.grturbofullstackproject.model.entity.Product;
+import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.model.entity.UserRole;
+import com.grturbo.grturbofullstackproject.service.CategoryService;
+import com.grturbo.grturbofullstackproject.service.CloudinaryService;
+import com.grturbo.grturbofullstackproject.service.CustomUserDetailService;
+import com.grturbo.grturbofullstackproject.service.OrderService;
+import com.grturbo.grturbofullstackproject.service.ProductService;
+import com.grturbo.grturbofullstackproject.service.RoleService;
+import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -132,7 +152,6 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
-    @ResponseBody
     public Optional<Category> findById(Long id) {
         return categoryService.findCategoryById(id);
     }
@@ -201,7 +220,6 @@ public class AdminController {
         }
         return "redirect:/products/0";
     }
-
 
     @RequestMapping(value = "/delete-product", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deletedProduct(Long id, RedirectAttributes redirectAttributes) {
@@ -319,6 +337,4 @@ public class AdminController {
         orderService.sendOrder(id);
         return "redirect:/user-orders";
     }
-
-
 }

@@ -9,7 +9,10 @@ import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -76,7 +79,6 @@ public class CartController {
         ShoppingCart cart = shoppingCartService.addItemToCart(product, quantity, user);
         model.addAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
 
-
         return "redirect:" + request.getHeader("Referer");
     }
 
@@ -113,6 +115,4 @@ public class CartController {
 
         return "redirect:/cart";
     }
-
-
 }

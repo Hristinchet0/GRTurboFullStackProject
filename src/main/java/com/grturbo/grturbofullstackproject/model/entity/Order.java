@@ -25,18 +25,25 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    @Column(name = "order_date")
     private Date orderDate;
 
+    @Column(name = "order_status")
     private String orderStatus;
 
+    @Column(name = "total_price")
     private double totalPrice;
 
+    @Column(name = "tax")
     private double tax;
 
+    @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Column(name = "is_accept")
     private boolean isAccept;
 
     @Column(name = "additional_information", columnDefinition = "TEXT")

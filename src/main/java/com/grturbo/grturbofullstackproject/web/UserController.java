@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.security.Principal;
 
-
 @Controller
 public class UserController {
 
@@ -130,6 +129,7 @@ public class UserController {
         }
         model.addAttribute("title", "Change password");
         model.addAttribute("page", "Change password");
+
         return "change-password";
     }
 
@@ -150,14 +150,14 @@ public class UserController {
                     && repeatPassword.equals(newPassword) && newPassword.length() >= 5) {
                 userUpdate.setPassword(passwordEncoder.encode(newPassword));
                 userService.changePass(userUpdate);
+
                 attributes.addFlashAttribute("success", "Your password has been changed successfully!");
                 return "redirect:/profile";
             } else {
                 model.addAttribute("message", "Your password is wrong");
+
                 return "change-password";
             }
         }
     }
-
-
 }

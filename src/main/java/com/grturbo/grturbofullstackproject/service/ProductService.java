@@ -76,7 +76,6 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-
     public void saveProduct(ProductEditDto productEditDto, Product product) throws IOException {
 
         MultipartFile img = productEditDto.getImg();
@@ -100,7 +99,6 @@ public class ProductService {
     }
 
     public Page<ProductDetailDto> getAllProducts(Pageable pageable) {
-
         return productRepository
                 .findAll(pageable)
                 .map(product -> {
@@ -114,7 +112,6 @@ public class ProductService {
     }
 
     public Page<ProductDetailDto> getAllProductsByCategoryId(Long id, Pageable pageable) {
-
         return productRepository.findByCategoryId(id, pageable)
                 .map(product -> {
                     ProductDetailDto productDetailDto = modelMapper.map(product, ProductDetailDto.class);
@@ -127,7 +124,6 @@ public class ProductService {
                 });
 
     }
-
 
     public Page<ProductViewDto> getAllProducts(int pageNo, int pageSize) {
         List<ProductViewDto> productDtoList = findAll();
@@ -145,6 +141,7 @@ public class ProductService {
         }
 
         List<ProductViewDto> subList = list.subList(start, end);
+
         return new PageImpl<>(subList, pageable, list.size());
     }
 
@@ -153,9 +150,7 @@ public class ProductService {
     }
 
     public List<ProductRecentDto> findRecentProducts(int count) {
-        List<ProductRecentDto> recentProducts = productRepository.findRecentProducts(PageRequest.of(0, count, Sort.by("id").descending()));
-
-        return recentProducts;
+        return productRepository.findRecentProducts(PageRequest.of(0, count, Sort.by("id").descending()));
     }
 
     public Page<ProductViewDto> searchProducts(int pageNo, String keyword) {
@@ -172,7 +167,6 @@ public class ProductService {
         })
                 .collect(Collectors.toList());
         Pageable pageable = PageRequest.of(pageNo, 5);
-        Page<ProductViewDto> dtoPage = toPage(productDtoList, pageable);
-        return dtoPage;
+        return toPage(productDtoList, pageable);
     }
 }

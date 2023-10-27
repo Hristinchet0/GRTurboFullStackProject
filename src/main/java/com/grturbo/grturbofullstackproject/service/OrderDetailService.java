@@ -15,7 +15,6 @@ public class OrderDetailService {
         this.orderDetailRepository = orderDetailRepository;
     }
 
-
     public List<OrderDetailViewDto> findByOrderId(Long id) {
         return orderDetailRepository.findByOrderId(id);
     }

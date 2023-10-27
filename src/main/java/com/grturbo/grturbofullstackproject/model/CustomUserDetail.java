@@ -29,16 +29,6 @@ public class CustomUserDetail implements UserDetails {
         this.authorities = authorities;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        List<GrantedAuthority> authorityList = new ArrayList<>();
-//        super.getRoles().forEach(role -> {
-//            authorityList.add(new SimpleGrantedAuthority(role.getRoleName()));
-//        });
-//        return authorityList;
-//    }
-
-
     public Long getId() {
         return id;
     }

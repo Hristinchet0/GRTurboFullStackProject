@@ -16,23 +16,27 @@ public class Product {
 
     @NotEmpty
     @NotNull
+    @Column(name = "brand")
     private String brand;
 
     @NotEmpty
     @NotNull
+    @Column(name = "name")
     private String name;
 
     @NotEmpty
     @NotNull
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @NotNull
     @Positive
+    @Column(name = "price")
     private Double price;
 
     @NotEmpty
     @NotNull
+    @Column(name = "img_url")
     private String imgUrl;
 
     @ManyToOne(fetch = FetchType.EAGER)

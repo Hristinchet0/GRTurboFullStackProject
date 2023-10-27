@@ -15,10 +15,4 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     CartItem findByIdAndShoppingCart_Id(Long cartItemId, Long cartId);
 
-    @Modifying
-    @Query("DELETE FROM CartItem c " +
-            "WHERE c.id = :id")
-    void deleteCartItemById(Long id);
-
-    Set<CartItem> findByShoppingCart_Id(Long shoppingCartId);
 }

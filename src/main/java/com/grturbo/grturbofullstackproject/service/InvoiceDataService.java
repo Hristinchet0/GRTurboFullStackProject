@@ -30,6 +30,7 @@ public class InvoiceDataService {
         invoiceData.setRegisteredAddress(data.getRegisteredAddress());
         invoiceData.setIdentificationNumberUIC(data.getIdentificationNumberUIC());
         invoiceData.setCustomer(user);
+
         return invoiceDataRepository.save(invoiceData);
     }
 }

@@ -2,7 +2,6 @@ package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.OrderDetailViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Order;
-import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.OrderDetailService;
@@ -11,9 +10,14 @@ import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -52,6 +56,7 @@ public class OrderController {
                 model.addAttribute("user", user);
                 model.addAttribute("title", "Profile");
                 model.addAttribute("page", "Profile");
+
                 return "user-profile";
             } else {
                 ShoppingCart cart = userService.findByEmail(principal.getName()).get().getShoppingCart();
@@ -60,6 +65,7 @@ public class OrderController {
                 model.addAttribute("page", "Check-Out");
                 model.addAttribute("shoppingCart", cart);
                 model.addAttribute("grandTotal", cart.getTotalItems());
+
                 return "checkout";
             }
         }
@@ -125,7 +131,4 @@ public class OrderController {
         return "order-detail";
 
     }
-
-
-
 }

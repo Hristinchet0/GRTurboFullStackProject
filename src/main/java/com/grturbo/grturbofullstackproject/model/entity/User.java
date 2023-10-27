@@ -1,6 +1,16 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -18,28 +28,32 @@ public class User {
     private Long id;
 
     @NotEmpty
-    @Column(nullable = false, unique = true)
     @Email
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "username")
     private String username;
 
     @NotEmpty
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotEmpty
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @NotEmpty
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "city")
     private String city;
 
+    @Column(name = "address")
     private String address;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
@@ -47,7 +61,6 @@ public class User {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
-
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<UserRole> roles = new ArrayList<>();
