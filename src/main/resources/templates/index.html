@@ -10,7 +10,6 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js"><!--<![endif]-->
 
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="GR TURBO e-commerce">
@@ -19,7 +18,6 @@
 
     <title>GR Turbo</title>
 
-    <!-- Mobile Specific Meta-->
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -39,14 +37,7 @@
 </head>
 
 <body id="body">
-
-<!-- Header Start -->
-<!-- header Nav Start -->
 <div th:replace="fragments/navbar">Navbar</div>
-
-<!-- header close -->
-
-<!-- Slider Start -->
 <section class="slider">
     <div class="container">
         <div class="row">
@@ -70,7 +61,6 @@
     </div>
 </section>
 
-<!-- Wrapper Start -->
 <section class="about section">
     <div class="container">
         <div class="row">
@@ -91,7 +81,7 @@
                 <div class="block">
                     <img src="/images/Turbocharger2.jpg" th:src="@{/images/Turbocharger2.jpg}" alt="Img">
                 </div>
-            </div><!-- .col-md-5 close -->
+            </div>
         </div>
     </div>
 </section>
@@ -119,7 +109,6 @@
     </div>
 </section>
 
-<!-- Service Start -->
 <section class="service">
     <div class="container">
         <div class="row justify-content-center">
@@ -237,7 +226,6 @@
     </div>
     </div>
 </section>
-<!-- Call to action Start -->
 
 <section class="call-to-action bg-1 section-sm overly">
     <div class="container">
@@ -315,14 +303,12 @@
                         manufacturer. The stand counts the fatigue of the actuator, worn connections between the bearing
                         body and variable geometry, and at the same time shows in real terms what adjustments are to be
                         made for the correct adjustment.</p>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Content Start -->
 <section class="testimonial">
     <div class="container">
         <div class="row">
@@ -354,12 +340,7 @@
                     <div class="swiper-slide"><img src="/images/brands/melett.png"></div>
                     <div class="swiper-slide"><img src="/images/brands/mitsubishi.png"></div>
                     <div class="swiper-slide"><img src="/images/brands/schwitzer.png"></div>
-                    ...
                 </div>
-                <!--                    &lt;!&ndash; If we need pagination &ndash;&gt;-->
-                <!--                    <div class="swiper-pagination"></div>-->
-
-                <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
 
@@ -369,11 +350,9 @@
     </div>
 </section>
 
-<!-- footer Start -->
 <div th:replace="fragments/footer">Footer</div>
 
 <div th:replace="fragments/scripts"></div>
-
 
 </body>
 </html>

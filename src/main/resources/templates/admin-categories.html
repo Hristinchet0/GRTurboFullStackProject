@@ -2,25 +2,11 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="~{fragments/fragments::header}"></head>
 <body id="page-top">
-
-<!-- Page Wrapper -->
 <div id="wrapper">
-
-    <!--Sidebar-->
     <ul th:replace="~{fragments/fragments::sidebar}"></ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
         <div id="content">
-
-            <!-- Topbar -->
             <nav th:replace="~{fragments/fragments::top-navbar}"></nav>
-            <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddCategoryModal"
                     data-whatever="@mdo">Add new category
             </button>
@@ -59,24 +45,12 @@
                 </tr>
                 </tbody>
             </table>
-
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
             <footer th:replace="~{fragments/fragments::footer}"></footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
 </div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
 <a th:replace="~{fragments/fragments::scroll}"></a>
 
-<!--Add Categories Modal-->
 <div class="modal fade" id="exampleAddCategoryModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleAddCategoryModalLabel"
      aria-hidden="true">
@@ -101,9 +75,6 @@
     </div>
 </div>
 
-<!--End-->
-
-<!-- Edit Category Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -127,8 +98,6 @@
         </div>
     </div>
 </div>
-<!-- End -->
-<!-- Bootstrap core JavaScript-->
 <div th:replace="~{fragments/fragments::script}"></div>
 
 <script th:src="@{/js/categories.js}"></script>

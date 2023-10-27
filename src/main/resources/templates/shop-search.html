@@ -13,13 +13,9 @@
     <title>GR Turbo Shop</title>
 
     <link rel="stylesheet" href="nav.css" th:href="@{/css/nav.css}">
-
 </head>
 <body>
-
-
 <div th:replace="fragments/navbar">Navbar</div>
-
 <div class="container" style="margin-top: 30px;margin-bottom: 17vh;">
     <div class="row">
         <div class="col-sm-3">
@@ -33,7 +29,6 @@
                     <li
                             class="list-group-item" th:text="${category.name}"></li>
                 </a>
-
             </ul>
         </div>
         <div class="col-sm-9">
@@ -70,7 +65,6 @@
 </div>
 
 <div th:replace="fragments/footer">Footer</div>
-
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

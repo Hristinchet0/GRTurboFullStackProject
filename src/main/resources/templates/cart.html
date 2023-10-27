@@ -13,11 +13,8 @@
     <title>GR Turbo Cart</title>
 </head>
 <body>
-
-
 <div th:replace="fragments/navbar">Navbar</div>
 <main>
-    <!-- Start Cart  -->
     <div class="cart-box-main">
         <div class="container">
             <div class="row">
@@ -79,7 +76,6 @@
                                     <td>
                                         <a href="" th:href="@{/cart/delete/product/{id}(id=${cartItem.id})}" class="btn btn-danger" th:text="#{cart_delete}">Delete</a>
                                     </td>
-
                             </tr>
                             </tbody>
                         </table>
@@ -112,12 +108,10 @@
                 <div class="col-12 d-flex shopping-box"><a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
                 </div>
             </div>
-
         </div>
     </div>
-    <!-- End Cart -->
 </main>
-<!--Main layout-->
+
 <div th:replace="fragments/scripts"></div>
 
 </body>

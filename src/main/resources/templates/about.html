@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Mobile Specific Meta-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" >
@@ -26,11 +24,8 @@
 <div th:replace="fragments/navbar">Navbar</div>
     <div class="photos">
         <h2 th:text="#{about_h2}">About Us</h2>
-        <!-- Slider main container -->
         <div class="swiper">
-            <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
-                <!-- Slides -->
                 <div class="swiper-slide"><img
                         src="/images/aboutusphotos/326810909_1244808979782878_4037045506643223432_n.jpg">
                 </div>
@@ -40,15 +35,9 @@
                         src="/images/aboutusphotos/h02.jpg"></div>
                 <div class="swiper-slide"><img
                         src="/images/aboutusphotos/h03.jpg"></div>
-                
             </div>
-            <!--                    &lt;!&ndash; If we need pagination &ndash;&gt;-->
-            <!--                    <div class="swiper-pagination"></div>-->
-
-            <!-- If we need navigation buttons -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-
         </div>
     </div>
     <section>
@@ -168,9 +157,6 @@
             </p>
                 </div>
             </div>
-
-
-
         </div>
     </section>
 
@@ -179,8 +165,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="/GrTurboWebProject/src/main/resources/static/js/swiper-slide.js"
         th:src="@{/js/swiper-slide.js}"></script>
+
 <div th:replace="fragments/scripts"></div>
 
 </body>
-
 </html>

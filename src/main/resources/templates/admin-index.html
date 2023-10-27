@@ -1,45 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head th:replace = "~{/fragments/fragments::header}">
-</head>
-
+<head th:replace = "~{/fragments/fragments::header}"></head>
 <body id="page-top">
-
-<!-- Page Wrapper -->
 <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace = "~{/fragments/fragments::sidebar}">
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
+    <ul th:replace = "~{/fragments/fragments::sidebar}"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
         <div id="content">
-
-            <!-- Topbar -->
-            <nav  th:replace = "~{/fragments/fragments::top-navbar}">
-            </nav>
-            <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
+            <nav  th:replace = "~{/fragments/fragments::top-navbar}"></nav>
             <div class="container-fluid">
-
-                <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
 
-                <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -57,7 +33,6 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
@@ -75,7 +50,6 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
@@ -97,7 +71,6 @@
                         </div>
                     </div>
 
-                    <!-- Pending Requests Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
@@ -120,14 +93,9 @@
                     </div>
                 </div>
 
-                <!-- Content Row -->
-
                 <div class="row">
-
-                    <!-- Area Chart -->
                     <div class="col-xl-8 col-lg-7">
                         <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
@@ -155,10 +123,8 @@
                         </div>
                     </div>
 
-                    <!-- Pie Chart -->
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
@@ -177,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Card Body -->
+
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2">
                                     <canvas id="myPieChart"></canvas>
@@ -197,33 +163,18 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
         <footer th:replace = "~{/fragments/fragments::footer}"></footer>
-        <!-- End of Footer -->
-
     </div>
-    <!-- End of Content Wrapper -->
-
 </div>
-<!-- End of Page Wrapper -->
 
-<!-- Scroll to Top Button-->
 <a th:replace = "~{/fragments/fragments::scroll}" >
 </a>
 <div th:replace = "~{/fragments/fragments::script}"></div>
-<!-- Page level plugins -->
+
 <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 
-<!-- Page level custom scripts -->
 <script th:src="@{/js/demo/chart-area-demo.js}"></script>
 <script th:src="@{/js/demo/chart-pie-demo.js}"></script>
 

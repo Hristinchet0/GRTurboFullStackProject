@@ -1,32 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th = "https://www.thymeleaf.org/">
-
-<head th:replace = "~{/fragments/fragments::header}">
-
-</head>
-
+<head th:replace = "~{/fragments/fragments::header}"></head>
 <body id="page-top">
-
-<!-- Page Wrapper -->
 <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul th:replace = "~{/fragments/fragments::sidebar}">
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
+    <ul th:replace = "~{/fragments/fragments::sidebar}"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
         <div id="content">
-
-            <!-- Topbar -->
-            <nav th:replace = "~{/fragments/fragments::top-navbar}">
-            </nav>
-            <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
+            <nav th:replace = "~{/fragments/fragments::top-navbar}"></nav>
             <div class="container-fluid">
                 <div class="input-group" style="width: 30%; margin-bottom: 20px;">
                     <form th:action = "@{/search-products/0}" th:method = "get">
@@ -75,9 +55,6 @@
                     </tr>
                     </tbody>
                 </table>
-
-
-                <!--Pagination  -->
                 <nav aria-label="...">
                     <ul class="pagination" >
                         <li th:if= "${currentPage != 0}" class="page-item ">
@@ -92,31 +69,12 @@
                         </li>
                     </ul>
                 </nav>
-                <!--Pagination  -->
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer th:replace = "~{/fragments/fragments::footer}">
-        </footer>
-        <!-- End of Footer -->
-
+        <footer th:replace = "~{/fragments/fragments::footer}"></footer>
     </div>
-    <!-- End of Content Wrapper -->
-
 </div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a th:replace = "~{/fragments/fragments::scroll}">
-</a>
-
-
-<!-- Bootstrap core JavaScript-->
+<a th:replace = "~{/fragments/fragments::scroll}"></a>
 <div th:replace = "~{/fragments/fragments::script}"></div>
 </body>
-
 </html>
