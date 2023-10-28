@@ -59,15 +59,20 @@ public class OrderController {
 
                 return "user-profile";
             } else {
-//                ShoppingCart cart = userServiceImpl.findByEmail(principal.getName()).get().getShoppingCart();
                 ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
-                model.addAttribute("user", user);
-                model.addAttribute("title", "Check-Out");
-                model.addAttribute("page", "Check-Out");
-                model.addAttribute("shoppingCart", cart);
-                model.addAttribute("grandTotal", cart.getTotalItems());
 
-                return "checkout";
+                if(cart == null) {
+                    model.addAttribute("information", "Your shopping cart is empty!");
+                    return "redirect:/cart";
+                } else {
+                    model.addAttribute("user", user);
+                    model.addAttribute("title", "Check-Out");
+                    model.addAttribute("page", "Check-Out");
+                    model.addAttribute("shoppingCart", cart);
+                    model.addAttribute("grandTotal", cart.getTotalItems());
+
+                    return "checkout";
+                }
             }
         }
     }

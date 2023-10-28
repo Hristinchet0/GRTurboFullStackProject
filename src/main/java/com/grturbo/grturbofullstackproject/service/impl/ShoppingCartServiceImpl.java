@@ -35,7 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart addItemToCart(Product product, int quantity, User user) {
-        ShoppingCart cart = shoppingCartRepository.findByCustomer_Id(user.getId());
+        ShoppingCart cart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
 
         if (cart == null) {
             cart = new ShoppingCart();
@@ -67,7 +67,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart updateItemInCart(Product product, int quantity, User user) {
-        ShoppingCart cart = shoppingCartRepository.findByCustomer_Id(user.getId());
+        ShoppingCart cart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
 
         Set<CartItem> cartItems = cart.getCartItems();
 
@@ -88,7 +88,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
-        ShoppingCart userShoppingCart = shoppingCartRepository.findByCustomer_Id(user.getId());
+        ShoppingCart userShoppingCart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
 
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
 
@@ -166,7 +166,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return totalPrice;
     }
 
+    @Override
     public ShoppingCart findByUserId(Long id) {
-        return shoppingCartRepository.findByCustomer_Id(id);
+        return shoppingCartRepository.findShoppingCartByCustomer_Id(id);
     }
 }

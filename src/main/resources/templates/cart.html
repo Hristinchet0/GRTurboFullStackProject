@@ -93,7 +93,7 @@
                         <h3 th:text="#{cart_order}">Order summary</h3>
                         <div class="d-flex">
                             <h4 th:text="#{cart_sub}">Sub Total</h4>
-                            <div class="ml-auto font-weight-bold" th:text="${subTotal}  + 'BGN'"></div>
+                            <div class="ml-auto font-weight-bold" th:text="${subTotal != null ? subTotal + 'BGN' : '0BGN' }"></div>
                         </div>
                         <hr class="my-1">
                         <div class="d-flex">
@@ -103,16 +103,16 @@
                         <hr>
                         <div class="d-flex gr-total">
                             <h5 th:text="#{cart_grand}">Grand Total</h5>
-                            <div class="ml-auto h5" th:text = "${subTotal}  + 'BGN'"> </div>
+                            <div class="ml-auto h5" th:text="${subTotal != null ? subTotal + 'BGN' : '0BGN' }"></div>
                         </div>
                         <hr>
                     </div>
                 </div>
-                <th:block th:if="${shoppingCart.cartItems.size() > 0}">
-                    <div class="col-12 d-flex shopping-box">
+<!--                <th:block th:if="${shoppingCart == null}">-->
+                    <div class="col-12 d-flex shopping-box" th:if="${shoppingCart != null}">
                         <a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
                     </div>
-                </th:block>
+<!--                </th:block>-->
 
             </div>
         </div>
