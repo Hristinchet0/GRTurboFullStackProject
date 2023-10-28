@@ -22,6 +22,8 @@ public interface UserService {
 
     void save(User user);
 
+    User findByUsername(String name);
+
     Optional<User> findByEmail(String name);
 
     User saveProfile(User user);

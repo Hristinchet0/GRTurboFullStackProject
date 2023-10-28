@@ -79,7 +79,7 @@ public class CartController {
         ShoppingCart cart = shoppingCartServiceImpl.addItemToCart(product, quantity, user);
         model.addAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
 
-        return "redirect:" + request.getHeader("Referer");
+        return "redirect:/cart";
     }
 
     @PostMapping("/update-cart")

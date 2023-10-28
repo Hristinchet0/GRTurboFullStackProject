@@ -22,6 +22,9 @@
                     <div th:if="${check}" class="text-center alert-warning">
                         <p th:text="${check}"></p>
                     </div>
+                    <div th:if="${addToCartSuccessMessage}" class="text-center alert-warning">
+                        <p th:text="${addToCartSuccessMessage}"></p>
+                    </div>
                     <div class="table-main table-responsive" th:if="${check == null}">
                         <table class="table">
                             <thead>

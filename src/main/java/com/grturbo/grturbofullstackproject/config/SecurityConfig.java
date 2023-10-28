@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling()
                 .and()
-                .csrf().disable();
+                .csrf();
 
         return http.build();
     }
