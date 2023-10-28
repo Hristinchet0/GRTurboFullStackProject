@@ -56,9 +56,6 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    private ShoppingCart shoppingCart;
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
 
@@ -146,14 +143,6 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(ShoppingCart shoppingCart) {
-        this.shoppingCart = shoppingCart;
     }
 
     public Set<Order> getOrders() {

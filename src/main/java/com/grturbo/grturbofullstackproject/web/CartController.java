@@ -45,7 +45,7 @@ public class CartController {
         }
 
         User user = userServiceImpl.findByEmail(principal.getName()).get();
-        ShoppingCart cart = user.getShoppingCart();
+        ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
 
         if (cart == null) {
             model.addAttribute("check", "No item in your shopping cart");

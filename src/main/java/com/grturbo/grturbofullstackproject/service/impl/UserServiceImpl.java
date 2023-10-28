@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
             admin.setCity("Razlog");
             admin.setUsername("GrturboAdmin");
             admin.setPhoneNumber("0878363618");
-            admin.setShoppingCart(null);
+//            admin.setShoppingCart(null);
             admin.setOrders(null);
             admin.addRole(roleAdmin);
 

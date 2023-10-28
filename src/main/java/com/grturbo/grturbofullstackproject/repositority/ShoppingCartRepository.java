@@ -12,4 +12,6 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long
 
     @Query("SELECT DISTINCT sc FROM ShoppingCart sc JOIN sc.cartItems ci")
     List<ShoppingCart> findAllCartsWithItems();
+
+    ShoppingCart findByCustomer_Id(Long id);
 }

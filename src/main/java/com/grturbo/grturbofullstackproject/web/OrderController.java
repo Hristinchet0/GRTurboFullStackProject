@@ -59,7 +59,8 @@ public class OrderController {
 
                 return "user-profile";
             } else {
-                ShoppingCart cart = userServiceImpl.findByEmail(principal.getName()).get().getShoppingCart();
+//                ShoppingCart cart = userServiceImpl.findByEmail(principal.getName()).get().getShoppingCart();
+                ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
                 model.addAttribute("user", user);
                 model.addAttribute("title", "Check-Out");
                 model.addAttribute("page", "Check-Out");
@@ -99,7 +100,7 @@ public class OrderController {
             return "redirect:/login";
         } else {
             User user = userServiceImpl.findByEmail(principal.getName()).get();
-            ShoppingCart cart = user.getShoppingCart();
+            ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
             Order order = orderServiceImpl.saveOrder(cart, additionalInformation);
 
             session.removeAttribute("totalItems");

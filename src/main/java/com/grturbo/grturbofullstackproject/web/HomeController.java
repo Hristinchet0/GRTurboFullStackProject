@@ -2,6 +2,7 @@ package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import com.grturbo.grturbofullstackproject.service.impl.ShoppingCartServiceImpl;
 import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,11 @@ public class HomeController {
 
     private final UserServiceImpl userServiceImpl;
 
-    public HomeController(UserServiceImpl userServiceImpl) {
+    private final ShoppingCartServiceImpl shoppingCartServiceImpl;
+
+    public HomeController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl) {
         this.userServiceImpl = userServiceImpl;
+        this.shoppingCartServiceImpl = shoppingCartServiceImpl;
     }
 
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
@@ -26,7 +30,7 @@ public class HomeController {
         if(principal != null){
             session.setAttribute("username", principal.getName());
             User user = userServiceImpl.findByEmail(principal.getName()).get();
-            ShoppingCart cart = user.getShoppingCart();
+            ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
 
             session.setAttribute("totalItems", cart != null ? cart.getTotalItems() : 0);
         }else{
