@@ -108,11 +108,9 @@
                         <hr>
                     </div>
                 </div>
-<!--                <th:block th:if="${shoppingCart == null}">-->
                     <div class="col-12 d-flex shopping-box" th:if="${shoppingCart != null}">
                         <a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
                     </div>
-<!--                </th:block>-->
 
             </div>
         </div>
