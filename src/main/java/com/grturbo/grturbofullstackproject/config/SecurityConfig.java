@@ -30,8 +30,8 @@ public class SecurityConfig {
         http.
                         authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/", "/index", "/shop/**", "/register", "/about", "/contactus", "/faq").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "/index", "/shop/**", "/register", "/about", "/contactus", "/faq", "/search/**").permitAll()
+                .antMatchers("/admin/**","/api/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

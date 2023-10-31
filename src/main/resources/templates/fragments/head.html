@@ -12,6 +12,8 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <!-- Site Icons -->
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">

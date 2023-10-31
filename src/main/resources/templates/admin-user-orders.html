@@ -48,11 +48,12 @@
 <!--                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>-->
                         </td>
                         <td>
-                            <form th:action="@{/cancel-order}" method="post">
+                            <form id="cancelOrderForm" th:action="@{/api/admin/cancel-order}" method="post">
                                 <input type="hidden" name="id" th:value="${order.id}" />
                                 <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != 'SHIPPED'}">Cancel</button>
                             </form>
                         </td>
+
                         <td>
                             <form th:action="@{/send-order}" method="post">
                                 <input type="hidden" name="id" th:value="${order.id}" />
@@ -78,6 +79,50 @@
 <a th:replace="~{/fragments/fragments::scroll}"></a>
 
 <div th:replace="~{/fragments/fragments::script}"></div>
+
+<script>
+
+    const csrfHeaderName = document.head.querySelector('[name="_csrf_header"]').content;
+    const csrfHeaderValue = document.head.querySelector('[name="_csrf"]').content;
+
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', function(event) {
+            // event.preventDefault();
+
+            const form = this.closest('form');
+            const orderId = form.querySelector('input[name="id"]').value;
+
+            fetch(`/api/admin/cancel-order?id=` + orderId, {
+                method: "POST",
+                headers: {
+                    [csrfHeaderName] : csrfHeaderValue,
+                    "Content-Type" : "application/json",
+                    "Accept" :"application/json"
+                },
+
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('The order has been cancelled');
+                        refreshPage()
+                    } else {
+                        console.error('Error canceling order');
+                        refreshPage()
+                    }
+                    refreshPage()
+                })
+                .catch(error => {
+                    console.error('Error executing the request: ' + error);
+                    refreshPage()
+                });
+        });
+    });
+
+    function refreshPage() {
+        window.location.reload();
+    }
+
+</script>
 
 <script th:src="@{/js/categories.js}"></script>
 </body>

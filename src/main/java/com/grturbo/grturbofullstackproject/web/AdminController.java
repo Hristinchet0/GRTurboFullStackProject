@@ -319,14 +319,14 @@ public class AdminController {
         return "redirect:/view-order-detail?orderId=" + orderId;
     }
 
-    @PostMapping("/cancel-order")
-    public String cancelOrder(@RequestParam Long id, Model model) {
-        orderServiceImpl.cancelOrder(id);
-        return "redirect:/user-orders";
-    }
+//    @PostMapping("/cancel-order")
+//    public String cancelOrder(@RequestParam Long id) {
+//        orderServiceImpl.cancelOrder(id);
+//        return "redirect:/user-orders";
+//    }
 
     @PostMapping("/send-order")
-    public String shippingConfirmation(@RequestParam Long id, Model model) {
+    public String shippingConfirmation(@RequestParam Long id) {
         orderServiceImpl.sendOrder(id);
         return "redirect:/user-orders";
     }

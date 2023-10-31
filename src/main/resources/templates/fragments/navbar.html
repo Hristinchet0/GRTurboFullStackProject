@@ -147,7 +147,7 @@
                 </li>
 
                 <li>
-                    <form th:action="@{/search}" method="post" class="form-inline">
+                    <form th:action="@{/search}" th:method="post" class="form-inline">
                         <input class="form-control mr-sm-2" type="text" name="query" placeholder="Search"
                                aria-label="Search">
                         <button th:text="#{navbar_search}"
