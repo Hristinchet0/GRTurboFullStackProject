@@ -85,7 +85,7 @@ public class AdminController {
     public String updateUser(@PathVariable("id") Long id, Model model) {
         User user = userServiceImpl.getUserById(id).get();
 
-        List<UserRole> listRoles = roleServiceImpl.listRoles();
+        List<UserRole> listRoles = roleServiceImpl.getAllRoles();
 
         model.addAttribute("user", user);
         model.addAttribute("roles", listRoles);

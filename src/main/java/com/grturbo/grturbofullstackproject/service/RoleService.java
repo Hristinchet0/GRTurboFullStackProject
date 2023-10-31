@@ -8,5 +8,5 @@ import java.util.List;
 public interface RoleService {
 
     @Transactional
-    List<UserRole> listRoles();
+    List<UserRole> getAllRoles();
 }
