@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.CategoryDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
@@ -112,7 +112,7 @@ public class AdminController {
     }
 
     @PostMapping("/save-category")
-    public String save(@ModelAttribute("categoryNew") CategoryAddDto category, Model model, RedirectAttributes redirectAttributes) {
+    public String save(@ModelAttribute("categoryNew") CategoryDto category, Model model, RedirectAttributes redirectAttributes) {
         try {
             categoryServiceImpl.addCategory(category);
             model.addAttribute("categoryNew", category);
@@ -150,7 +150,7 @@ public class AdminController {
     }
 
     @GetMapping("/update-category")
-    public String update(CategoryAddDto category, RedirectAttributes redirectAttributes) {
+    public String update(CategoryDto category, RedirectAttributes redirectAttributes) {
         try {
             categoryServiceImpl.addCategory(category);
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
@@ -193,7 +193,7 @@ public class AdminController {
     @GetMapping("/add-product")
     public String addProductPage(Model model) {
 
-        List<Category> categories = categoryServiceImpl.findAll();
+        List<Category> categories = categoryServiceImpl.getAllCategory();
         model.addAttribute("title", "Add Product");
         model.addAttribute("categories", categories);
         model.addAttribute("productDto", new ProductAddDto());
@@ -228,7 +228,7 @@ public class AdminController {
 
     @GetMapping("/update-product/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
-        List<Category> categories = categoryServiceImpl.findAll();
+        List<Category> categories = categoryServiceImpl.getAllCategory();
         Product product = productServiceImpl.getProductById(id).get();
         ProductEditDto productEditDto = new ProductEditDto();
         productEditDto.setId(product.getId());

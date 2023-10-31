@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.service.impl;
 
-import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.CategoryDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.mapper.CategoryMapper;
 import com.grturbo.grturbofullstackproject.repositority.CategoryRepository;
@@ -30,19 +30,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void addCategory(CategoryAddDto categoryAddDto) {
-        Category newCategory = categoryMapper.categoryDtoToCategoryEntity(categoryAddDto);
+    public void addCategory(CategoryDto categoryDto) {
+        Category newCategory = categoryMapper.categoryDtoToCategoryEntity(categoryDto);
         categoryRepository.save(newCategory);
     }
 
     @Override
     public void removeCategoryById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
     }
 
     @Override
@@ -53,11 +48,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Optional<Category> findCategoryById(Long id) {
         return categoryRepository.findById(id);
-    }
-
-    @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
     }
 
 }

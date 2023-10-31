@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
         Product newProduct = new Product();
         newProduct.setName(productAddDto.getName());
         newProduct.setBrand(productAddDto.getBrand());
-        newProduct.setCategory(categoryServiceImpl.getCategoryById(productAddDto.getCategoryId()).get());
+        newProduct.setCategory(categoryServiceImpl.findCategoryById(productAddDto.getCategoryId()).get());
         newProduct.setDescription(productAddDto.getDescription());
         newProduct.setPrice(productAddDto.getPrice());
         newProduct.setImgUrl(imageUrl);
@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
 
         product.setName(productEditDto.getName());
         product.setBrand(productEditDto.getBrand());
-        product.setCategory(categoryServiceImpl.getCategoryById(productEditDto.getCategoryId()).get());
+        product.setCategory(categoryServiceImpl.findCategoryById(productEditDto.getCategoryId()).get());
         product.setDescription(productEditDto.getDescription());
         product.setPrice(productEditDto.getPrice());
 

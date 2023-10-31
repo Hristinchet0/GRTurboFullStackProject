@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.service;
 
-import com.grturbo.grturbofullstackproject.model.dto.CategoryAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.CategoryDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 
 import java.util.List;
@@ -10,15 +10,12 @@ public interface CategoryService {
 
     List<Category> getAllCategory();
 
-    void addCategory(CategoryAddDto categoryAddDto);
+    void addCategory(CategoryDto categoryDto);
 
     void removeCategoryById(Long id);
-
-    Optional<Category> getCategoryById(Long id);
 
     Optional<Category> findById(Category category);
 
     Optional<Category> findCategoryById(Long id);
 
-    List<Category> findAll();
 }

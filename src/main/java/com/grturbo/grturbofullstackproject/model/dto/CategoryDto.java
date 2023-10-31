@@ -2,14 +2,14 @@ package com.grturbo.grturbofullstackproject.model.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-public class CategoryAddDto {
+public class CategoryDto {
 
     private Long id;
 
     @NotEmpty
     private String name;
 
-    public CategoryAddDto() {
+    public CategoryDto() {
     }
 
     public Long getId() {
