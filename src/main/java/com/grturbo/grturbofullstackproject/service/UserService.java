@@ -4,6 +4,7 @@ import com.grturbo.grturbofullstackproject.model.dto.UserDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
 import com.grturbo.grturbofullstackproject.model.dto.UserUpdateDto;
 import com.grturbo.grturbofullstackproject.model.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public interface UserService {
 
     void removeUserById(Long id);
 
+    @Transactional
     List<UserDto> getAllUsers();
 
     Optional<User> getUserById(Long id);

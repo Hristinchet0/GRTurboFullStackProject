@@ -83,9 +83,9 @@ public class OrderController {
             return "redirect:/login";
         } else {
             User user = userServiceImpl.findByEmail(principal.getName()).get();
-            Set<Order> orders = user.getOrders();
+            Set<Order> ordersSet = orderServiceImpl.findAllOrdersByCustomerId(user.getId());
 
-            model.addAttribute("orders", orders);
+            model.addAttribute("orders", ordersSet);
             model.addAttribute("title", "Orders");
             model.addAttribute("page", "Order");
 

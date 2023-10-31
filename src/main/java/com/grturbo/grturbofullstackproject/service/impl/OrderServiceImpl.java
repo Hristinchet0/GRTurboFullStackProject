@@ -14,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -161,4 +158,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, "SHIPPED");
     }
 
+    public Set<Order> findAllOrdersByCustomerId(Long id) {
+        return orderRepository.findAllByCustomer_Id(id);
+    }
 }

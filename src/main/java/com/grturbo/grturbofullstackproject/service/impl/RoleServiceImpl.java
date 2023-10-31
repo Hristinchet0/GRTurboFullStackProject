@@ -4,6 +4,7 @@ import com.grturbo.grturbofullstackproject.model.entity.UserRole;
 import com.grturbo.grturbofullstackproject.repositority.UserRoleRepository;
 import com.grturbo.grturbofullstackproject.service.RoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public List<UserRole> listRoles() {
         return roleRepository.findAll();
     }
