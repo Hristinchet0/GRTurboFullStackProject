@@ -92,15 +92,16 @@
             const form = this.closest('form');
             const orderId = form.querySelector('input[name="id"]').value;
 
-            fetch(`/api/admin/cancel-order?id=` + orderId, {
-                method: "POST",
-                headers: {
-                    [csrfHeaderName] : csrfHeaderValue,
-                    "Content-Type" : "application/json",
-                    "Accept" :"application/json"
-                },
-
-            })
+            fetch(`/api/admin/cancel-order?id=` + orderId,
+                {
+                    method: "POST",
+                    headers: {
+                        [csrfHeaderName]: csrfHeaderValue,
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    redirect: "follow"
+                })
                 .then(response => {
                     if (response.ok) {
                         console.log('The order has been cancelled');
