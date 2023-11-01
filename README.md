@@ -1,4 +1,5 @@
-##GR TURBO - my personal Spring project
+<h1>GR TURBO - my personal Spring project</h1>
+
 Welcome to the GrTurbo E-commerce Website repository! This project is an online store for turbocharger repairs and the sale of turbochargers and their parts.
 
 <img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturbo-home-page.png" alt="Project image" style="width: 700px"/>
