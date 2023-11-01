@@ -108,12 +108,11 @@ public class OrderController {
             ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
             Order order = orderServiceImpl.processOrder(cart, additionalInformation, user);
 
-            String to = user.getEmail(); // Имейл адрес на получателя
+            String to = user.getEmail();
             String subject = "Потвърждение на поръчка";
             String text = "Получихме Вашата поръчка с номер: " + order.getId() + ". Ще се свържем с Вас за потвърждение. Благодарим ви, че избрахте нашия магазин. Поздрави, GR TURBO team!";
 
             emailServiceImpl.sendEmail(to, subject, text);
-
 
             session.removeAttribute("totalItems");
             model.addAttribute("order", order);

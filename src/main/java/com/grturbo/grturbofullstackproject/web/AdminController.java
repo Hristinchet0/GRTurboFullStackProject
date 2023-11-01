@@ -328,6 +328,7 @@ public class AdminController {
     @PostMapping("/send-order")
     public String shippingConfirmation(@RequestParam Long id) {
         orderServiceImpl.sendOrder(id);
+
         return "redirect:/user-orders";
     }
 }

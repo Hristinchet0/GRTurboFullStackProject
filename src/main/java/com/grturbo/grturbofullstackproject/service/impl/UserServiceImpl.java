@@ -197,4 +197,5 @@ public class UserServiceImpl implements UserService {
         return (CustomUserDetail) authentication.getPrincipal();
 
     }
+
 }

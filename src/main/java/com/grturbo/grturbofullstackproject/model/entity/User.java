@@ -158,4 +158,5 @@ public class User {
     public void setInvoiceData(InvoiceData invoiceData) {
         this.invoiceData = invoiceData;
     }
+
 }
