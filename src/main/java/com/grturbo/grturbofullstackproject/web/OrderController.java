@@ -4,10 +4,7 @@ import com.grturbo.grturbofullstackproject.model.dto.OrderDetailViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Order;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.service.impl.OrderDetailServiceImpl;
-import com.grturbo.grturbofullstackproject.service.impl.OrderServiceImpl;
-import com.grturbo.grturbofullstackproject.service.impl.ShoppingCartServiceImpl;
-import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
+import com.grturbo.grturbofullstackproject.service.impl.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.slf4j.Logger;
@@ -35,13 +32,16 @@ public class OrderController {
 
     private final OrderDetailServiceImpl orderDetailServiceImpl;
 
+    private final EmailServiceImpl emailServiceImpl;
+
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-    public OrderController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl, OrderServiceImpl orderServiceImpl, OrderDetailServiceImpl orderDetailServiceImpl) {
+    public OrderController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl, OrderServiceImpl orderServiceImpl, OrderDetailServiceImpl orderDetailServiceImpl, EmailServiceImpl emailServiceImpl) {
         this.userServiceImpl = userServiceImpl;
         this.shoppingCartServiceImpl = shoppingCartServiceImpl;
         this.orderServiceImpl = orderServiceImpl;
         this.orderDetailServiceImpl = orderDetailServiceImpl;
+        this.emailServiceImpl = emailServiceImpl;
     }
 
     @GetMapping("/check-out")
@@ -106,7 +106,14 @@ public class OrderController {
         } else {
             User user = userServiceImpl.findByEmail(principal.getName()).get();
             ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
-            Order order = orderServiceImpl.saveOrder(cart, additionalInformation);
+            Order order = orderServiceImpl.processOrder(cart, additionalInformation, user);
+
+            String to = user.getEmail(); // Имейл адрес на получателя
+            String subject = "Потвърждение на поръчка";
+            String text = "Получихме Вашата поръчка с номер: " + order.getId() + ". Ще се свържем с Вас за потвърждение. Благодарим ви, че избрахте нашия магазин. Поздрави, GR TURBO team!";
+
+            emailServiceImpl.sendEmail(to, subject, text);
+
 
             session.removeAttribute("totalItems");
             model.addAttribute("order", order);

@@ -1,14 +1,12 @@
 package com.grturbo.grturbofullstackproject.service.impl;
 
-import com.grturbo.grturbofullstackproject.model.entity.CartItem;
-import com.grturbo.grturbofullstackproject.model.entity.Order;
-import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
-import com.grturbo.grturbofullstackproject.model.entity.Product;
-import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
+import com.grturbo.grturbofullstackproject.model.entity.*;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
 import com.grturbo.grturbofullstackproject.service.OrderService;
+import org.apache.commons.mail.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,15 +25,21 @@ public class OrderServiceImpl implements OrderService {
 
     private final ProductServiceImpl productServiceImpl;
 
-    public OrderServiceImpl(ShoppingCartServiceImpl shoppingCartServiceImpl, OrderRepository orderRepository, ProductServiceImpl productServiceImpl) {
+    private final EmailServiceImpl emailServiceImpl;
+
+    private final JavaMailSender javaMailSender;
+
+    public OrderServiceImpl(ShoppingCartServiceImpl shoppingCartServiceImpl, OrderRepository orderRepository, ProductServiceImpl productServiceImpl, EmailServiceImpl emailServiceImpl, JavaMailSender javaMailSender) {
         this.shoppingCartServiceImpl = shoppingCartServiceImpl;
         this.orderRepository = orderRepository;
         this.productServiceImpl = productServiceImpl;
+        this.emailServiceImpl = emailServiceImpl;
+        this.javaMailSender = javaMailSender;
     }
 
     @Transactional
     @Override
-    public Order saveOrder(ShoppingCart shoppingCart, String additionalInformation) {
+    public Order processOrder(ShoppingCart shoppingCart, String additionalInformation, User user) {
         Order order = new Order();
 
         order.setOrderStatus("PENDING");
@@ -161,4 +165,5 @@ public class OrderServiceImpl implements OrderService {
     public Set<Order> findAllOrdersByCustomerId(Long id) {
         return orderRepository.findAllByCustomer_Id(id);
     }
+
 }
