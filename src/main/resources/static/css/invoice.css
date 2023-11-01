@@ -1,0 +1,21 @@
+body > div {
+    height: 60vh
+}
+
+#body > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+
+#signupFormInvoice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#signupForm > div {
+    margin-top: 10px;
+    margin-bottom: 11px;
+}
