@@ -1,16 +1,9 @@
 package com.grturbo.grturbofullstackproject.model.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.grturbo.grturbofullstackproject.model.enums.OrderStatusEnum;
+import com.grturbo.grturbofullstackproject.model.enums.PaymentMethodEnum;
+
+import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +22,8 @@ public class Order {
     private Date orderDate;
 
     @Column(name = "order_status")
-    private String orderStatus;
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatusEnum orderStatus;
 
     @Column(name = "total_price")
     private double totalPrice;
@@ -41,7 +35,8 @@ public class Order {
     private int quantity;
 
     @Column(name = "payment_method")
-    private String paymentMethod;
+    @Enumerated(value = EnumType.STRING)
+    private PaymentMethodEnum paymentMethod;
 
     @Column(name = "is_accept")
     private boolean isAccept;
@@ -75,11 +70,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getOrderStatus() {
+    public OrderStatusEnum getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -107,11 +102,11 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public String getPaymentMethod() {
+    public PaymentMethodEnum getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 

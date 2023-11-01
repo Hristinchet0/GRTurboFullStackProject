@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject.repositority;
 
 import com.grturbo.grturbofullstackproject.model.entity.Order;
+import com.grturbo.grturbofullstackproject.model.enums.OrderStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,9 +21,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o JOIN FETCH o.orderDetailList WHERE o.id = :orderId")
     Order findOrderWithDetails(@Param("orderId") Long orderId);
 
-    List<Order> findByOrderDateAfterAndOrderStatus(Date date, String orderStatus);
+    List<Order> findByOrderDateAfterAndOrderStatus(Date date, OrderStatusEnum orderStatus);
 
-    long countByOrderDateBetweenAndOrderStatus(Timestamp startDateTime, Timestamp endDateTime, String orderStatus);
+    long countByOrderDateBetweenAndOrderStatus(Timestamp startDateTime, Timestamp endDateTime, OrderStatusEnum orderStatus);
 
 
     Set<Order> findAllByCustomer_Id(Long id);

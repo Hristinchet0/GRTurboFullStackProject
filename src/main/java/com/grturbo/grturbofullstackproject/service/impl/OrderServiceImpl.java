@@ -2,6 +2,8 @@ package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.events.OrderEventPublisher;
 import com.grturbo.grturbofullstackproject.model.entity.*;
+import com.grturbo.grturbofullstackproject.model.enums.OrderStatusEnum;
+import com.grturbo.grturbofullstackproject.model.enums.PaymentMethodEnum;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
 import com.grturbo.grturbofullstackproject.service.OrderService;
 import org.slf4j.Logger;
@@ -44,11 +46,11 @@ public class OrderServiceImpl implements OrderService {
     public Order processOrder(ShoppingCart shoppingCart, String additionalInformation, User user) {
         Order order = new Order();
 
-        order.setOrderStatus("PENDING");
+        order.setOrderStatus(OrderStatusEnum.PENDING);
         order.setOrderDate(new Date());
         order.setCustomer(shoppingCart.getCustomer());
         order.setTotalPrice(shoppingCart.getTotalPrice());
-        order.setPaymentMethod("CASH");
+        order.setPaymentMethod(PaymentMethodEnum.CASH);
         order.setQuantity(shoppingCart.getTotalItems());
         order.setAccept(false);
         order.setAdditionalInformation(additionalInformation);
@@ -81,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void acceptOrder(Long id) {
         Order order = orderRepository.getById(id);
-        order.setOrderStatus("ACCEPTED");
+        order.setOrderStatus(OrderStatusEnum.ACCEPTED);
         order.setAccept(true);
         orderRepository.save(order);
     }
@@ -95,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
         order.setAccept(false);
-        order.setOrderStatus("CANCELLED");
+        order.setOrderStatus(OrderStatusEnum.CANCELLED);
         orderRepository.save(order);
     }
 
@@ -107,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void sendOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
-        order.setOrderStatus("SHIPPED");
+        order.setOrderStatus(OrderStatusEnum.SHIPPED);
         orderRepository.save(order);
     }
 
@@ -118,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
 
         Date lastMonth = calendar.getTime();
 
-        return orderRepository.findByOrderDateAfterAndOrderStatus(lastMonth, "SHIPPED");
+        return orderRepository.findByOrderDateAfterAndOrderStatus(lastMonth, OrderStatusEnum.SHIPPED);
     }
 
     @Override
@@ -145,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         LocalDate endDateTime = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
 
         return orderRepository.countByOrderDateBetweenAndOrderStatus(
-                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), "SHIPPED"
+                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), OrderStatusEnum.SHIPPED
         );
     }
 
@@ -155,7 +157,7 @@ public class OrderServiceImpl implements OrderService {
         LocalDate endDateTime = LocalDate.now().withDayOfYear(LocalDate.now().lengthOfYear());
 
         return orderRepository.countByOrderDateBetweenAndOrderStatus(
-                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), "SHIPPED"
+                Timestamp.valueOf(startDateTime.atStartOfDay()), Timestamp.valueOf(endDateTime.atStartOfDay()), OrderStatusEnum.SHIPPED
         );
     }
 
@@ -165,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
 
         Date lastYear = calendar.getTime();
 
-        return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, "SHIPPED");
+        return orderRepository.findByOrderDateAfterAndOrderStatus(lastYear, OrderStatusEnum.SHIPPED);
     }
 
     public Set<Order> findAllOrdersByCustomerId(Long id) {
