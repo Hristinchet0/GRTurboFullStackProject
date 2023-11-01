@@ -23,8 +23,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByOrderDateAfterAndOrderStatus(Date date, OrderStatusEnum orderStatus);
 
-    long countByOrderDateBetweenAndOrderStatus(Timestamp startDateTime, Timestamp endDateTime, OrderStatusEnum orderStatus);
-
+    Long countByOrderDateBetweenAndOrderStatus(Date orderDate, Date orderDate2, OrderStatusEnum orderStatus);
 
     Set<Order> findAllByCustomer_Id(Long id);
 }

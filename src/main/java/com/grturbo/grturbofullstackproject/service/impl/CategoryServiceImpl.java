@@ -7,10 +7,8 @@ import com.grturbo.grturbofullstackproject.repositority.CategoryRepository;
 import com.grturbo.grturbofullstackproject.service.CategoryService;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

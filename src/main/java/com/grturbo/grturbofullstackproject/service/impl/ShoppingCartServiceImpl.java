@@ -132,6 +132,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
     }
 
+    @Override
+    public ShoppingCart findByUserId(Long id) {
+        return shoppingCartRepository.findShoppingCartByCustomer_Id(id);
+    }
+
     private CartItem findCartItem(Set<CartItem> cartItems, Long productId) {
         if (cartItems == null) {
             return null;
@@ -166,8 +171,4 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return totalPrice;
     }
 
-    @Override
-    public ShoppingCart findByUserId(Long id) {
-        return shoppingCartRepository.findShoppingCartByCustomer_Id(id);
-    }
 }

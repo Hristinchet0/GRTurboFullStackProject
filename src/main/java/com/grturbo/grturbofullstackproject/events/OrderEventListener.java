@@ -1,6 +1,5 @@
 package com.grturbo.grturbofullstackproject.events;
 
-import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.impl.EmailServiceImpl;
 import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.springframework.context.event.EventListener;
