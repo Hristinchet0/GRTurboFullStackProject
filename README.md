@@ -30,6 +30,7 @@
   <li>Admin can see all registered users, can change their roles and delete them</li>
   <li>User-friendly interface with a responsive design</li>
   <li>Email system for receiving emails</li>
+  <li>And more...</li>
 </ul>
 
 <h2> Description </h2>
