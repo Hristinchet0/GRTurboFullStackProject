@@ -1,4 +1,4 @@
-<h1>GR TURBO - my personal Spring project</h1>
+<h1>GR TURBO - my first personal Spring MVC project</h1>
 
 Welcome to the GrTurbo E-commerce Website repository! This project is an online store for turbocharger repairs and the sale of turbochargers and their parts.
 
@@ -72,4 +72,13 @@ Welcome to the GrTurbo E-commerce Website repository! This project is an online 
 </ul>
 
 <h2> More pictures: </h2>
-<img src="" />
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grtubro-shop-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturb0-shopping-cart-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturb-checkout-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturbo-my-orders-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-category-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-products-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-add-product.jpg" style="width: 700px"/>
+<p>And more...</p>
+
+
