@@ -2,8 +2,8 @@ package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
-import com.grturbo.grturbofullstackproject.service.impl.ProductServiceImpl;
-import com.grturbo.grturbofullstackproject.service.impl.CategoryServiceImpl;
+import com.grturbo.grturbofullstackproject.service.CategoryService;
+import com.grturbo.grturbofullstackproject.service.ProductService;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.data.domain.Pageable;
@@ -19,13 +19,14 @@ import java.util.List;
 @Controller
 public class ShopController {
 
-    private final CategoryServiceImpl categoryServiceImpl;
+    private final CategoryService categoryService;
 
-    private final ProductServiceImpl productServiceImpl;
+    private final ProductService productService;
 
-    public ShopController(CategoryServiceImpl categoryServiceImpl, ProductServiceImpl productServiceImpl) {
-        this.categoryServiceImpl = categoryServiceImpl;
-        this.productServiceImpl = productServiceImpl;
+    public ShopController(CategoryService categoryService,
+                          ProductService productService) {
+        this.categoryService = categoryService;
+        this.productService = productService;
     }
 
     @GetMapping("/shop")
@@ -34,11 +35,11 @@ public class ShopController {
                                page = 0,
                                size = 10 )
                        Pageable pageable){
-        List<ProductRecentDto> recentProducts = productServiceImpl.findRecentProducts(10);
+        List<ProductRecentDto> recentProducts = productService.findRecentProducts(10);
 
         model.addAttribute("recentProducts", recentProducts);
-        model.addAttribute("categories", categoryServiceImpl.getAllCategory());
-        model.addAttribute("products", productServiceImpl.getAllProducts(pageable));
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("products", productService.getAllProducts(pageable));
 
         return "shop";
     }
@@ -49,11 +50,11 @@ public class ShopController {
                                          page = 0,
                                          size = 10 )
                                  Pageable pageable) {
-        List<ProductRecentDto> recentProducts = productServiceImpl.findRecentProducts(10);
+        List<ProductRecentDto> recentProducts = productService.findRecentProducts(10);
 
         model.addAttribute("recentProducts", recentProducts);
-        model.addAttribute("categories", categoryServiceImpl.getAllCategory());
-        model.addAttribute("products", productServiceImpl.getAllProductsByCategoryId(id, pageable));
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("products", productService.getAllProductsByCategoryId(id, pageable));
 
         return "shop";
     }
@@ -61,7 +62,7 @@ public class ShopController {
 
     @GetMapping("/shop/viewproduct/{id}")
     public String viewProduct(Model model, @PathVariable Long id){
-        model.addAttribute("product", productServiceImpl.getProductById(id).get());
+        model.addAttribute("product", productService.getProductById(id).get());
         model.addAttribute("success", "Add order successfully");
 
         return "viewProduct";
@@ -69,7 +70,7 @@ public class ShopController {
 
     @GetMapping("/search")
     public String searchProduct(Model model) {
-        model.addAttribute("categories", categoryServiceImpl.getAllCategory());
+        model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("noResultsMessage", "No results found");
 
         return "shop-search";
@@ -77,13 +78,13 @@ public class ShopController {
 
     @PostMapping("/search")
     public String searchProducts(@RequestParam String query, Model model) {
-        List<Product> searchResults = productServiceImpl.searchProducts(query);
+        List<Product> searchResults = productService.searchProducts(query);
 
         if(searchResults.isEmpty()) {
             model.addAttribute("noResultsMessage", "No results found");
         }
 
-        model.addAttribute("categories", categoryServiceImpl.getAllCategory());
+        model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("products", searchResults);
 
         return "shop-search";

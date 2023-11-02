@@ -23,14 +23,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
 
-    private final UserServiceImpl userServiceImpl;
-
     private final EntityManager entityManager;
 
-    public ShoppingCartServiceImpl(CartItemRepository cartItemRepository, ShoppingCartRepository shoppingCartRepository, UserServiceImpl userServiceImpl, EntityManager entityManager) {
+    public ShoppingCartServiceImpl(CartItemRepository cartItemRepository,
+                                   ShoppingCartRepository shoppingCartRepository,
+                                   EntityManager entityManager) {
         this.cartItemRepository = cartItemRepository;
         this.shoppingCartRepository = shoppingCartRepository;
-        this.userServiceImpl = userServiceImpl;
         this.entityManager = entityManager;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public interface OrderService {
 
@@ -32,4 +33,6 @@ public interface OrderService {
     Long getSentOrdersForCurrentMonth();
 
     Long getSentOrdersForCurrentYear();
+
+    Set<Order> findAllOrdersByCustomerId(Long id);
 }

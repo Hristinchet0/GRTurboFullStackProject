@@ -2,8 +2,8 @@ package com.grturbo.grturbofullstackproject.web;
 
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
-import com.grturbo.grturbofullstackproject.service.impl.ShoppingCartServiceImpl;
-import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
+import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
+import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +16,22 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
 
-    private final ShoppingCartServiceImpl shoppingCartServiceImpl;
+    private final ShoppingCartService shoppingCartService;
 
-    public HomeController(UserServiceImpl userServiceImpl, ShoppingCartServiceImpl shoppingCartServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-        this.shoppingCartServiceImpl = shoppingCartServiceImpl;
+    public HomeController(UserService userService,
+                          ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
     }
 
     @RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
     public String home(Model model, Principal principal, HttpSession session){
         if(principal != null){
             session.setAttribute("username", principal.getName());
-            User user = userServiceImpl.findByEmail(principal.getName()).get();
-            ShoppingCart cart = shoppingCartServiceImpl.findByUserId(user.getId());
+            User user = userService.findByEmail(principal.getName()).get();
+            ShoppingCart cart = shoppingCartService.findByUserId(user.getId());
 
             session.setAttribute("totalItems", cart != null ? cart.getTotalItems() : 0);
         }else{

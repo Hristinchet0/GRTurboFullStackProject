@@ -1,9 +1,15 @@
 package com.grturbo.grturbofullstackproject.service.impl;
 
-import com.grturbo.grturbofullstackproject.model.dto.*;
+import com.grturbo.grturbofullstackproject.model.dto.ProductAddDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductDetailDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductEditDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto;
+import com.grturbo.grturbofullstackproject.model.dto.ProductViewDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
 import com.grturbo.grturbofullstackproject.repositority.ProductRepository;
+import com.grturbo.grturbofullstackproject.service.CategoryService;
+import com.grturbo.grturbofullstackproject.service.CloudinaryService;
 import com.grturbo.grturbofullstackproject.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
@@ -19,17 +25,20 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final CategoryServiceImpl categoryServiceImpl;
+    private final CategoryService categoryService;
 
     private final ModelMapper modelMapper;
 
-    private final CloudinaryServiceImpl cloudinaryServiceImpl;
+    private final CloudinaryService cloudinaryService;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryServiceImpl categoryServiceImpl, ModelMapper modelMapper, CloudinaryServiceImpl cloudinaryServiceImpl) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryService categoryService,
+                              ModelMapper modelMapper,
+                              CloudinaryService cloudinaryService) {
         this.productRepository = productRepository;
-        this.categoryServiceImpl = categoryServiceImpl;
+        this.categoryService = categoryService;
         this.modelMapper = modelMapper;
-        this.cloudinaryServiceImpl = cloudinaryServiceImpl;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
@@ -39,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(productEntity -> {
                     ProductViewDto productViewModel = modelMapper.map(productEntity, ProductViewDto.class);
 
-                    Optional<Category> categoryById = categoryServiceImpl.findById(productEntity.getCategory());
+                    Optional<Category> categoryById = categoryService.findById(productEntity.getCategory());
 
                     productViewModel.setCategory(categoryById.get().getName());
 
@@ -51,12 +60,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(ProductAddDto productAddDto) {
         MultipartFile img = productAddDto.getImg();
-        String imageUrl = cloudinaryServiceImpl.uploadImage(img);
+        String imageUrl = cloudinaryService.uploadImage(img);
 
         Product newProduct = new Product();
         newProduct.setName(productAddDto.getName());
         newProduct.setBrand(productAddDto.getBrand());
-        newProduct.setCategory(categoryServiceImpl.findCategoryById(productAddDto.getCategoryId()).get());
+        newProduct.setCategory(categoryService.findCategoryById(productAddDto.getCategoryId()).get());
         newProduct.setDescription(productAddDto.getDescription());
         newProduct.setPrice(productAddDto.getPrice());
         newProduct.setImgUrl(imageUrl);
@@ -88,14 +97,14 @@ public class ProductServiceImpl implements ProductService {
 
         product.setName(productEditDto.getName());
         product.setBrand(productEditDto.getBrand());
-        product.setCategory(categoryServiceImpl.findCategoryById(productEditDto.getCategoryId()).get());
+        product.setCategory(categoryService.findCategoryById(productEditDto.getCategoryId()).get());
         product.setDescription(productEditDto.getDescription());
         product.setPrice(productEditDto.getPrice());
 
         if (img.isEmpty()) {
             product.setImgUrl(currentImg);
         } else {
-            String imageUrl = cloudinaryServiceImpl.uploadImage(img);
+            String imageUrl = cloudinaryService.uploadImage(img);
             product.setImgUrl(imageUrl);
         }
 
@@ -108,7 +117,7 @@ public class ProductServiceImpl implements ProductService {
                 .findAll(pageable)
                 .map(product -> {
                     ProductDetailDto productDetailDto = modelMapper.map(product, ProductDetailDto.class);
-                    Optional<Category> categoryById = categoryServiceImpl.findById(product.getCategory());
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
 
                     productDetailDto.setCategory(categoryById.get().getName());
 
@@ -122,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(product -> {
                     ProductDetailDto productDetailDto = modelMapper.map(product, ProductDetailDto.class);
 
-                    Optional<Category> categoryById = categoryServiceImpl.findById(product.getCategory());
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
 
                     productDetailDto.setCategory(categoryById.get().getName());
 
@@ -156,7 +165,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(product -> {
                     ProductViewDto productViewDto = modelMapper.map(product, ProductViewDto.class);
 
-                    Optional<Category> categoryById = categoryServiceImpl.findById(product.getCategory());
+                    Optional<Category> categoryById = categoryService.findById(product.getCategory());
 
                     productViewDto.setCategory(categoryById.get().getName());
 

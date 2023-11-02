@@ -1,6 +1,6 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.service.impl.OrderServiceImpl;
+import com.grturbo.grturbofullstackproject.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/admin")
 public class OrderAdminRestApiController {
 
-    private final OrderServiceImpl orderServiceImpl;
+    private final OrderService orderService;
 
-    public OrderAdminRestApiController(OrderServiceImpl orderServiceImpl) {
-        this.orderServiceImpl = orderServiceImpl;
+    public OrderAdminRestApiController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @PostMapping("/cancel-order")
     public ResponseEntity<?> cancelOrder(@RequestParam Long id) {
-        orderServiceImpl.cancelOrder(id);
+        orderService.cancelOrder(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

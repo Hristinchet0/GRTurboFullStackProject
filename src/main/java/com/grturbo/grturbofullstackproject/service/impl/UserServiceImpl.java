@@ -41,7 +41,11 @@ public class UserServiceImpl implements UserService {
     @Value("${app.admin.password}")
     public String adminPassword;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserRoleRepository userRoleRepository,
+                           UserDetailsService userDetailsService,
+                           PasswordEncoder passwordEncoder,
+                           UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.userDetailsService = userDetailsService;
