@@ -1,6 +1,6 @@
-<h1>GR TURBO - my personal Spring project</h1>
+<h1>GR TURBO - my first personal Spring MVC project</h1>
 
-Welcome to the GrTurbo E-commerce Website repository! This project is an online store for turbocharger repairs and the sale of turbochargers and their parts.
+<h3>Welcome to the GrTurbo E-commerce Website repository! This project is an online store for turbocharger repairs and the sale of turbochargers and their parts.</h3>
 
 <img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturbo-home-page.png" alt="Project image" style="width: 700px"/>
 
@@ -30,6 +30,7 @@ Welcome to the GrTurbo E-commerce Website repository! This project is an online 
   <li>Admin can see all registered users, can change their roles and delete them</li>
   <li>User-friendly interface with a responsive design</li>
   <li>Email system for receiving emails</li>
+  <li>And more...</li>
 </ul>
 
 <h2> Description </h2>
@@ -40,6 +41,7 @@ Welcome to the GrTurbo E-commerce Website repository! This project is an online 
 <ol>
   <li>Clone the repository to your local machine.</li>
   <li>Configure your MySQL database by updating the application.properties/aplication.yml file.</li>
+  <li>Configure environment variables by updating the application.properties/aplication.yml file.</li>
   <li>Build and run the project using Maven.</li>
   <li>Access the web application by visiting http://localhost:8080 in your web browser.</li>
   <li>Create user accounts, manage products, and place orders as needed.</li>
@@ -72,4 +74,13 @@ Welcome to the GrTurbo E-commerce Website repository! This project is an online 
 </ul>
 
 <h2> More pictures: </h2>
-<img src="" />
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grtubro-shop-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturb0-shopping-cart-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturb-checkout-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/grturbo-my-orders-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-category-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-products-page.png" style="width: 700px"/>
+<img src="https://github.com/Hristinchet0/GRTurboFullStackProject/blob/master/images_for_github/admin-panel-add-product.jpg" style="width: 700px"/>
+<p>And more...</p>
+
+
