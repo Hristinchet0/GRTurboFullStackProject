@@ -65,7 +65,7 @@
                         <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"
                            th:text="${session.username != null} ? ${session.username} : ''"></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/orders}" th:text="#{navbar_order}">Your order</a></li>
+                            <li><a th:href="@{/orders}" th:text="#{navbar_order}">My order</a></li>
                             <li><a th:href="@{/profile}" th:text="#{navbar_account}">My Account</a></li>
                             <li><a th:href="@{/profile-invoice}" th:text="#{navbar_invoice}">Invoice details</a></li>
                         </ul>
