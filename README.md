@@ -41,6 +41,7 @@
 <ol>
   <li>Clone the repository to your local machine.</li>
   <li>Configure your MySQL database by updating the application.properties/aplication.yml file.</li>
+  <li>Configure environment variables by updating the application.properties/aplication.yml file.</li>
   <li>Build and run the project using Maven.</li>
   <li>Access the web application by visiting http://localhost:8080 in your web browser.</li>
   <li>Create user accounts, manage products, and place orders as needed.</li>
