@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -32,7 +33,7 @@ public class Product {
     @NotNull
     @Positive
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
     @NotEmpty
     @NotNull
@@ -70,11 +71,11 @@ public class Product {
         this.description = description;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

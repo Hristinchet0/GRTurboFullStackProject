@@ -5,6 +5,7 @@ import com.grturbo.grturbofullstackproject.model.enums.PaymentMethodEnum;
 
 import javax.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ public class Order {
     private OrderStatusEnum orderStatus;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     @Column(name = "tax")
     private double tax;
@@ -78,11 +79,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

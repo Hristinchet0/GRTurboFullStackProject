@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +57,8 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminHome(Model model) {
-        Double monthlyEarnings = orderServiceImpl.calculateTotalPriceForLastMonth();
-        Double annualEarnings = orderServiceImpl.calculateAnnualEarnings();
+        BigDecimal monthlyEarnings = orderServiceImpl.calculateTotalPriceForLastMonth();
+        BigDecimal annualEarnings = orderServiceImpl.calculateAnnualEarnings();
         Long sentOrdersCount = orderServiceImpl.getSentOrdersForCurrentMonth();
         Long sentOrdersCountForYear = orderServiceImpl.getSentOrdersForCurrentYear();
 

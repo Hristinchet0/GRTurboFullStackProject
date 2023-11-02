@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,8 +29,8 @@ public class ShoppingCart {
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private User customer;
 
-    @Column(name = "total_price")
-    private Double totalPrice;
+    @Column(name = "total_price", precision = 19, scale = 2)
+    private BigDecimal totalPrice;
 
     @Column(name = "total_items")
     private Integer totalItems;
@@ -40,7 +41,7 @@ public class ShoppingCart {
     public ShoppingCart() {
         this.cartItems = new HashSet<>();
         this.totalItems = 0;
-        this.totalPrice = 0.0;
+        this.totalPrice = BigDecimal.valueOf(0.0);
     }
 
     public Long getId() {
@@ -59,11 +60,11 @@ public class ShoppingCart {
         this.customer = customer;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 

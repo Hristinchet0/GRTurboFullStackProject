@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart addItemToCart(Product product, int quantity, User user) {
+    public ShoppingCart addItemToCart(Product product, Integer quantity, User user) {
         ShoppingCart cart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
 
         if (cart == null) {
@@ -50,12 +51,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
-            cartItem.setTotalPrice(quantity * product.getPrice());
+            cartItem.setTotalPrice(new BigDecimal(quantity).multiply(product.getPrice()));
             cartItem.setShoppingCart(cart);
             cartItems.add(cartItem);
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
-            cartItem.setTotalPrice(cartItem.getTotalPrice() + (quantity * product.getPrice()));
+            cartItem.setTotalPrice(new BigDecimal(quantity).multiply(product.getPrice()).add(cartItem.getTotalPrice()));
         }
 
         cart.setCartItems(cartItems);
@@ -66,7 +67,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart updateItemInCart(Product product, int quantity, User user) {
+    public ShoppingCart updateItemInCart(Product product, Integer quantity, User user) {
         ShoppingCart cart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
 
         Set<CartItem> cartItems = cart.getCartItems();
@@ -74,11 +75,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem item = findCartItem(cartItems, product.getId());
 
         item.setQuantity(quantity);
-        item.setTotalPrice(quantity * product.getPrice());
+        item.setTotalPrice(new BigDecimal(quantity).multiply(item.getTotalPrice()));
         cartItemRepository.save(item);
 
-        int totalItems = totalItems(cart.getCartItems());
-        double totalPrice = totalPrice(cartItems);
+        Integer totalItems = totalItems(cart.getCartItems());
+        BigDecimal totalPrice = totalPrice(cartItems);
         cart.setTotalItems(totalItems);
         cart.setTotalPrice(totalPrice);
 
@@ -98,8 +99,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             Set<CartItem> cartItems = managedCart.getCartItems();
             cartItems.remove(cartItemForDelete);
 
-            int totalItems = totalItems(cartItems);
-            double totalPrice = totalPrice(cartItems);
+            Integer totalItems = totalItems(cartItems);
+            BigDecimal totalPrice = totalPrice(cartItems);
             managedCart.setTotalItems(totalItems);
             managedCart.setTotalPrice(totalPrice);
 
@@ -115,7 +116,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void deleteCartItemsByShoppingCartId(Long id) {
         ShoppingCart shoppingCart = shoppingCartRepository.getById(id);
         shoppingCart.getCartItems().clear();
-        shoppingCart.setTotalPrice(0.0);
+        shoppingCart.setTotalPrice(BigDecimal.valueOf(0.0));
         shoppingCart.setTotalItems(0);
         shoppingCartRepository.save(shoppingCart);
     }
@@ -126,7 +127,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         for (ShoppingCart shoppingCart : shoppingCarts) {
             shoppingCart.getCartItems().clear();
-            shoppingCart.setTotalPrice(0.0);
+            shoppingCart.setTotalPrice(BigDecimal.valueOf(0.0));
             shoppingCart.setTotalItems(0);
             shoppingCartRepository.save(shoppingCart);
         }
@@ -151,7 +152,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cartItem;
     }
 
-    private int totalItems(Set<CartItem> cartItems) {
+    private Integer totalItems(Set<CartItem> cartItems) {
         int totalItems = 0;
 
         for (CartItem item : cartItems) {
@@ -161,14 +162,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return totalItems;
     }
 
-    private double totalPrice(Set<CartItem> cartItems) {
-        double totalPrice = 0.0;
-
-        for (CartItem item : cartItems) {
-            totalPrice += item.getTotalPrice();
-        }
-
-        return totalPrice;
+    private BigDecimal totalPrice(Set<CartItem> cartItems) {
+        return cartItems.stream()
+                .map(CartItem::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }

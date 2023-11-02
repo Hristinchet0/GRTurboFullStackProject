@@ -2,6 +2,8 @@ package com.grturbo.grturbofullstackproject.model.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+
 public class ProductEditDto {
 
     private Long id;
@@ -12,7 +14,7 @@ public class ProductEditDto {
 
     private Long categoryId;
 
-    private Double price;
+    private BigDecimal price;
 
     private String description;
 
@@ -45,11 +47,11 @@ public class ProductEditDto {
         this.categoryId = categoryId;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
 
 public class ProductAddDto {
 
@@ -22,7 +23,7 @@ public class ProductAddDto {
 
     @NotNull
     @Positive
-    private Double price;
+    private BigDecimal price;
 
     @NotEmpty
     @NotNull
@@ -59,11 +60,11 @@ public class ProductAddDto {
         this.categoryId = categoryId;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public ProductAddDto setPrice(Double price) {
+    public ProductAddDto setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }

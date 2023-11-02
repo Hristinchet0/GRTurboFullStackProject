@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -128,21 +129,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Double calculateTotalPriceForLastMonth() {
+    public BigDecimal calculateTotalPriceForLastMonth() {
         List<Order> shippedOrdersForLastMonth = findShippedOrdersForLastMonth();
 
         return shippedOrdersForLastMonth.stream()
-                .mapToDouble(Order::getTotalPrice)
-                .sum();
+                .map(Order::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override
-    public Double calculateAnnualEarnings() {
+    public BigDecimal calculateAnnualEarnings() {
         List<Order> shippedOrdersForLastYear = findShippedOrdersForLastYear();
 
         return shippedOrdersForLastYear.stream()
-                .mapToDouble(Order::getTotalPrice)
-                .sum();
+                .map(Order::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override

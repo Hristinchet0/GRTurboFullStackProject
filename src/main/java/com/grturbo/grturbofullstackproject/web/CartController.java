@@ -63,7 +63,7 @@ public class CartController {
 
     @PostMapping("/add-to-cart")
     public String addItemToCart(@RequestParam("id") Long productId,
-                                @RequestParam(value = "quantity", required = false, defaultValue = "1") int quantity,
+                                @RequestParam(value = "quantity", required = false, defaultValue = "1") Integer quantity,
                                 Principal principal,
                                 HttpServletRequest request,
                                 Model model) {
@@ -83,7 +83,7 @@ public class CartController {
     }
 
     @PostMapping("/update-cart")
-    public String updateCart(@RequestParam("quantity") int quantity,
+    public String updateCart(@RequestParam("quantity") Integer quantity,
                              @RequestParam("id") Long productId,
                              Model model,
                              Principal principal) {

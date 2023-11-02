@@ -1,21 +1,23 @@
 package com.grturbo.grturbofullstackproject.model.dto;
 
+import java.math.BigDecimal;
+
 public class OrderDetailViewDto {
 
     private String productImg;
 
     private String productName;
 
-    private Double productPrice;
+    private BigDecimal productPrice;
 
     private int quantity;
 
-    private Double productTotalPrice;
+    private BigDecimal productTotalPrice;
 
     public OrderDetailViewDto() {
     }
 
-    public OrderDetailViewDto(String productImg, String productName, Double productPrice, int quantity, Double productTotalPrice) {
+    public OrderDetailViewDto(String productImg, String productName, BigDecimal productPrice, int quantity, BigDecimal productTotalPrice) {
         this.productImg = productImg;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -39,11 +41,11 @@ public class OrderDetailViewDto {
         this.productName = productName;
     }
 
-    public Double getProductPrice() {
+    public BigDecimal getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Double productPrice) {
+    public void setProductPrice(BigDecimal productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -55,11 +57,13 @@ public class OrderDetailViewDto {
         this.quantity = quantity;
     }
 
-    public Double getProductTotalPrice() {
+    public BigDecimal getProductTotalPrice() {
         return productTotalPrice;
     }
 
-    public void setProductTotalPrice(Double productTotalPrice) {
+    public void setProductTotalPrice(BigDecimal productTotalPrice) {
         this.productTotalPrice = productTotalPrice;
     }
+
+
 }

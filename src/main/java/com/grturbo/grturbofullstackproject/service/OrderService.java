@@ -5,6 +5,7 @@ import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface OrderService {
@@ -24,9 +25,9 @@ public interface OrderService {
 
     List<Order> findShippedOrdersForLastMonth();
 
-    Double calculateTotalPriceForLastMonth();
+    BigDecimal calculateTotalPriceForLastMonth();
 
-    Double calculateAnnualEarnings();
+    BigDecimal calculateAnnualEarnings();
 
     Long getSentOrdersForCurrentMonth();
 
