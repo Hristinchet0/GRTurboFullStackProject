@@ -61,7 +61,7 @@ class UserRepositoryTest {
         user.setPhoneNumber("0879469446");
         user.setPassword("12345");
         user.setCity("Razlog");
-        user.setRoles((List<UserRole>) adminRole);
+        user.addRole(adminRole);
         this.userRepository.save(user);
 
         User user2 = new User();
@@ -72,7 +72,7 @@ class UserRepositoryTest {
         user2.setEmail("gosho@test.com");
         user2.setPhoneNumber("0878363618");
         user2.setPassword("asdasd");
-        user2.setRoles((List<UserRole>) userRole);
+        user2.addRole(userRole);
         this.userRepository.save(user2);
     }
 
