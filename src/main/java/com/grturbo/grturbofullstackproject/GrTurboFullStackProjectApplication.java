@@ -1,6 +1,7 @@
 package com.grturbo.grturbofullstackproject;
 
 import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
