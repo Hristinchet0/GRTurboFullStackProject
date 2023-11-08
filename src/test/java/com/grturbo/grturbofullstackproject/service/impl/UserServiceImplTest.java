@@ -859,7 +859,5 @@ class UserServiceImplTest {
         verify(userRepository).findByEmail(any());
         verify(userRepository).save(any());
     }
-
-
 }
 
