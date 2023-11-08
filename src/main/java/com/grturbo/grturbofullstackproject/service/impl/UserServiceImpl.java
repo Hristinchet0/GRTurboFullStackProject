@@ -11,6 +11,7 @@ import com.grturbo.grturbofullstackproject.model.mapper.UserMapper;
 import com.grturbo.grturbofullstackproject.repositority.UserRoleRepository;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
 import com.grturbo.grturbofullstackproject.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Value("${app.admin.password}")
     public String adminPassword;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserRoleRepository userRoleRepository,
                            UserDetailsService userDetailsService,

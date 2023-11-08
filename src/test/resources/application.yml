@@ -2,29 +2,22 @@ app:
   admin:
     password: 12345
 cloudinary:
-  api-key: 665714344361472
-  api-secret: ${CLOUDINARY_API_SECRET}
-  cloud-name: dpa9txx6f
+  api-key: test
+  api-secret: test
+  cloud-name: test
 logging:
   level:
     blog: WARN
     org: WARN
     org.hibernate.SQL: DEBUG
 spring:
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    password: 12345
-    url: jdbc:mysql://localhost:3306/grturbo_project?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-    username: root
   jpa:
-    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
-    open-in-view: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: embedded
   mail:
     host: smtp.gmail.com
     password: 12345
@@ -54,8 +47,5 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-  sql:
-    init:
-      mode: always
   thymeleaf:
     enabled: true
