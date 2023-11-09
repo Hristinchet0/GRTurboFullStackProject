@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private CustomUserDetail login(String userName) {
+    public CustomUserDetail login(String userName) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
 
         Authentication authentication =

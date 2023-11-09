@@ -25,10 +25,6 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String registerGet() {
-        return "register";
-    }
 
     @ModelAttribute("userModel")
     public UserRegisterDto initUserModel() {
