@@ -1,22 +1,20 @@
 package com.grturbo.grturbofullstackproject.web;
 
-import com.grturbo.grturbofullstackproject.model.CustomUserDetail;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.security.Principal;
 import java.util.Optional;
 
 import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -32,8 +30,6 @@ class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String baseUrl = "http://localhost";
-
     @MockBean
     private ShoppingCartService shoppingCartService;
 
@@ -41,26 +37,26 @@ class HomeControllerTest {
     private UserServiceImpl userService;
 
     @Test
-    @Disabled("principal error")
+    @Disabled("Principal Error")
     void testHomeWithPrincipal() throws Exception {
         User mockUser = new User();
         mockUser.setId(1L);
         mockUser.setEmail("test@example.com");
-        mockUser.setUsername("testUser");
-
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        CustomUserDetail userDetail = new CustomUserDetail(1L, "topsecret", "test@example.com", "Hristina", "Racheva", authorities);
+        mockUser.setUsername("pesho");
 
         ShoppingCart mockCart = new ShoppingCart();
         mockCart.setId(1L);
         mockCart.setCustomer(mockUser);
         mockCart.setTotalItems(5);
 
+        Principal mockPrincipal = Mockito.mock(Principal.class);
+        Mockito.when(mockPrincipal.getName()).thenReturn("test@example.com\"");
+
         when(userService.findByEmail("test@example.com")).thenReturn(Optional.of(mockUser));
         when(shoppingCartService.findByUserId(1L)).thenReturn(mockCart);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/index")
-                        .principal(userDetail::getUsername))
+                        .principal(() -> "test@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(model().attribute("totalItems", 5));
@@ -95,8 +91,6 @@ class HomeControllerTest {
                 andExpect(status().isOk()).
                 andExpect(view().name("faq"));
     }
-
-
 
 
 
