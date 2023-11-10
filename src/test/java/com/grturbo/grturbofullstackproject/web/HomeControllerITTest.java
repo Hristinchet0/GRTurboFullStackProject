@@ -1,5 +1,6 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.TestData;
 import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
 import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
@@ -8,6 +9,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 import com.grturbo.grturbofullstackproject.service.impl.UserServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,8 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import javax.servlet.http.HttpSession;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class HomeControllerTest {
+class HomeControllerITTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,30 +42,29 @@ class HomeControllerTest {
     @MockBean
     private UserServiceImpl userService;
 
+    @Autowired
+    private TestData testData;
+
     @Test
-    @Disabled("Principal Error")
+    @WithMockUser( username = "test@example.com")
     void testHomeWithPrincipal() throws Exception {
-        User mockUser = new User();
-        mockUser.setId(1L);
-        mockUser.setEmail("test@example.com");
-        mockUser.setUsername("pesho");
 
-        ShoppingCart mockCart = new ShoppingCart();
-        mockCart.setId(1L);
-        mockCart.setCustomer(mockUser);
-        mockCart.setTotalItems(5);
+        User user = testData.createUser("test@example.com");
+        ShoppingCart shoppingCart = testData.createShoppingCart(user, 5);
 
-        Principal mockPrincipal = Mockito.mock(Principal.class);
-        Mockito.when(mockPrincipal.getName()).thenReturn("test@example.com\"");
+        when(userService.findByEmail("test@example.com")).thenReturn(Optional.of(user));
+        when(shoppingCartService.findByUserId(1L)).thenReturn(shoppingCart);
 
-        when(userService.findByEmail("test@example.com")).thenReturn(Optional.of(mockUser));
-        when(shoppingCartService.findByUserId(1L)).thenReturn(mockCart);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/index")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/index")
                         .principal(() -> "test@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
-                .andExpect(model().attribute("totalItems", 5));
+                .andReturn();
+
+        HttpSession mockSession = mvcResult.getRequest().getSession();
+
+        assert mockSession != null;
+        Assertions.assertEquals(5, mockSession.getAttribute("totalItems"));
     }
 
     @Test
