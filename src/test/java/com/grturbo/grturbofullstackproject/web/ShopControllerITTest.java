@@ -102,7 +102,8 @@ public class ShopControllerITTest {
 
         List<ProductRecentDto> mockRecentProducts = new ArrayList<>();
         mockRecentProducts.add(mockProduct);
-        when(productService.findRecentProducts(10)).thenReturn(mockRecentProducts);
+        List<ProductRecentDto> recentProducts = productService.findRecentProducts(10);
+        when(recentProducts).thenReturn(mockRecentProducts);
 
         List<Category> mockCategories = new ArrayList<>();
         mockCategories.add(mockCategory);
