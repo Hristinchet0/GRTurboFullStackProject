@@ -52,9 +52,8 @@ class HomeControllerITTest {
         User user = testData.createUser("test@example.com");
         ShoppingCart shoppingCart = testData.createShoppingCart(user, 5);
 
-        ShoppingCart byUserId = shoppingCartService.findByUserId(1L);
         when(userService.findByEmail("test@example.com")).thenReturn(Optional.of(user));
-        when(byUserId).thenReturn(shoppingCart);
+        when(shoppingCartService.findByUserId(1L)).thenReturn(shoppingCart);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/index")
                         .principal(() -> "test@example.com"))
