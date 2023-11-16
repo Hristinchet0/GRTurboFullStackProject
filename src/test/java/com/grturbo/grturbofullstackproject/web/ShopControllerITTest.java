@@ -1,5 +1,6 @@
 package com.grturbo.grturbofullstackproject.web;
 
+import com.grturbo.grturbofullstackproject.TestData;
 import com.grturbo.grturbofullstackproject.model.dto.ProductDetailDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
@@ -8,6 +9,7 @@ import com.grturbo.grturbofullstackproject.service.CategoryService;
 import com.grturbo.grturbofullstackproject.service.ProductService;
 import com.grturbo.grturbofullstackproject.service.impl.CategoryServiceImpl;
 import com.grturbo.grturbofullstackproject.service.impl.ProductServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,13 +50,21 @@ public class ShopControllerITTest {
     @MockBean
     private ProductServiceImpl productService;
 
+    @Autowired
+    private TestData testData;
+
+    @BeforeEach
+    public void setup() {
+        testData.createCategoriesAndProducts();
+    }
+
     @Test
-    @Disabled("problems with pageable")
     void testShop() throws Exception {
-        ProductRecentDto mockProduct = new ProductRecentDto();
         Category mockCategory = new Category();
         mockCategory.setId(1L);
         mockCategory.setName("testCategory");
+
+        ProductRecentDto mockProduct = new ProductRecentDto();
         mockProduct.setName("Sample Product");
         mockProduct.setBrand("testBrand");
         mockProduct.setPrice(BigDecimal.TEN);
@@ -63,13 +74,45 @@ public class ShopControllerITTest {
         when(productService.findRecentProducts(10)).thenReturn(mockRecentProducts);
 
         List<Category> mockCategories = new ArrayList<>();
+        mockCategories.add(mockCategory);
         when(categoryService.getAllCategory()).thenReturn(mockCategories);
 
-        Pageable pageable = Pageable.unpaged();
+        Pageable pageable = Pageable.ofSize(10);
         Page<ProductDetailDto> mockProducts = new PageImpl<>(new ArrayList<>());
         when(productService.getAllProducts(pageable)).thenReturn(mockProducts);
 
         MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.get("/shop");
+        mockMvc.perform(getRequest)
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recentProducts"))
+                .andExpect(model().attributeExists("categories"))
+                .andExpect(model().attributeExists("products"));
+    }
+
+    @Test
+    public void testShopByCategory() throws Exception {
+        Category mockCategory = new Category();
+        mockCategory.setId(1L);
+        mockCategory.setName("testCategory");
+
+        ProductRecentDto mockProduct = new ProductRecentDto();
+        mockProduct.setName("Sample Product");
+        mockProduct.setBrand("testBrand");
+        mockProduct.setPrice(BigDecimal.TEN);
+
+        List<ProductRecentDto> mockRecentProducts = new ArrayList<>();
+        mockRecentProducts.add(mockProduct);
+        when(productService.findRecentProducts(10)).thenReturn(mockRecentProducts);
+
+        List<Category> mockCategories = new ArrayList<>();
+        mockCategories.add(mockCategory);
+        when(categoryService.getAllCategory()).thenReturn(mockCategories);
+
+        Pageable pageable = Pageable.ofSize(10);
+        Page<ProductDetailDto> mockProducts = new PageImpl<>(new ArrayList<>());
+        when(productService.getAllProductsByCategoryId(mockCategory.getId() ,pageable)).thenReturn(mockProducts);
+
+        MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.get("/shop/category/1");
         mockMvc.perform(getRequest)
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recentProducts"))
@@ -117,7 +160,6 @@ public class ShopControllerITTest {
     }
 
     @Test
-    @Disabled("Problem with return status, must be 200, return 403")
     public void testSearchProducts() throws Exception {
         Category mockCategory = new Category();
         mockCategory.setId(1L);
@@ -141,7 +183,8 @@ public class ShopControllerITTest {
         when(productService.searchProducts(anyString())).thenReturn(mockSearchResults);
 
         mockMvc.perform(post("/search")
-                        .param("query", "testProduct"))
+                        .param("query", "testProduct")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("shop-search"))
                 .andExpect(model().attributeExists("categories"))
@@ -149,5 +192,25 @@ public class ShopControllerITTest {
                 .andExpect(model().attribute("categories", mockCategories))
                 .andExpect(model().attribute("products", mockSearchResults))
                 .andExpect(model().attributeDoesNotExist("noResultsMessage"));
+    }
+
+    @Test
+    public void testSearchProductsWithNoResults() throws Exception {
+        Category mockCategory = new Category();
+        mockCategory.setId(1L);
+        mockCategory.setName("testCategory");
+
+        List<Category> mockCategories = new ArrayList<>();
+        mockCategories.add(mockCategory);
+        when(categoryService.getAllCategory()).thenReturn(mockCategories);
+
+        mockMvc.perform(post("/search")
+                        .param("query", "testProduct")
+                        .with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("shop-search"))
+                .andExpect(model().attributeExists("categories"))
+                .andExpect(model().attribute("categories", mockCategories))
+                .andExpect(model().attributeExists("noResultsMessage"));
     }
 }

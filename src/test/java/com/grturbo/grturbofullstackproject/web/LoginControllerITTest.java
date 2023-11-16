@@ -28,8 +28,6 @@ public class LoginControllerITTest {
 
     private String baseUrl = "http://localhost";
 
-    private static TestRestTemplate restTemplate;
-
     @Test
     void testLoginPageShown() throws Exception {
         mockMvc.perform(get("/login")).
