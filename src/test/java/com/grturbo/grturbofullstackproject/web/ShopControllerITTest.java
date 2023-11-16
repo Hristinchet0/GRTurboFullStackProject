@@ -5,12 +5,9 @@ import com.grturbo.grturbofullstackproject.model.dto.ProductDetailDto;
 import com.grturbo.grturbofullstackproject.model.dto.ProductRecentDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.entity.Product;
-import com.grturbo.grturbofullstackproject.service.CategoryService;
-import com.grturbo.grturbofullstackproject.service.ProductService;
 import com.grturbo.grturbofullstackproject.service.impl.CategoryServiceImpl;
 import com.grturbo.grturbofullstackproject.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,7 +38,7 @@ public class ShopControllerITTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String baseUrl = "http://localhost";
+    private final String baseUrl = "http://localhost";
 
     @MockBean
     private CategoryServiceImpl categoryService;

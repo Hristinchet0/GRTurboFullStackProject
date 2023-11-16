@@ -9,6 +9,7 @@ import com.grturbo.grturbofullstackproject.model.dto.CategoryDto;
 import com.grturbo.grturbofullstackproject.model.entity.Category;
 import com.grturbo.grturbofullstackproject.model.mapper.CategoryMapper;
 import com.grturbo.grturbofullstackproject.repositority.CategoryRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

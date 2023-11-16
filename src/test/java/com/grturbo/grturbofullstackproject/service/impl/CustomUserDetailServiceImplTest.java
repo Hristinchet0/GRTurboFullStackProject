@@ -7,6 +7,7 @@ import com.grturbo.grturbofullstackproject.model.enums.RoleEnum;
 import com.grturbo.grturbofullstackproject.repositority.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

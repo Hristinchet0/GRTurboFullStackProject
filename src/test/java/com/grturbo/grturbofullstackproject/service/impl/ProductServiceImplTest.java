@@ -28,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -131,7 +132,7 @@ class ProductServiceImplTest {
         product.setImgUrl("https://example.org/example");
         product.setName("Name");
         product.setPrice(BigDecimal.valueOf(42L));
-        when(productRepository.save((Product) any())).thenReturn(product);
+        when(productRepository.save(any())).thenReturn(product);
 
         Category category1 = new Category();
         category1.setId(123L);

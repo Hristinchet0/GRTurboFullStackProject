@@ -2,14 +2,10 @@ package com.grturbo.grturbofullstackproject.web;
 
 import javax.servlet.http.Cookie;
 
-import com.grturbo.grturbofullstackproject.model.dto.UserRegisterDto;
-import com.grturbo.grturbofullstackproject.model.entity.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Locale;
@@ -26,8 +22,6 @@ public class LoginControllerITTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String baseUrl = "http://localhost";
-
     @Test
     void testLoginPageShown() throws Exception {
         mockMvc.perform(get("/login")).
@@ -37,6 +31,7 @@ public class LoginControllerITTest {
 
     @Test
     void testUserRegistrationSuccessfully() throws Exception {
+        String baseUrl = "http://localhost";
         mockMvc.perform(post("/register").
                         param("email", "anna@example.com").
                         param("username", "anna").

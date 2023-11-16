@@ -21,6 +21,7 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
+
     private final UserService userService;
 
     private final InvoiceDataService invoiceDataService;
@@ -39,15 +40,11 @@ public class UserController {
     public String profile(Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
-
         } else {
-
             User user = userService.findByEmail(principal.getName()).get();
-
             model.addAttribute("user", user);
             model.addAttribute("title", "Profile");
             model.addAttribute("page", "Profile");
-
             return "user-profile";
         }
     }
@@ -60,23 +57,14 @@ public class UserController {
                                  Principal principal) {
         if (principal == null) {
             return "redirect:/login";
-
         } else {
-
-            String userEmail = principal.getName();
-
             if (result.hasErrors()) {
                 return "user-profile";
             }
-
             userService.update(userUpdateDto);
-
             UserUpdateDto userUpdate = userService.getUser(principal.getName());
-
             redirectAttributes.addFlashAttribute("success", "Update successfully!");
-
             model.addAttribute("user", userUpdate);
-
             return "redirect:/profile";
         }
     }
