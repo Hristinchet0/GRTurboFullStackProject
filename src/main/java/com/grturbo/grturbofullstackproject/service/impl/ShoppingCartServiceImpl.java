@@ -94,21 +94,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
 
-        if (cartItemForDelete != null) {
-            Set<CartItem> cartItems = managedCart.getCartItems();
-            cartItems.remove(cartItemForDelete);
+        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
 
-            Integer totalItems = totalItems(cartItems);
-            BigDecimal totalPrice = totalPrice(cartItems);
-            managedCart.setTotalItems(totalItems);
-            managedCart.setTotalPrice(totalPrice);
+        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(managedCart.getId());
 
-            entityManager.merge(managedCart);
+        Integer totalItems = totalItems(cartItems);
+        BigDecimal totalPrice = totalPrice(cartItems);
 
-            cartItemRepository.delete(cartItemForDelete);
-        }
+        managedCart.setCartItems(cartItems);
+        managedCart.setTotalItems(totalItems);
+        managedCart.setTotalPrice(totalPrice);
 
-        return managedCart;
+        return entityManager.merge(managedCart);
     }
 
     @Override
