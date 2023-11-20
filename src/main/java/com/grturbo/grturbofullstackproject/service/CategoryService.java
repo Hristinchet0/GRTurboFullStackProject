@@ -18,4 +18,5 @@ public interface CategoryService {
 
     Optional<Category> findCategoryById(Long id);
 
+    void editCategory(Category category);
 }

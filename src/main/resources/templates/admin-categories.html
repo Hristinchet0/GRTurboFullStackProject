@@ -83,7 +83,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
             </div>
             <div class="modal-body">
-                <form th:action="@{/update-category}" method="put">
+                <form th:action="@{/update-category}" th:method="get">
                     <div class="form-group">
                         <label for="idEdit" class="col-form-label">ID
                         </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>
