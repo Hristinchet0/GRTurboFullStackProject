@@ -100,17 +100,17 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart/delete/product/{id}")
-    public String deleteProduct(@PathVariable("id") Long id, Principal principal, Model model) {
+    @GetMapping("/cart/delete/cartItem/{id}")
+    public String deleteProduct(@PathVariable("id") Long cartItem, Principal principal, Model model) {
         if (principal == null) {
             return "redirect:/login";
         }
 
         User user = userService.findByEmail(principal.getName()).get();
 
-        ShoppingCart shoppingCart = shoppingCartService.deleteItemFromCart(id, user);
+        ShoppingCart cart = shoppingCartService.deleteItemFromCart(cartItem, user);
 
-        model.addAttribute("shoppingCart", shoppingCart);
+        model.addAttribute("shoppingCart", cart);
 
         return "redirect:/cart";
     }

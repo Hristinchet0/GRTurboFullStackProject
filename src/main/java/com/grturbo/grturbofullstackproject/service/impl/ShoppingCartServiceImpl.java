@@ -89,23 +89,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
-
         ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
-
         CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
-
-        this.cartItemRepository.deleteCartItemById((cartItemForDelete.getId()));
-
-        Set<CartItem> cartItems = cartItemRepository.findByShoppingCart_Id(managedCart.getId());
-
-        Integer totalItems = totalItems(cartItems);
-        BigDecimal totalPrice = totalPrice(cartItems);
-
-        managedCart.setCartItems(cartItems);
-        managedCart.setTotalItems(totalItems);
-        managedCart.setTotalPrice(totalPrice);
-
-        return entityManager.merge(managedCart);
+        if (cartItemForDelete != null) {
+            Set<CartItem> cartItems = managedCart.getCartItems();
+            cartItems.remove(cartItemForDelete);
+            Integer totalItems = totalItems(cartItems);
+            BigDecimal totalPrice = totalPrice(cartItems);
+            managedCart.setTotalItems(totalItems);
+            managedCart.setTotalPrice(totalPrice);
+            entityManager.merge(managedCart);
+            cartItemRepository.delete(cartItemForDelete);
+        }
+        return managedCart;
     }
 
     @Override
