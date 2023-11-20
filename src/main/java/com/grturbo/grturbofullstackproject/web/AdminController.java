@@ -220,7 +220,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "Deleted failed!");
+            redirectAttributes.addFlashAttribute("error", "Deleted failed! Could not delete product while is using");
         }
         return "redirect:/products/0";
     }

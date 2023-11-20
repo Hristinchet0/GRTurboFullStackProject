@@ -50,7 +50,7 @@
                         <td>
                             <form id="cancelOrderForm" th:action="@{/api/admin/cancel-order}" method="post">
                                 <input type="hidden" name="id" th:value="${order.id}" />
-                                <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != 'SHIPPED'}">Cancel</button>
+                                <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != order.orderStatus.SHIPPED}">Cancel</button>
                             </form>
                         </td>
 
