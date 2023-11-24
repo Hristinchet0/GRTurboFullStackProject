@@ -27,21 +27,14 @@
         <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
              class="d-inline-block align-top" alt=""/>
     </a>
-    <div class="container-fluid d-flex flex-column flex-md-row ">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <ul class="navbar-nav mr-auto"></ul>
-        <ul class="navbar-nav d-flex flex-column flex-md-row justify-content-center">
+    <div class="container-fluid d-flex flex-column flex-md-row">
+        <ul class="navbar-nav d-flex flex-column flex-md-row justify-content-end">
             <li class="nav-item active">
-                <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/}" href="#"
+                <a class="p-2 d-sm-inline-block font-weight-bold" th:href="@{/}" href="#"
                    th:text="#{login_home}">Home</a>
             </li>
             <li class="nav-item active">
-                <a class="p-2 d-none d-sm-inline-block font-weight-bold" th:href="@{/shop}" href="#"
+                <a class="p-2 d-sm-inline-block font-weight-bold" th:href="@{/shop}" href="#"
                    th:text="#{login_shop}">Shop</a>
             </li>
         </ul>
@@ -80,14 +73,14 @@
 
 
                 <input type="submit" th:value="#{login_login}" class="btn solid"/>
-                <p class="social-text" th:text="#{login_social}">Or Sign in with social platforms</p>
-                <div class="social-media">
+                <!--                <p class="social-text" th:text="#{login_social}">Or Sign in with social platforms</p>-->
+                <!--                <div class="social-media">-->
 
-                    <a href="/oauth2/authorization/google" class="social-icon">
-                        <i class="fab fa-google"></i>
-                    </a>
+                <!--                    <a href="/oauth2/authorization/google" class="social-icon">-->
+                <!--                        <i class="fab fa-google"></i>-->
+                <!--                    </a>-->
 
-                </div>
+                <!--                </div>-->
             </form>
 
             <form
@@ -104,7 +97,8 @@
                            th:errorclass="is-invalid"
                            id="firstName" required
                            th:placeholder="#{login_first_name}"/>
-                    <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="invalid-feedback text-danger">Last name error message</small>
+                    <small th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                           class="invalid-feedback text-danger">Last name error message</small>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -114,7 +108,9 @@
                            th:errorclass="is-invalid"
                            id="lastName" required
                            th:placeholder="#{login_last_name}"/>
-                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback text-danger">Last name error message</div>
+                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                         class="invalid-feedback text-danger">Last name error message
+                    </div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-envelope"></i>
@@ -124,7 +120,9 @@
                            th:errorclass="is-invalid"
                            id="eemail"
                            aria-describedby="emailHelp"/>
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback text-danger">Email error message</div>
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                         class="invalid-feedback text-danger">Email error message
+                    </div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -134,7 +132,9 @@
                            th:errorclass="is-invalid"
                            id="username" required
                            th:placeholder="#{login_username}"/>
-                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback text-danger">Username error message</div>
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                         class="invalid-feedback text-danger">Username error message
+                    </div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
@@ -144,7 +144,9 @@
                            th:placeholder="#{login_password}"
                            name="password"
                            id="ppassword"/>
-                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback text-danger">Password error message</div>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                         class="invalid-feedback text-danger">Password error message
+                    </div>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
@@ -153,17 +155,19 @@
                            th:errorclass="is-invalid"
                            name="confirmPassword"
                            id="confirmPassword"/>
-                    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="invalid-feedback text-danger">Password error message</div>
+                    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                         class="invalid-feedback text-danger">Password error message
+                    </div>
                 </div>
                 <input type="submit" th:value="#{login_register}" class="btn"/>
-                <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>
-                <div class="social-media">
+                <!--                <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>-->
+                <!--                <div class="social-media">-->
 
-                    <a href="/oauth2/authorization/google" class="social-icon">
-                        <i class="fab fa-google"></i>
-                    </a>
+                <!--                    <a href="/oauth2/authorization/google" class="social-icon">-->
+                <!--                        <i class="fab fa-google"></i>-->
+                <!--                    </a>-->
 
-                </div>
+                <!--                </div>-->
             </form>
         </div>
     </div>
@@ -207,6 +211,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
 </html>

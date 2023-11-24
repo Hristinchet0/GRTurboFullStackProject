@@ -9,9 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.grturbo</groupId>
-    <artifactId>website</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>website</name>
+    <artifactId>grturbo</artifactId>
+    <name>grturbo</name>
     <description>GrTurboEcommerceWebsite</description>
     <properties>
         <java.version>17</java.version>
@@ -84,7 +83,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -166,20 +165,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>17</source> <!-- depending on your project -->
-                    <target>17</target> <!-- depending on your project -->
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>1.5.2.Final</version>
-                        </path>
-                        <!-- other annotation processors -->
-                    </annotationProcessorPaths>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

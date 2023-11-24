@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
 <head th:fragment="header">
     <meta charset="utf-8">
@@ -26,7 +26,7 @@
 <ul th:fragment="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/home}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -38,7 +38,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" th:href="@{/admin}">
+        <a class="nav-link" th:href="@{/admin/home}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -62,8 +62,8 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Products and Categories:</h6>
-                <a class="collapse-item active" href="categories.html" th:href="@{/categories}">Manage Category</a>
-                <a class="collapse-item" href="products.html" th:href = "@{/products/0}">Manage Product</a>
+                <a class="collapse-item active" th:href="@{/admin/categories}">Manage Category</a>
+                <a class="collapse-item" th:href = "@{/admin/products/0}">Manage Product</a>
             </div>
         </div>
     </li>
@@ -79,7 +79,7 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Orders :</h6>
-                <a class="collapse-item" th:href="@{/user-orders}">Orders</a>
+                <a class="collapse-item" th:href="@{/admin/user-orders}">Orders</a>
             </div>
         </div>
     </li>
@@ -217,7 +217,7 @@
 
     <!-- Custom scripts for all pages-->
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
-    <script th:src="@{js/cancel-order.js}"></script>
+    <script th:src="@{/js/cancel-order.js}"></script>
 </div>
 </body>
 </html>

@@ -72,6 +72,18 @@
   -webkit-box-flex: 1;
   flex: 1;
 }
+
+#navbarSupportedContent > ul.navbar-nav.container.d-flex.flex-column.flex-md-row.justify-content-end {
+  margin-top: 10px;
+}
+
+#navbarSupportedContent > ul.navbar-nav.container.d-flex.flex-column.flex-md-row.justify-content-end > li:nth-child(7) > form {
+  display: flex;
+  justify-content: center;
+}
+
+
+
 @media (min-width: 768px) {
   .flex-md-equal > * {
     -ms-flex: 1;

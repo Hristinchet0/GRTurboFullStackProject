@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
-<head th:replace="~{/fragments/fragments::header}">
-</head>
-
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace="~{/fragments/fragments::sidebar}">
+    <ul th:replace="fragments/fragments::sidebar">
     </ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace="~{/fragments/fragments::top-navbar}">
+            <nav th:replace="fragments/fragments::top-navbar">
             </nav>
             <div class="container-fluid">
-                <form class="form-horizontal" th:action="@{/save-product}" method="post" th:object="${productDto}"
+                <form class="form-horizontal" th:action="@{/admin/save-product}" method="post" th:object="${productDto}"
                       enctype="multipart/form-data">
                     <fieldset>
                         <legend>ADD NEW PRODUCT</legend>
@@ -83,12 +80,12 @@
             </div>
         </div>
 
-        <footer th:replace="~{/fragments/fragments::footer}"></footer>
+        <footer th:replace="fragments/fragments::footer"></footer>
     </div>
 </div>
-<a th:replace="~{/fragments/fragments::scroll}"></a>
+<a th:replace="fragments/fragments::scroll"></a>
 
-<div th:replace="~{/fragments/fragments::script}"></div>
+<div th:replace="fragments/fragments::script"></div>
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {

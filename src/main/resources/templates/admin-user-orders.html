@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{/fragments/fragments::header}"></head>
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace="~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace="~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
             <div th:if="${success}" class="text-center alert alert-success">
                 <p th:text="${success}"></p>
             </div>
@@ -29,7 +29,8 @@
                     <tbody>
                     <tr th:each="order : ${orders}">
                         <td class="order-id" th:text="${order.id}"></td>
-                        <td class="user-name" th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></td>
+                        <td class="user-name"
+                            th:text="${order.customer.firstName + ' ' + order.customer.lastName}"></td>
                         <td class="order-date">
                             <span><b th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></b></span>
                         </td>
@@ -42,43 +43,47 @@
                         </td>
                         <td>
                             <form th:action="@{/accept-order}" method="post">
-                                <input type="hidden" name="id" th:value="${order.id}" />
+                                <input type="hidden" name="id" th:value="${order.id}"/>
                                 <button type="submit" class="btn btn-secondary" th:if="${!order.accept}">Accept</button>
                             </form>
-<!--                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>-->
+                            <!--                            <a th:if="${order.accept != false}" th:href="@{/cancel-order/(id=${order.id})}" class="btn btn-primary">Cancel</a>-->
                         </td>
                         <td>
                             <form id="cancelOrderForm" th:action="@{/api/admin/cancel-order}" method="post">
-                                <input type="hidden" name="id" th:value="${order.id}" />
-                                <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != order.orderStatus.SHIPPED}">Cancel</button>
+                                <input type="hidden" name="id" th:value="${order.id}"/>
+                                <button type="submit" class="btn btn-primary"
+                                        th:if="${order.accept and order.orderStatus != order.orderStatus.SHIPPED}">
+                                    Cancel
+                                </button>
                             </form>
                         </td>
 
                         <td>
-                            <form th:action="@{/send-order}" method="post">
-                                <input type="hidden" name="id" th:value="${order.id}" />
-                                <button type="submit" class="btn btn-primary" th:if="${order.accept}">Shipping Confirmation</button>
+                            <form th:action="@{/admin/send-order}" method="post">
+                                <input type="hidden" name="id" th:value="${order.id}"/>
+                                <button type="submit" class="btn btn-primary" th:if="${order.accept}">Shipping
+                                    Confirmation
+                                </button>
                             </form>
                         </td>
 
                         <td>
-                            <form th:action="@{/view-order-detail}" method="post">
-                                <input type="hidden" name="orderId" th:value="${order.id}" />
+                            <form th:action="@{/admin/view-order-detail}" method="post">
+                                <input type="hidden" name="orderId" th:value="${order.id}"/>
                                 <button type="submit" class="btn btn-info">View Order Detail</button>
                             </form>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <footer th:replace="~{/fragments/fragments::footer}"></footer>
+                <footer th:replace="fragments/fragments::footer"></footer>
             </div>
         </div>
     </div>
 </div>
 
-<a th:replace="~{/fragments/fragments::scroll}"></a>
-
-<div th:replace="~{/fragments/fragments::script}"></div>
+<a th:replace="fragments/fragments::scroll"></a>
+<div th:replace="fragments/fragments::script"></div>
 
 
 <script th:src="@{/js/cancel-order.js}"></script>

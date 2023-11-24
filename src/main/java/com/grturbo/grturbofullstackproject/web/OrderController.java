@@ -59,7 +59,8 @@ public class OrderController {
         } else {
             String username = principal.getName();
             User user = userService.findByEmail(username).get();
-            if (user.getAddress() == null || user.getCity() == null || user.getPhoneNumber() == null) {
+            if (user.getAddress() == null || user.getCity() == null || user.getPhoneNumber() == null ||
+                    user.getAddress().isEmpty() || user.getCity().isEmpty() || user.getPhoneNumber().isEmpty()) {
                 model.addAttribute("information", "You need update your information before check out");
                 model.addAttribute("user", user);
                 model.addAttribute("title", "Profile");

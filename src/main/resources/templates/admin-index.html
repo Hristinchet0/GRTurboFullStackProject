@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace = "~{/fragments/fragments::header}"></head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace = "~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav  th:replace = "~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
             <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -22,8 +22,10 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$<span th:text="${monthlyEarnings}">40,000</span></div>
+                                            Earnings (Monthly)
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$<span
+                                                th:text="${monthlyEarnings}">40,000</span></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -39,8 +41,10 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$<span th:text="${annualEarnings}">100,000</span></div>
+                                            Earnings (Annual)
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$<span
+                                                th:text="${annualEarnings}">100,000</span></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -55,11 +59,13 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Оrders shipped for the month
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Оrders
+                                            shipped for the month
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" th:text="${sentOrdersCount}"></div>
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                     th:text="${sentOrdersCount}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -76,11 +82,13 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Оrders shipped for the year
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Оrders
+                                            shipped for the year
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" th:text="${sentOrdersCountForYear}"></div>
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                     th:text="${sentOrdersCountForYear}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -165,13 +173,12 @@
                 </div>
             </div>
         </div>
-        <footer th:replace = "~{/fragments/fragments::footer}"></footer>
+        <footer th:replace="fragments/fragments::footer"></footer>
     </div>
 </div>
 
-<a th:replace = "~{/fragments/fragments::scroll}" >
-</a>
-<div th:replace = "~{/fragments/fragments::script}"></div>
+<!--<a th:replace="~{/fragments/fragments::scroll}"></a>-->
+<div th:replace="fragments/fragments::script"></div>
 
 <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final CategoryService categoryService;
@@ -51,7 +52,7 @@ public class AdminController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/home")
     public String adminHome(Model model) {
         BigDecimal monthlyEarnings = orderService.calculateTotalPriceForLastMonth();
         BigDecimal annualEarnings = orderService.calculateAnnualEarnings();
@@ -65,20 +66,20 @@ public class AdminController {
         return "admin-index";
     }
 
-    @GetMapping("/admin/user")
+    @GetMapping("/user")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin-user-all";
     }
 
-    @GetMapping("/admin/user/delete/{id}")
+    @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.removeUserById(id);
 
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/user/update/{id}")
+    @GetMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
         User user = userService.getUserById(id).get();
 
@@ -90,7 +91,7 @@ public class AdminController {
         return "admin-user-update";
     }
 
-    @PostMapping("/admin/user/save")
+    @PostMapping("/user/save")
     public String saveUser(User user) {
         userService.save(user);
 
@@ -123,7 +124,7 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("error",
                     "Error server");
         }
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @RequestMapping(value = "/delete-category", method = {RequestMethod.GET, RequestMethod.PUT})
@@ -138,7 +139,7 @@ public class AdminController {
             e2.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error server");
         }
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @RequestMapping(value = "/findById", method = {RequestMethod.PUT, RequestMethod.GET})
@@ -160,7 +161,7 @@ public class AdminController {
             e2.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error from server or duplicate name of category, please check again!");
         }
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/products")
@@ -210,7 +211,7 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to add new product!");
         }
-        return "redirect:/products/0";
+        return "redirect:/admin/products/0";
     }
 
     @RequestMapping(value = "/delete-product", method = {RequestMethod.PUT, RequestMethod.GET})
@@ -222,7 +223,7 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Deleted failed! Could not delete product while is using");
         }
-        return "redirect:/products/0";
+        return "redirect:/admin/products/0";
     }
 
     @GetMapping("/update-product/{id}")
@@ -255,7 +256,7 @@ public class AdminController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error server, please try again!");
         }
-        return "redirect:/products/0";
+        return "redirect:/admin/products/0";
     }
 
     @GetMapping("/search-products/{pageNo}")
@@ -296,7 +297,7 @@ public class AdminController {
         } else {
             orderService.acceptOrder(id);
             attributes.addFlashAttribute("success", "Order Accepted");
-            return "redirect:/user-orders";
+            return "redirect:/admin/user-orders";
         }
     }
 
@@ -315,7 +316,7 @@ public class AdminController {
     @PostMapping("/view-order-detail")
     public String viewOrderDetailPost(@RequestParam Long orderId, Model model) {
 
-        return "redirect:/view-order-detail?orderId=" + orderId;
+        return "redirect:/admin/view-order-detail?orderId=" + orderId;
     }
 
 //    @PostMapping("/cancel-order")
@@ -328,6 +329,6 @@ public class AdminController {
     public String shippingConfirmation(@RequestParam Long id) {
         orderService.sendOrder(id);
 
-        return "redirect:/user-orders";
+        return "redirect:/admin/user-orders";
     }
 }

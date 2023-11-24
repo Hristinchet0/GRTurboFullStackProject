@@ -8,10 +8,7 @@ import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -100,7 +97,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart/delete/cartItem/{id}")
+    @RequestMapping(value = "/cart/delete/cartItem/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable("id") Long cartItem, Principal principal, Model model) {
         if (principal == null) {
             return "redirect:/login";

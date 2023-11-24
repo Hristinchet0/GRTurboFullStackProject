@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <meta charset="UTF-8">
@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" >
     <link rel="canonical"
-        href="https://getbootstrap.com/docs/4.0/examples/product/">
+          href="https://getbootstrap.com/docs/4.0/examples/product/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="nav.css" th:href="@{/css/nav.css}">
 
     <title>About Us</title>
@@ -22,148 +22,148 @@
 
 <body>
 <div th:replace="fragments/navbar">Navbar</div>
-    <div class="photos">
-        <h2 th:text="#{about_h2}">About Us</h2>
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img
-                        src="/images/aboutusphotos/326810909_1244808979782878_4037045506643223432_n.jpg">
-                </div>
-                <div class="swiper-slide"><img
-                        src="/images/aboutusphotos/h01.jpg"></div>
-                <div class="swiper-slide"><img
-                        src="/images/aboutusphotos/h02.jpg"></div>
-                <div class="swiper-slide"><img
-                        src="/images/aboutusphotos/h03.jpg"></div>
+<div class="photos">
+    <h2 th:text="#{about_h2}">About Us</h2>
+    <div class="swiper" style="width: 100%">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img
+                    src="/images/aboutusphotos/326810909_1244808979782878_4037045506643223432_n.jpg">
             </div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            <div class="swiper-slide"><img
+                    src="/images/aboutusphotos/h01.jpg"></div>
+            <div class="swiper-slide"><img
+                    src="/images/aboutusphotos/h02.jpg"></div>
+            <div class="swiper-slide"><img
+                    src="/images/aboutusphotos/h03.jpg"></div>
+        </div>
+        <!--            <div class="swiper-button-prev"></div>-->
+        <!--            <div class="swiper-button-next"></div>-->
+    </div>
+</div>
+<section>
+    <div class="about">
+        <div class="row1">
+            <div class="col1">
+                <h2 th:text="#{about_storyH2}">GR TURBO – STORY AND TEAM</h2>
+
+                <p th:text="#{about_p1}">
+                    Gr Turbo is a sole-owned company, established in 2010 to provide high-quality repairs to all types of
+                    turbochargers for light, light commercial vehicles, buses and road construction machinery. Over the
+                    years,
+                    our name has become the synonym of success and leadership in the recycling and sale of turbochargers in
+                    Bulgaria, proof of which are our satisfied customers from across the country.
+                </p>
+
+                <p th:text="#{about_p2}">
+                    We at GR Turbo have the latest generation high-speed vibro-balance stands for turbochargers. We have
+                    stands
+                    for high-velocity vibro-balance of medium-speed turbochargers as well as for tuned turbochargers.
+                    Our stands
+                    work up to 250,000 revolutions per minute. Real-time simulation of the turbocharger's performance in
+                    the
+                    car. They also monitor oil pressure and temperature as well as vibrations at optimal load and
+                    revolutions.
+                </p>
+
+                <p th:text="#{about_p3}"> After each turbocharger has passed through our stands, we are authorized to issue a certificate of
+                    authenticity and vibro-balance of the turbochargers. The certificate is under ISO standards. After each
+                    repair we have issued, a turbocharger warranty card and a certificate of a high-speed stand are issued.
+                </p>
+
+                <h2 th:text="#{about_cimath2}">CIMAT TURBOTEST EXPERT FLOWBENCH – </h2>
+                <h2 th:text="#{about_standh2}">STAND FOR TEST AND SET UP OF TURBOCHARGERS</h2>
+
+                <p th:text="#{about_p4}">Nowadays it's good to know that balancing is not the final stage of the turbocharger repair process.
+                    Modern turbines are a complex mechanism, and the management of their work is a problem, but only for the
+                    unprepared.
+                    World leaders are: Borg Warner, Garrett, Holset, IHI, Mitsubishi Turbo Systems.
+                </p>
+
+                <p th:text="#{about_p5}">
+                    According to their competent opinion,it is not possible to repair the turbo variable geometry outside
+                    their official garage and to achieve factory quality. And for the most incompetent, it is clear that a
+                    specialized equipment is needed. This, of course, is true, but recently we at GR Turbo have a stand,
+                    last word on innovative technology solutions.
+                </p>
+
+                <p th:text="#{about_p6}">
+                    It allows us to test and adjust almost all of the turbochargers on the current market. With our Cimat
+                    Turbo Test Expert, it is not a problem to set and test any variable geometry or wastage
+                    turbine. It does not matter if the turbo is with an electronic or pneumatic actuator. The stand measures
+                    the amount of air passed over a unit of time through the variable geometry and
+                    simultaneously counts the turbine speed.
+                </p>
+
+                <p th:text="#{about_p7}">
+                    Another important factor is that the turbocharger is lubricated with oil under the necessary temperature
+                    and pressure, mimicking precisely the work of the turbo in the car. All important parameters for the
+                    optimal work of the turbo are monitored after reparation by measuring and analyzing.
+                </p>
+
+                <p th:text="#{about_p8}">
+                    Each repair is completed by testing and adjusting the actuator and the stop bolt. This is necessary
+                    because most of the modern tubular compressors are controlled and monitored by complex mechanisms -
+                    electronic and pneumatic actuators, position sensors and even combined ones (vacuum actuator and
+                    position sensor in one). The unloading valve controls the unloading mechanism. Modern turbines feature
+                    an electronic actuator, a combination of electric motor and precision electronics such as Hella, VDO /
+                    Siemens, Mitsubish, Sonceboz and others. The actuator determines when and how much the variable geometry
+                    or wastegate of a turbine without geometry can be opened or closed.
+                </p>
+
+                <p th:text="#{about_p9}">
+                    From what has been said so far, it is necessary to conclude that in order for a turbine to work
+                    properly, the correct condition is a working actuator and variable geometry, and this is just a piece of
+                    the strength of our Cimat Turbo Test Expert.
+                </p>
+
+                <p th:text="#{about_p10}">
+                    The electronics also have defects - most often we encounter broken reducing agents or defective
+                    electronics, leading to incorrect control, turbocharger bad operation and power loss. Fine tuning is a
+                    must when replacing any types of actuators. Failure to do so will cause the car to be
+                    in an emergency mode.
+                </p>
+
+                <p th:text="#{about_p11}">
+                    Our database, containing parameters for turbine tuning, operation and performance, is continually being
+                    enriched. We aim for a 100 percent match in the settings set by the manufacturer. The stand counts the
+                    fatigue of the actuator, worn connections between the bearing body and variable geometry, and at the
+                    same time shows in real terms what adjustments are to be made for the correct adjustment.
+                </p>
+
+                <h2 th:text="#{about_compressorh2}">
+                    COMPRESSOR POWER TEST
+                </h2>
+
+                <p th:text="#{about_p12}">
+                    This is an unique feature that is possible ONLY at our stand in Bulgaria. Until now, this test was only
+                    possible in turbine laboratories of the manufacturers. It compares and measures the pressure produced by
+                    the turbocharger, taking into account the atmospheric pressure and the speed at which it rotates. It is
+                    also a very useful hybrid function that gives real data about the correct tuning of the turbine in the
+                    car.
+                </p>
+
+                <h2 th:text="#{about_educationh2}">EDUCATION AND SOFTWARE UPDATE OF ELECTRONIC ACTUATORS</h2>
+
+                <p th:text="#{about_p13}">
+                    This is another feature that proves our technique has no analogue at the moment. None of the other "flow
+                    benches" in the market supports this feature, along with the above. You probably know that, for example,
+                    new VDO actuators are bought "empty" - without software. In other words, the actuator is mounted on the
+                    turbo, which is mounted on the car and goes to an official dealer to "pour" the software (educate) to
+                    make the new actuator work correctly. Which, however, is a very expensive and time-wasting operation.
+                    <br>
+                    <br>
+                    <b th:text="#{about_b}">Well, you will no longer need it because we can teach (pour software) almost all types of electronic actuators known in the market
+                        - VDO / SIEMENS, HELLA, MITSUBISHI, TOYOTA, SONCEBOZ and others.</b>
+                </p>
+            </div>
         </div>
     </div>
-    <section>
-        <div class="about">
-            <div class="row1">
-                <div class="col1">
-                    <h2 th:text="#{about_storyH2}">GR TURBO – STORY AND TEAM</h2>
-
-            <p th:text="#{about_p1}">
-                Gr Turbo is a sole-owned company, established in 2010 to provide high-quality repairs to all types of
-                turbochargers for light, light commercial vehicles, buses and road construction machinery. Over the
-                years,
-                our name has become the synonym of success and leadership in the recycling and sale of turbochargers in
-                Bulgaria, proof of which are our satisfied customers from across the country.
-            </p>
-
-            <p th:text="#{about_p2}">
-                We at GR Turbo have the latest generation high-speed vibro-balance stands for turbochargers. We have
-                stands
-                for high-velocity vibro-balance of medium-speed turbochargers as well as for tuned turbochargers.
-                Our stands
-                work up to 250,000 revolutions per minute. Real-time simulation of the turbocharger's performance in
-                the
-                car. They also monitor oil pressure and temperature as well as vibrations at optimal load and
-                revolutions.
-            </p>
-
-            <p th:text="#{about_p3}"> After each turbocharger has passed through our stands, we are authorized to issue a certificate of
-                authenticity and vibro-balance of the turbochargers. The certificate is under ISO standards. After each
-                repair we have issued, a turbocharger warranty card and a certificate of a high-speed stand are issued.
-            </p>
-
-            <h2 th:text="#{about_cimath2}">CIMAT TURBOTEST EXPERT FLOWBENCH – </h2>
-            <h2 th:text="#{about_standh2}">STAND FOR TEST AND SET UP OF TURBOCHARGERS</h2>
-
-            <p th:text="#{about_p4}">Nowadays it's good to know that balancing is not the final stage of the turbocharger repair process.
-                Modern turbines are a complex mechanism, and the management of their work is a problem, but only for the
-                unprepared.
-                World leaders are: Borg Warner, Garrett, Holset, IHI, Mitsubishi Turbo Systems.
-            </p>
-
-            <p th:text="#{about_p5}">
-                According to their competent opinion,it is not possible to repair the turbo variable geometry outside
-                their official garage and to achieve factory quality. And for the most incompetent, it is clear that a
-                specialized equipment is needed. This, of course, is true, but recently we at GR Turbo have a stand,
-                last word on innovative technology solutions.
-            </p>
-
-            <p th:text="#{about_p6}">
-                It allows us to test and adjust almost all of the turbochargers on the current market. With our Cimat
-                Turbo Test Expert, it is not a problem to set and test any variable geometry or wastage
-                turbine. It does not matter if the turbo is with an electronic or pneumatic actuator. The stand measures
-                the amount of air passed over a unit of time through the variable geometry and
-                simultaneously counts the turbine speed.
-            </p>
-
-            <p th:text="#{about_p7}">
-                Another important factor is that the turbocharger is lubricated with oil under the necessary temperature
-                and pressure, mimicking precisely the work of the turbo in the car. All important parameters for the
-                optimal work of the turbo are monitored after reparation by measuring and analyzing.
-            </p>
-
-            <p th:text="#{about_p8}">
-                Each repair is completed by testing and adjusting the actuator and the stop bolt. This is necessary
-                because most of the modern tubular compressors are controlled and monitored by complex mechanisms -
-                electronic and pneumatic actuators, position sensors and even combined ones (vacuum actuator and
-                position sensor in one). The unloading valve controls the unloading mechanism. Modern turbines feature
-                an electronic actuator, a combination of electric motor and precision electronics such as Hella, VDO /
-                Siemens, Mitsubish, Sonceboz and others. The actuator determines when and how much the variable geometry
-                or wastegate of a turbine without geometry can be opened or closed.
-            </p>
-
-            <p th:text="#{about_p9}">
-                From what has been said so far, it is necessary to conclude that in order for a turbine to work
-                properly, the correct condition is a working actuator and variable geometry, and this is just a piece of
-                the strength of our Cimat Turbo Test Expert.
-            </p>
-
-            <p th:text="#{about_p10}">
-                The electronics also have defects - most often we encounter broken reducing agents or defective
-                electronics, leading to incorrect control, turbocharger bad operation and power loss. Fine tuning is a
-                must when replacing any types of actuators. Failure to do so will cause the car to be
-                in an emergency mode.
-            </p>
-
-            <p th:text="#{about_p11}">
-                Our database, containing parameters for turbine tuning, operation and performance, is continually being
-                enriched. We aim for a 100 percent match in the settings set by the manufacturer. The stand counts the
-                fatigue of the actuator, worn connections between the bearing body and variable geometry, and at the
-                same time shows in real terms what adjustments are to be made for the correct adjustment.
-            </p>
-
-            <h2 th:text="#{about_compressorh2}">
-                COMPRESSOR POWER TEST
-            </h2>
-
-            <p th:text="#{about_p12}">
-                This is an unique feature that is possible ONLY at our stand in Bulgaria. Until now, this test was only
-                possible in turbine laboratories of the manufacturers. It compares and measures the pressure produced by
-                the turbocharger, taking into account the atmospheric pressure and the speed at which it rotates. It is
-                also a very useful hybrid function that gives real data about the correct tuning of the turbine in the
-                car.
-            </p>
-
-            <h2 th:text="#{about_educationh2}">EDUCATION AND SOFTWARE UPDATE OF ELECTRONIC ACTUATORS</h2>
-
-            <p th:text="#{about_p13}">
-                This is another feature that proves our technique has no analogue at the moment. None of the other "flow
-                benches" in the market supports this feature, along with the above. You probably know that, for example,
-                new VDO actuators are bought "empty" - without software. In other words, the actuator is mounted on the
-                turbo, which is mounted on the car and goes to an official dealer to "pour" the software (educate) to
-                make the new actuator work correctly. Which, however, is a very expensive and time-wasting operation.
-                <br>
-                <br>
-                <b th:text="#{about_b}">Well, you will no longer need it because we can teach (pour software) almost all types of electronic actuators known in the market
-                    - VDO / SIEMENS, HELLA, MITSUBISHI, TOYOTA, SONCEBOZ and others.</b>
-            </p>
-                </div>
-            </div>
-        </div>
-    </section>
+</section>
 
 <div th:replace="fragments/footer">Footer</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-    <script src="/GrTurboWebProject/src/main/resources/static/js/swiper-slide.js"
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="/GrTurboWebProject/src/main/resources/static/js/swiper-slide.js"
         th:src="@{/js/swiper-slide.js}"></script>
 
 <div th:replace="fragments/scripts"></div>

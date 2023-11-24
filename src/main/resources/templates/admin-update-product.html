@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
-<head th:replace = "~{/fragments/fragments::header}"></head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace = "~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace = "~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
             <div class="container-fluid">
-                <form class="form-horizontal" th:action="@{/update-product/{id}(id = ${productDto.id})}" method="post" th:object = "${productDto}"
+                <form class="form-horizontal" th:action="@{/admin/update-product/{id}(id = ${productDto.id})}"
+                      method="post" th:object="${productDto}"
                       enctype="multipart/form-data">
                     <fieldset>
                         <legend>UPDATE PRODUCT</legend>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
                             <div class="col-md-4">
-                                <input id="product_name" th:field = "*{name}" name="product_name" class="form-control input-md" required="" type="text">
+                                <input id="product_name" th:field="*{name}" name="product_name"
+                                       class="form-control input-md" required="" type="text">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="product_brand">BRAND</label>
                             <div class="col-md-4">
-                                <input id="product_brand" th:field = "*{brand}" name="product_brand" class="form-control input-md" required="" type="text">
+                                <input id="product_brand" th:field="*{brand}" name="product_brand"
+                                       class="form-control input-md" required="" type="text">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="product_categories">PRODUCT CATEGORY</label>
                             <div class="col-md-4">
-                                <select id="product_categories" th:field = "*{categoryId}" name="product_categories" class="form-control">
-                                    <option th:value = "null">-SELECT-</option>
-                                    <option th:each = "category : ${categories}"
-                                            th:value = "${category.id}"
-                                            th:text = "${category.name}">
+                                <select id="product_categories" th:field="*{categoryId}" name="product_categories"
+                                        class="form-control">
+                                    <option th:value="null">-SELECT-</option>
+                                    <option th:each="category : ${categories}"
+                                            th:value="${category.id}"
+                                            th:text="${category.name}">
                                     </option>
                                 </select>
                             </div>
@@ -50,7 +54,8 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="price">PRICE</label>
                             <div class="col-md-4">
-                                <input id="price" name="price" th:field = "*{price}" class="form-control input-md" required="" type="text">
+                                <input id="price" name="price" th:field="*{price}" class="form-control input-md"
+                                       required="" type="text">
                             </div>
                         </div>
 
@@ -58,11 +63,14 @@
                             <div class="col-sm-5">
                                 <p>Product Image (Must be uploaded again)</p>
                                 <div class="custom-file">
-                                    <input type="file"  class="custom-file-input" name="img" accept="image/jpeg, image/png, image/jpg"  id="productImage" required/>
-                                    <label th:field="*{img}" class="custom-file-label" for="productImage" >Choose file</label>
+                                    <input type="file" class="custom-file-input" name="img"
+                                           accept="image/jpeg, image/png, image/jpg" id="productImage" required/>
+                                    <label th:field="*{img}" class="custom-file-label" for="productImage">Choose
+                                        file</label>
                                 </div>
                                 <div class="form-group">
-                                    <img src="#" id="imgPreview" height="200px" width="200px" th:src="*{img}" style="margin-top: 20px" alt=" ">
+                                    <img src="#" id="imgPreview" height="200px" width="200px" th:src="*{img}"
+                                         style="margin-top: 20px" alt=" ">
                                 </div>
                             </div>
                         </div>
@@ -71,26 +79,27 @@
                 </form>
             </div>
         </div>
-        <footer th:replace="~{/fragments/fragments::footer}"></footer>
+        <footer th:replace="fragments/fragments::footer"></footer>
     </div>
 </div>
-<a th:replace="~{/fragments/fragments::scroll}"></a>
+<a th:replace="fragments/fragments::scroll"></a>
 
-<div th:replace="~{/fragments/fragments::script}"></div>
+<div th:replace="fragments/fragments::script"></div>
 <script>
-    function readURL(input){
-        if(input.files && input.files[0]){
+    function readURL(input) {
+        if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = function (e) {
                 $('#imgPreview').attr('src', e.target.result).width(100).height(100);
             }
             reader.readAsDataURL(input.files[0])
         }
     }
-    $('#productImage').change(function(){
+
+    $('#productImage').change(function () {
         readURL(this);
     });
-    $(".custom-file-input").on("change", function() {
+    $(".custom-file-input").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });

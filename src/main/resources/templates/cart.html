@@ -76,9 +76,9 @@
                                         </button>
                                     </td>
                                 </form>
-                                    <td>
-                                        <a href="" th:href="@{/cart/delete/cartItem/{id}(id=${cartItem.id})}" class="btn btn-danger" th:text="#{cart_delete}">Delete</a>
-                                    </td>
+                                <td>
+                                    <a href="" th:href="@{/cart/delete/cartItem/{id}(id=${cartItem.id})}" class="btn btn-danger" th:text="#{cart_delete}">Delete</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -108,9 +108,9 @@
                         <hr>
                     </div>
                 </div>
-                    <div class="col-12 d-flex shopping-box" th:if="${shoppingCart != null}">
-                        <a th:href="@{/check-out}" class="ml-auto btn hvr-hover" th:text="#{cart_checkout}">Checkout</a>
-                    </div>
+                <div class="col-12 d-flex shopping-box" th:if="${shoppingCart != null && shoppingCart.totalItems != 0}">
+                    <a th:href="@{/check-out}" class="ml-auto btn hvr-hover" style="background: #FCA32A" th:text="#{cart_checkout}">Checkout</a>
+                </div>
 
             </div>
         </div>

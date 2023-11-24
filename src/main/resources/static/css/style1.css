@@ -2905,3 +2905,23 @@ font header .navbar-default .navbar-nav li a:hover {
     color: white;
 }
 
+@media all and (max-width: 600px) {
+
+    .slider .block h1 {
+        font-size: 19px;
+        font-weight: 400;
+    }
+
+    .footer {
+        padding-top: 8px;
+        padding-bottom: 0px;
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+    }
+
+
+
+
+}
+

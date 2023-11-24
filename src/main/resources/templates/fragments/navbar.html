@@ -74,7 +74,7 @@
                 <li class="nav-item active">
                     <a class="p-2 d-md-inline-block font-weight-bold"
                        sec:authorize="hasRole('ADMIN')"
-                       th:href="@{/admin}"
+                       th:href="@{/admin/home}"
                        th:text="#{navbar_admin}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
                              stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +157,7 @@
 
                 <li class="nav-item">
                     <form th:method="get">
-                        <label class="text-white" th:text="#{navbar_language}" for="lang"></label>
+                        <label class="text-grey" th:text="#{navbar_language}" for="lang"></label>
                         <select
                                 onchange="this.form.submit()"
                                 id="lang"

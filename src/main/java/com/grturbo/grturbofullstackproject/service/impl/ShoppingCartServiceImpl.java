@@ -89,19 +89,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Transactional
     public ShoppingCart deleteItemFromCart(Long cartItemId, User user) {
         ShoppingCart userShoppingCart = shoppingCartRepository.findShoppingCartByCustomer_Id(user.getId());
-        ShoppingCart managedCart = entityManager.find(ShoppingCart.class, userShoppingCart.getId());
-        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, managedCart.getId());
-        if (cartItemForDelete != null) {
-            Set<CartItem> cartItems = managedCart.getCartItems();
-            cartItems.remove(cartItemForDelete);
-            Integer totalItems = totalItems(cartItems);
-            BigDecimal totalPrice = totalPrice(cartItems);
-            managedCart.setTotalItems(totalItems);
-            managedCart.setTotalPrice(totalPrice);
-            entityManager.merge(managedCart);
-            cartItemRepository.delete(cartItemForDelete);
-        }
-        return managedCart;
+        CartItem cartItemForDelete = cartItemRepository.findByIdAndShoppingCart_Id(cartItemId, userShoppingCart.getId());
+
+        Set<CartItem> cartItems = userShoppingCart.getCartItems();
+        cartItems.remove(cartItemForDelete);
+
+        cartItemRepository.deleteById(cartItemForDelete.getId());
+
+        Integer totalItems = totalItems(cartItems);
+        BigDecimal totalPrice = totalPrice(cartItems);
+        userShoppingCart.setTotalItems(totalItems);
+        userShoppingCart.setTotalPrice(totalPrice);
+        userShoppingCart.setCartItems(cartItems);
+        shoppingCartRepository.save(userShoppingCart);
+
+        return userShoppingCart;
     }
 
     @Override

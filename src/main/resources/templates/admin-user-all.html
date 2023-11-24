@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{/fragments/fragments::header}"></head>
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace="~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace="~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
 
             <div class="table-main table-responsive">
                 <table class="table">
@@ -41,8 +41,8 @@
         </div>
     </div>
 </div>
-<a th:replace="~{/fragments/fragments::scroll}"></a>
-<div th:replace="~{/fragments/fragments::script}"></div>
+<a th:replace="fragments/fragments::scroll"></a>
+<div th:replace="fragments/fragments::script"></div>
 
 <script th:src="@{/js/categories.js}"></script>
 </body>

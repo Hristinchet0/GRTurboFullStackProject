@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
-<head th:replace = "~{/fragments/fragments::header}"></head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace = "~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace = "~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
             <div class="container-fluid">
                 <div class="input-group" style="width: 30%; margin-bottom: 20px;">
-                    <form th:action = "@{/search-products/0}" th:method = "get">
-                        <input type="text" class="form-control rounded" placeholder="Search" name = "keyword" aria-label="Search"
-                               aria-describedby="search-addon" />
+                    <form th:action="@{/admin/search-products/0}" th:method="get">
+                        <input type="text" class="form-control rounded" placeholder="Search" name="keyword"
+                               aria-label="Search"
+                               aria-describedby="search-addon"/>
                         <button type="submit" class="btn btn-outline-primary">search</button>
                     </form>
                 </div>
-                <a th:href="@{/add-product}" class = "btn btn-primary">Add Product</a>
+                <a th:href="@{/admin/add-product}" class="btn btn-primary">Add Product</a>
                 <p th:if="${size == 0} ">No Products</p>
-                <div th:if = "${success}" class = "text-center alert alert-success">
-                    <p th:text = "${success}"></p>
+                <div th:if="${success}" class="text-center alert alert-success">
+                    <p th:text="${success}"></p>
                 </div>
-                <div th:if = "${error}" class="text-center alert alert-danger">
-                    <p th:text = "${error}"></p>
+                <div th:if="${error}" class="text-center alert alert-danger">
+                    <p th:text="${error}"></p>
                 </div>
-                <table class="table table-bordered" th:if = "${size > 0}">
+                <table class="table table-bordered" th:if="${size > 0}">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -36,45 +37,47 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each = "product : ${products}">
-                        <th scope="row" th:text = "${product.name}"></th>
-                        <th scope="row" th:text = "${product.brand}"></th>
-                        <td th:text = "${product.category}"></td>
-                        <td th:text = "${product.price}"></td>
+                    <tr th:each="product : ${products}">
+                        <th scope="row" th:text="${product.name}"></th>
+                        <th scope="row" th:text="${product.brand}"></th>
+                        <td th:text="${product.category}"></td>
+                        <td th:text="${product.price}"></td>
                         <td>
-                            <img class = "my-product-image" style="height: 40px; width: 40px;" alt=""
+                            <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
                                  th:src="${product.imgUrl}">
                         </td>
-                        <td><a th:href="@{/update-product/{id}(id= ${product.id})}" class="btn btn-primary">Update</a></td>
+                        <td><a th:href="@{/admin/update-product/{id}(id= ${product.id})}"
+                               class="btn btn-primary">Update</a></td>
                         <td>
-<!--                            <a th:if="${product.deleted} == true" th:href="@{/enable-product/(id = ${product.id})}"-->
-<!--                               class="btn btn-primary">Enable</a>-->
-                            <a th:href="@{/delete-product/(id = ${product.id})}"
+                            <!--                            <a th:if="${product.deleted} == true" th:href="@{/enable-product/(id = ${product.id})}"-->
+                            <!--                               class="btn btn-primary">Enable</a>-->
+                            <a th:href="@{/admin/delete-product/(id = ${product.id})}"
                                class=" btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <nav aria-label="...">
-                    <ul class="pagination" >
-                        <li th:if= "${currentPage != 0}" class="page-item ">
-                            <a th:href = "@{'/products/' + ${currentPage - 1}}" class="page-link">Previous</a>
-                        </li >
-                        <li th:each = "i : ${#numbers.sequence(1, totalPages)}" th:classappend = "${currentPage == i - 1 ? 'active' : ''}" class="page-item">
-                            <a th:href = "@{'/products/' + ${i - 1}}" class="page-link" href="#">
-				     <span th:text = "${i}">
+                    <ul class="pagination">
+                        <li th:if="${currentPage != 0}" class="page-item ">
+                            <a th:href="@{'/products/' + ${currentPage - 1}}" class="page-link">Previous</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                            <a th:href="@{'/products/' + ${i - 1}}" class="page-link" href="#">
+				     <span th:text="${i}">
 				     </span></a></li>
-                        <li th:if = "${currentPage + 1 != totalPages}" class="page-item">
-                            <a th:href = "@{'/products/' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+                        <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+                            <a th:href="@{'/products/' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
                         </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        <footer th:replace = "~{/fragments/fragments::footer}"></footer>
+        <footer th:replace="fragments/fragments::footer"></footer>
     </div>
 </div>
-<a th:replace = "~{/fragments/fragments::scroll}"></a>
-<div th:replace = "~{/fragments/fragments::script}"></div>
+<a th:replace="fragments/fragments::scroll"></a>
+<div th:replace="fragments/fragments::script"></div>
 </body>
 </html>

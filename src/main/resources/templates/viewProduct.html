@@ -19,22 +19,24 @@
 
     <div class="row">
         <form th:action="@{/add-to-cart}" method="post">
-        <div class="col-sm-5 d-flex justify-content-center">
-            <img class="mt-5" height="300px" width="300px" src="" th:src="${product.imgUrl}"
-                 alt="">
-        </div>
-        <div class="col-sm-7 mt-5">
-            <h2 th:text="${product.name}"></h2>
-            <p class="card-text" th:text="${product.brand}"></p>
-            <p th:text="${product.category.name}"></p>
-            <h2>BGN <span th:text="${product.price}"></span></h2>
-            <p th:text="${product.description}"></p>
-            <input type="hidden" th:value="${product.id}" name="id" class="form-control">
-            <input type="submit" class="btn hvr-hover" style="background: #FCA32A;margin-top: 5px" value="Add to cart">
-        </div>
+            <div class="col-sm-5 d-flex justify-content-center">
+                <img class="mt-5" height="300px" width="300px" src="" th:src="${product.imgUrl}"
+                     alt="">
+            </div>
+            <div class="col-sm-7 mt-5">
+                <h2 th:text="${product.name}"></h2>
+                <p class="card-text" th:text="${product.brand}"></p>
+                <p th:text="${product.category.name}"></p>
+                <h2>BGN <span th:text="${product.price}"></span></h2>
+                <p th:text="${product.description}"></p>
+                <input type="hidden" th:value="${product.id}" name="id" class="form-control">
+                <input type="submit" class="btn hvr-hover" style="background: #FCA32A;margin-top: 5px" value="Add to cart">
+            </div>
         </form>
     </div>
 </div>
+
+<div th:replace="fragments/footer">Footer</div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

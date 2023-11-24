@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="~{/fragments/fragments::header}"></head>
+<head th:replace="fragments/fragments::header"></head>
 <body id="page-top">
 <div id="wrapper">
-    <ul th:replace="~{/fragments/fragments::sidebar}"></ul>
+    <ul th:replace="fragments/fragments::sidebar"></ul>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav th:replace="~{/fragments/fragments::top-navbar}"></nav>
+            <nav th:replace="fragments/fragments::top-navbar"></nav>
             <div class="container-fluid">
                 <h1 class="h3 mb-4 text-gray-800">Order Detail</h1>
                 <div th:if="${order != null}">
                     <h5>Order ID: <span th:text="${order.id}"></span></h5>
                     <h5>Order Date: <span th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></span></h5>
-<!--                    <h5>Delivery Date: <span th:text="${#dates.format(order.deliveryDate, 'yyyy-MM-dd')}"></span></h5>-->
+                    <!--                    <h5>Delivery Date: <span th:text="${#dates.format(order.deliveryDate, 'yyyy-MM-dd')}"></span></h5>-->
                     <h5>Order Status: <span th:text="${order.orderStatus}"></span></h5>
                     <h5>Total Price: <span th:text="${order.totalPrice}"></span></h5>
                     <h5>Payment Method: <span th:text="${order.paymentMethod}"></span></h5>
@@ -22,18 +22,21 @@
                     <h5>Last Name: <span th:text="${order.customer.lastName}"></span></h5>
                     <h5>Phone Number: <span th:text="${order.customer.phoneNumber}"></span></h5>
                     <h5>City: <span th:text="${order.customer.city}"></span></h5>
-                    <h5>Address:  <span th:text="${order.customer.address}"></span></h5>
-                    <h5>Additional Information:  <span th:text="${order.additionalInformation}"></span></h5>
+                    <h5>Address: <span th:text="${order.customer.address}"></span></h5>
+                    <h5>Additional Information: <span th:text="${order.additionalInformation}"></span></h5>
                     <div th:if="${order.customer.invoiceData != null}">
                         <h2>Invoice Details</h2>
                         <h5>ID: <span th:text="${order.customer.invoiceData.id}"></span></h5>
                         <h5>Company Name: <span th:text="${order.customer.invoiceData.companyName}"></span></h5>
-                        <h5>VAT Registration: <span th:text="${order.customer.invoiceData.vatRegistration} ? 'No' : 'Yes'"></span></h5>
+                        <h5>VAT Registration: <span
+                                th:text="${order.customer.invoiceData.vatRegistration} ? 'No' : 'Yes'"></span></h5>
                         <h5>Identification Number UIC:
                             <span th:text="${order.customer.invoiceData.identificationNumberUIC}"></span>
                         </h5>
-                        <h5>Registered Address: <span th:text="${order.customer.invoiceData.registeredAddress}"></span></h5>
-                        <h5>Financially Accountable Person Name: <span th:text="${order.customer.invoiceData.financiallyAccountablePersonName}"></span></h5>
+                        <h5>Registered Address: <span th:text="${order.customer.invoiceData.registeredAddress}"></span>
+                        </h5>
+                        <h5>Financially Accountable Person Name: <span
+                                th:text="${order.customer.invoiceData.financiallyAccountablePersonName}"></span></h5>
                         <h5>Phone Number: <span th:text="${order.customer.invoiceData.phoneNumber}"></span></h5>
                     </div>
 
@@ -59,11 +62,11 @@
                 </div>
             </div>
         </div>
-        <footer th:replace="~{/fragments/fragments::footer}"></footer>
+        <footer th:replace="fragments/fragments::footer"></footer>
     </div>
 </div>
-<a th:replace="~{/fragments/fragments::scroll}"></a>
-<div th:replace="~{/fragments/fragments::script}"></div>
+<a th:replace="fragments/fragments::scroll"></a>
+<div th:replace="fragments/fragments::script"></div>
 
 <script th:src="@{/js/categories.js}"></script>
 </body>

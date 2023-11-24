@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body , h2, p{
-  font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .photos {
@@ -26,7 +26,7 @@ body , h2, p{
 }
 
 .swiper {
-    width: 60%;
+    width: 100%;
     height: fit-content;
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@ body , h2, p{
 
 .swiper-slide img{
     width: 100%;
-    height: 55vh;
+    height: 45vh;
 }
 
 .swiper-button-next::after {
@@ -155,6 +155,28 @@ body , h2, p{
 
 .footer .copyright a {
     font-weight: 600;
+}
+
+@media all and (max-width: 768px) {
+    .swiper {
+        width: 100%;
+    }
+
+    .about {
+        padding: 0;
+    }
+
+    .col1 {
+        padding-left: 0;
+    }
+
+    .about h2 {
+        font-size: 20px;
+    }
+
+    .about p {
+        font-size: 13px;
+    }
 }
 
 

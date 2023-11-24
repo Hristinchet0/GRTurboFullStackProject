@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -35,7 +34,7 @@ public class ShoppingCart {
     @Column(name = "total_items")
     private Integer totalItems;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "shoppingCart", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shoppingCart", orphanRemoval = true)
     private Set<CartItem> cartItems;
 
     public ShoppingCart() {
@@ -83,6 +82,5 @@ public class ShoppingCart {
     public void setCartItems(Set<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
-
 
 }
