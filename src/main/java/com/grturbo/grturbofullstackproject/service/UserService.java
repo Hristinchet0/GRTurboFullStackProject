@@ -22,7 +22,7 @@ public interface UserService {
 
     Optional<User> getUserById(Long id);
 
-    void save(User user);
+    User save(User user);
 
     User findByUsername(String name);
 

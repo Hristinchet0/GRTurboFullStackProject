@@ -10,7 +10,6 @@ import com.grturbo.grturbofullstackproject.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
@@ -23,14 +22,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
 
-    private final EntityManager entityManager;
 
     public ShoppingCartServiceImpl(CartItemRepository cartItemRepository,
-                                   ShoppingCartRepository shoppingCartRepository,
-                                   EntityManager entityManager) {
+                                   ShoppingCartRepository shoppingCartRepository) {
         this.cartItemRepository = cartItemRepository;
         this.shoppingCartRepository = shoppingCartRepository;
-        this.entityManager = entityManager;
     }
 
     @Override
@@ -74,7 +70,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         CartItem item = findCartItem(cartItems, product.getId());
 
         item.setQuantity(quantity);
-        item.setTotalPrice(new BigDecimal(quantity).multiply(item.getTotalPrice()));
+        item.setTotalPrice(new BigDecimal(item.getQuantity()).multiply(item.getProduct().getPrice()));
         cartItemRepository.save(item);
 
         Integer totalItems = totalItems(cart.getCartItems());
