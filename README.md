@@ -66,7 +66,7 @@
 
 <h2> Demo </h2>
 <p>Deployed to :</p>
-<p> **Note:** It will be depoyed soon</p>
+<a href="https://grturbo-app-grturbo.azuremicroservices.io">GRTURBO WEB SITE</a>
 
 <h2> License </h2>
 <ul>
