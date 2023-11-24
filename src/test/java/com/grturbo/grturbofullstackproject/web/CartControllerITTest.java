@@ -67,7 +67,7 @@ class CartControllerITTest {
 
     @Test
     void testDeleteProduct() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/cart/delete/product/{id}", 123L);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/cart/delete/cartItem/{id}", 123L);
         MockMvcBuilders.standaloneSetup(cartController)
                 .build()
                 .perform(requestBuilder)
@@ -127,7 +127,7 @@ class CartControllerITTest {
         user1.setRoles(new ArrayList<>());
         user1.setUsername("janedoe");
         Optional<User> ofResult = Optional.of(user1);
-        when(userService.findByEmail(any())).thenReturn(ofResult);
+        when(userService.findByEmail((String) any())).thenReturn(ofResult);
 
         InvoiceData invoiceData2 = new InvoiceData();
         invoiceData2.setCompanyName("Company Name");
@@ -183,12 +183,12 @@ class CartControllerITTest {
         shoppingCart.setId(123L);
         shoppingCart.setTotalItems(1000);
         shoppingCart.setTotalPrice(BigDecimal.valueOf(42L));
-        when(shoppingCartService.deleteItemFromCart(any(), any())).thenReturn(shoppingCart);
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/cart/delete/product/{id}", 123L);
-        getResult.principal(new UserPrincipal("principal"));
+        when(shoppingCartService.deleteItemFromCart((Long) any(), (User) any())).thenReturn(shoppingCart);
+        MockHttpServletRequestBuilder putResult = MockMvcRequestBuilders.put("/cart/delete/cartItem/{id}", 123L);
+        putResult.principal(new UserPrincipal("principal"));
         MockMvcBuilders.standaloneSetup(cartController)
                 .build()
-                .perform(getResult)
+                .perform(putResult)
                 .andExpect(MockMvcResultMatchers.status().isFound())
                 .andExpect(MockMvcResultMatchers.model().size(1))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("shoppingCart"))
