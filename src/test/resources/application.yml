@@ -1,51 +1,51 @@
 app:
-  admin:
-    password: 12345
+    admin:
+        password: 12345
 cloudinary:
-  api-key: test
-  api-secret: test
-  cloud-name: test
+    api-key: test
+    api-secret: test
+    cloud-name: test
 logging:
-  level:
-    blog: WARN
-    org: WARN
-    org.hibernate.SQL: DEBUG
+    level:
+        blog: WARN
+        org: WARN
+        org.hibernate.SQL: DEBUG
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: embedded
-  mail:
-    host: smtp.gmail.com
-    password: 12345
-    port: 587
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-    username: test@test.com
-  mvc:
-    hiddenmethod:
-      filter:
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        defer-datasource-initialization: true
+    sql:
+        init:
+            mode: embedded
+    mail:
+        host: smtp.gmail.com
+        password: 12345
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+        username: test@test.com
+    mvc:
+        hiddenmethod:
+            filter:
+                enabled: true
+        view:
+            prefix: classpath:/templates/
+            suffix: .html
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: 940438426693-40ttm15n4u3k1uoacdemv7j5jqt9j3q6.apps.googleusercontent.com
+                        client-secret: ${OAUTH2.0_CLIENT_SECRET}
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+    thymeleaf:
         enabled: true
-    view:
-      prefix: classpath:/templates/
-      suffix: .html
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 940438426693-40ttm15n4u3k1uoacdemv7j5jqt9j3q6.apps.googleusercontent.com
-            client-secret: ${OAUTH2.0_CLIENT_SECRET}
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-  thymeleaf:
-    enabled: true
