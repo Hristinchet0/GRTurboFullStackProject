@@ -42,7 +42,7 @@
                             <span th:text="${order.paymentMethod}"></span>
                         </td>
                         <td>
-                            <form th:action="@{/accept-order}" method="post">
+                            <form th:action="@{/admin/accept-order}" method="post">
                                 <input type="hidden" name="id" th:value="${order.id}"/>
                                 <button type="submit" class="btn btn-secondary" th:if="${!order.accept}">Accept</button>
                             </form>
