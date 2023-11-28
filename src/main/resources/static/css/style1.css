@@ -562,7 +562,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     right: 0;
     width: 100%;
     height: 100%;
-    background: #1d192c;
+    background: #15131ed9;;
     opacity: 0.8;
 }
 
@@ -629,7 +629,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 /*--
-	features-work Start 
+	features-work Start
 --*/
 #features-work {
     padding-top: 50px;
@@ -644,7 +644,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 /*--
-	Header Start 
+	Header Start
 --*/
 header {
     background: #fff;
@@ -739,12 +739,17 @@ font header .navbar-default .navbar-nav li a:hover {
 }
 
 .slider {
-    background: url("../images/Mercedes-AMG turbocharger.jpg") no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: 10% 0%;
+    background-image: url("../images/Mercedes-AMGturbocharger.jpg");
+    background-repeat: no-repeat;
+    -o-background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+    background-position: center;
     padding: 150px 0 150px 0;
     position: relative;
+    background-color: #cccccc;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .slider .block {
@@ -871,11 +876,11 @@ font header .navbar-default .navbar-nav li a:hover {
 }
 
 .feature {
-    background: url("../img/featue-bg.jpg");
+    /*background: url("../img/featue-bg.jpg");*/
     background-position: 50% 94px;
     display: block;
     position: relative;
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -2119,15 +2124,17 @@ font header .navbar-default .navbar-nav li a:hover {
 }
 
 .bg-1 {
-    background-image: url("../images/cimat.jpg");
-    background-size: cover;
+    background-image: url("/images/cimat.jpg");
+    -o-background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 .bg-2 {
     content: "";
-    background: url("../images/products-out-of-packaging-1.jpg");
+    background-image: url("/images/products-out-of-packaging-1.jpg");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -2227,7 +2234,7 @@ font header .navbar-default .navbar-nav li a:hover {
 }
 
 /*=================================================================
-  Latest Posts
+Latest Posts
 ==================================================================*/
 .blog {
     background: #F6F6F6;
@@ -2332,7 +2339,7 @@ font header .navbar-default .navbar-nav li a:hover {
 }
 
 .coming-soon {
-    background: url("../images/backgrounds/coming-soon.jpg");
+    /*background: url("../images/backgrounds/coming-soon.jpg");*/
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;
@@ -2920,8 +2927,38 @@ font header .navbar-default .navbar-nav li a:hover {
         width: 100%;
     }
 
+    .slider {
+        content: "";
+        background-image: url("../images/Mercedes-AMGturbocharger.jpg");
+        background-size: cover;
+    }
 
+    .bg-1 {
+        content: "";
+        background-image: url("../images/cimat.jpg");
+        background-position: center;
+        background-size: 116vw 100vh;
 
+    }
 
+    .bg-2 {
+        content: "";
+        background-image: url("../images/products-out-of-packaging-1.jpg");
+        background-size: cover;
+    }
+}
+
+@supports (-webkit-touch-callout: inherit) {
+    .slider {
+        background-attachment: scroll;
+    }
+
+    .bg-1 {
+        background-attachment: scroll;
+    }
+
+    .bg-2 {
+        background-attachment: scroll;
+    }
 }
 
