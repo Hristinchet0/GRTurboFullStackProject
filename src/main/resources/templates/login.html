@@ -41,9 +41,13 @@
     </div>
 </nav>
 
+
 <div class="container">
     <div class="forms-container">
         <div class="signin-signup">
+            <div th:if="${success}" class="text-center alert alert-success">
+                <p th:text="${success}"></p>
+            </div>
             <form
                     th:action="@{/login}"
                     th:method="post"
@@ -87,7 +91,8 @@
                     th:action="@{/register}"
                     th:object="${userModel}"
                     method="post"
-                    class="sign-up-form">
+                    class="sign-up-form"
+                    id="registration-form">
                 <h2 class="title" th:text="#{login_sign_up}">Sign up</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -159,15 +164,13 @@
                          class="invalid-feedback text-danger">Password error message
                     </div>
                 </div>
-                <input type="submit" th:value="#{login_register}" class="btn"/>
-                <!--                <p class="social-text" th:text="#{login_social2}">Or Sign up with social platforms</p>-->
-                <!--                <div class="social-media">-->
-
-                <!--                    <a href="/oauth2/authorization/google" class="social-icon">-->
-                <!--                        <i class="fab fa-google"></i>-->
-                <!--                    </a>-->
-
-                <!--                </div>-->
+<!--                <input type="submit" th:value="#{login_register}" class="btn"/>-->
+                <input type="submit"
+                       class="g-recaptcha btn btn-info btn-lg"
+                       th:attr="data-sitekey=${@reCaptchaConfig.getSite()}"
+                       data-callback='onSubmit'
+                       data-action='submit'
+                       th:value="#{login_register}"/>
             </form>
         </div>
     </div>
@@ -199,6 +202,15 @@
         </div>
     </div>
 </div>
+
+<!-- ReCaptcha -->
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("registration-form").submit();
+    }
+</script>
+<!-- EO: ReCaptcha -->
 
 <script src="app.js" th:src="@{/js/app.js}"></script>
 

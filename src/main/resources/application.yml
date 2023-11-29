@@ -59,3 +59,8 @@ spring:
             mode: always
     thymeleaf:
         enabled: true
+
+google:
+    recaptcha:
+        site: ${RECAPTCHA_SITE_KEY}
+        secret: ${RECAPTCHA_SITE_SECRET}
