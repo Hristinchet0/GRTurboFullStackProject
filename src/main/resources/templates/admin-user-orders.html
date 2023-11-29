@@ -61,7 +61,7 @@
                         <td>
                             <form th:action="@{/admin/send-order}" method="post">
                                 <input type="hidden" name="id" th:value="${order.id}"/>
-                                <button type="submit" class="btn btn-primary" th:if="${order.accept}">Shipping
+                                <button type="submit" class="btn btn-primary" th:if="${order.accept and order.orderStatus != order.orderStatus.SHIPPED}">>Shipping
                                     Confirmation
                                 </button>
                             </form>
