@@ -18,6 +18,7 @@
 <h2> Features </h2>
 <ul>
   <li>User authentication and registration</li>
+  <li>ReCaptcha</li>
   <li>Multi-language support</li>
   <li>Search bar</li>
   <li>Browse and search for turbocharger products</li>
