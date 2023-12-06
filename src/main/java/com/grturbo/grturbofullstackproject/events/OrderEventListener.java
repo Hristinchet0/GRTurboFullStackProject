@@ -23,7 +23,7 @@ public class OrderEventListener {
 
         String toAdminEmail = "bansko.sport@gmail.com";
         String subject = "Получихте нова поръчка!";
-        String text = "Получихте нова от: " + username + ".";
+        String text = "Получихте нова поръчка от: " + username + ".";
 
         emailServiceImpl.sendEmail(toAdminEmail, subject, text);
     }

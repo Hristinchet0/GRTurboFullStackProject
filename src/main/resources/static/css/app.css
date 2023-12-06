@@ -79,12 +79,12 @@ form.sign-in-form {
 
 .input-field i {
   text-align: center;
-  line-height: 55px;
+  line-height: 30px;
   color: #acacac;
   transition: 0.5s;
   font-size: 1.1rem;
-  margin-right: 5%;
-  margin-left: 5%;
+  margin-right: 3%;
+  margin-left: 4%;
 }
 
 .input-field input {
@@ -304,8 +304,8 @@ form.sign-in-form {
   }
 
   .input-field {
-    margin: 2px;
-    height: 45px;
+    margin: 4px;
+    height: 30px;
   }
 
   .input-field input {
@@ -335,7 +335,7 @@ form.sign-in-form {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 2.5rem 8%;
+    padding: 0.5rem 8%;
     grid-column: 1 / 2;
   }
 
