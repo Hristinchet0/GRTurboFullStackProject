@@ -31,9 +31,9 @@ public class LoginControllerITTest {
     }
 
     @Test
-    @Disabled("fails because recaptcha")
     void testUserRegistrationSuccessfully() throws Exception {
-        String baseUrl = "http://localhost";
+        String reCaptchaResponse = "fakeReCaptchaResponse";
+
         mockMvc.perform(post("/register").
                         param("email", "anna@example.com").
                         param("username", "anna").
@@ -41,11 +41,12 @@ public class LoginControllerITTest {
                         param("lastName", "Petrova").
                         param("password", "topsecret").
                         param("confirmPassword", "topsecret").
+                        param("g-recaptcha-response", reCaptchaResponse).
                         cookie(new Cookie("lang", Locale.ENGLISH.getLanguage())).
                         with(csrf())
                 ).
                 andExpect(status().is3xxRedirection()).
-                andExpect(redirectedUrl(baseUrl + "/login"));
+                andExpect(redirectedUrl("/login"));
     }
 
     @Test
