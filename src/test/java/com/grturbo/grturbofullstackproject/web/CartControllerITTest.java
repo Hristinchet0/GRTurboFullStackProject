@@ -190,8 +190,7 @@ class CartControllerITTest {
                 .build()
                 .perform(putResult)
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("shoppingCart"))
+                .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/cart"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/cart"));
     }

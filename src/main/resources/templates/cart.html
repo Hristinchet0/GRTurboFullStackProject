@@ -25,6 +25,9 @@
                     <div th:if="${addToCartSuccessMessage}" class="text-center alert-warning">
                         <p th:text="${addToCartSuccessMessage}"></p>
                     </div>
+                    <div th:if="${success}" class="text-center alert-warning">
+                        <p th:text="${success}"></p>
+                    </div>
                     <div class="table-main table-responsive" th:if="${check == null}">
                         <table class="table">
                             <thead>

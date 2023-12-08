@@ -92,8 +92,8 @@ public class UserController {
 
     @PostMapping("/update-profile-invoice")
     public String updateInvoiceData(@ModelAttribute("invoiceData") InvoiceData invoiceData,
-                                    Principal principal,
-                                    Model model) {
+                                    RedirectAttributes attributes,
+                                    Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
@@ -106,7 +106,7 @@ public class UserController {
 
         invoiceDataService.saveInvoiceData(invoiceData, user);
 
-        model.addAttribute("success", "Invoice information updated successfully!");
+        attributes.addFlashAttribute("success", "Invoice information updated successfully!");
 
         return "redirect:/profile-invoice";
     }

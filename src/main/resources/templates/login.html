@@ -41,18 +41,18 @@
     </div>
 </nav>
 
-
 <div class="container">
+    <div th:if="${success}" class="text-center alert alert-success">
+        <p th:text="${success}"></p>
+    </div>
     <div class="forms-container">
         <div class="signin-signup">
-            <div th:if="${success}" class="text-center alert alert-success">
-                <p th:text="${success}"></p>
-            </div>
             <form
                     th:action="@{/login}"
                     th:method="post"
                     class="sign-in-form">
                 <h2 class="title" th:text="#{login_sign_in}">Sign in</h2>
+
                 <div class="input-field">
                     <i class="fas fa-user"></i>
                     <input for="email"

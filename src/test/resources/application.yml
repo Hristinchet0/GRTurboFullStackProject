@@ -49,3 +49,7 @@ spring:
             max-request-size: 10MB
     thymeleaf:
         enabled: true
+google:
+    recaptcha:
+        site: test
+        secret: test

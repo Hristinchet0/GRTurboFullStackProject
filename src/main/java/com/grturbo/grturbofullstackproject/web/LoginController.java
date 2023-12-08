@@ -64,6 +64,6 @@ public class LoginController {
 
         redirectAttributes.addFlashAttribute("success", "You are successfully registered, please login!");
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 }

@@ -9,6 +9,7 @@ import com.grturbo.grturbofullstackproject.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,7 +62,7 @@ public class CartController {
     public String addItemToCart(@RequestParam("id") Long productId,
                                 @RequestParam(value = "quantity", required = false, defaultValue = "1") Integer quantity,
                                 Principal principal,
-                                HttpServletRequest request,
+                                RedirectAttributes attributes,
                                 Model model) {
 
         if (principal == null) {
@@ -73,7 +74,7 @@ public class CartController {
         User user = userService.findByEmail(principal.getName()).get();
 
         ShoppingCart cart = shoppingCartService.addItemToCart(product, quantity, user);
-        model.addAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
+        attributes.addFlashAttribute("addToCartSuccessMessage", "The product has been successfully added to your cart.");
 
         return "redirect:/cart";
     }
@@ -81,6 +82,7 @@ public class CartController {
     @PostMapping("/update-cart")
     public String updateCart(@RequestParam("quantity") Integer quantity,
                              @RequestParam("id") Long productId,
+                             RedirectAttributes attributes,
                              Model model,
                              Principal principal) {
 
@@ -93,12 +95,16 @@ public class CartController {
         ShoppingCart cart = shoppingCartService.updateItemInCart(product, quantity, user);
 
         model.addAttribute("shoppingCart", cart);
+        attributes.addFlashAttribute("success", "You updated successfully product!");
 
         return "redirect:/cart";
     }
 
     @RequestMapping(value = "/cart/delete/cartItem/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String deleteProduct(@PathVariable("id") Long cartItem, Principal principal, Model model) {
+    public String deleteProduct(@PathVariable("id") Long cartItem,
+                                RedirectAttributes attributes,
+                                Principal principal,
+                                Model model) {
         if (principal == null) {
             return "redirect:/login";
         }
@@ -108,6 +114,7 @@ public class CartController {
         ShoppingCart cart = shoppingCartService.deleteItemFromCart(cartItem, user);
 
         model.addAttribute("shoppingCart", cart);
+        attributes.addFlashAttribute("success", "You deleted successfully product!");
 
         return "redirect:/cart";
     }

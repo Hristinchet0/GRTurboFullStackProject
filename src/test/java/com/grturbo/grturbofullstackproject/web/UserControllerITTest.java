@@ -316,30 +316,27 @@ public class UserControllerITTest {
         user1.setRoles(new ArrayList<>());
         user1.setUsername("janedoe");
         Optional<User> ofResult = Optional.of(user1);
-        when(userService.findByEmail(any())).thenReturn(ofResult);
-        doNothing().when(invoiceDataService).saveInvoiceData(any(), any());
+        when(userService.findByEmail((String) any())).thenReturn(ofResult);
+        doNothing().when(invoiceDataService).saveInvoiceData((InvoiceData) any(), (User) any());
         MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/update-profile-invoice");
         postResult.principal(new UserPrincipal("principal"));
         MockMvcBuilders.standaloneSetup(userController)
                 .build()
                 .perform(postResult)
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.model().size(2))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("invoiceData", "success"))
+                .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/profile-invoice"))
-                .andExpect(MockMvcResultMatchers
-                        .redirectedUrl("/profile-invoice?success=Invoice+information+updated+successfully%21"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/profile-invoice"));
     }
 
     @Test
     void testUpdateInvoiceDataWithoutPrincipal() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/update-profile-invoice");
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/update-profile-invoice", "Uri Vars");
         MockMvcBuilders.standaloneSetup(userController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("invoiceData"))
+                .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/login"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
     }
