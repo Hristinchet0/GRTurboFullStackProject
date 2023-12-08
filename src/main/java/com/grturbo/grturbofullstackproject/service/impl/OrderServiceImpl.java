@@ -1,7 +1,12 @@
 package com.grturbo.grturbofullstackproject.service.impl;
 
 import com.grturbo.grturbofullstackproject.events.OrderEventPublisher;
-import com.grturbo.grturbofullstackproject.model.entity.*;
+import com.grturbo.grturbofullstackproject.model.entity.CartItem;
+import com.grturbo.grturbofullstackproject.model.entity.Order;
+import com.grturbo.grturbofullstackproject.model.entity.OrderDetail;
+import com.grturbo.grturbofullstackproject.model.entity.Product;
+import com.grturbo.grturbofullstackproject.model.entity.ShoppingCart;
+import com.grturbo.grturbofullstackproject.model.entity.User;
 import com.grturbo.grturbofullstackproject.model.enums.OrderStatusEnum;
 import com.grturbo.grturbofullstackproject.model.enums.PaymentMethodEnum;
 import com.grturbo.grturbofullstackproject.repositority.OrderRepository;
@@ -33,16 +38,16 @@ public class OrderServiceImpl implements OrderService {
 
     private final ProductService productService;
 
-    private final OrderEventPublisher eventPublisher;
+    private final OrderEventPublisher orderEventPublisher;
 
     public OrderServiceImpl(ShoppingCartService shoppingCartService,
                             OrderRepository orderRepository,
                             ProductService productService,
-                            OrderEventPublisher eventPublisher) {
+                            OrderEventPublisher orderEventPublisher) {
         this.shoppingCartService = shoppingCartService;
         this.orderRepository = orderRepository;
         this.productService = productService;
-        this.eventPublisher = eventPublisher;
+        this.orderEventPublisher = orderEventPublisher;
     }
 
     @Transactional
@@ -78,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
 
         String fullName = user.getFirstName() + " " + user.getLastName();
 
-        eventPublisher.publishOrderProcessedEvent(fullName);
+        orderEventPublisher.publishOrderProcessedEvent(fullName);
 
         return orderRepository.save(order);
     }
@@ -115,6 +120,12 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order id"));
         order.setOrderStatus(OrderStatusEnum.SHIPPED);
         orderRepository.save(order);
+
+        String userEmail = order.getCustomer().getEmail();
+        Long orderId = order.getId();
+
+        orderEventPublisher.publishOrderStatusEvent(orderId, userEmail);
+
     }
 
     @Override

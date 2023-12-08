@@ -27,4 +27,15 @@ public class OrderEventListener {
 
         emailServiceImpl.sendEmail(toAdminEmail, subject, text);
     }
+
+    @EventListener
+    public void handleOrderStatusEvent(OrderStatusEvent event) {
+        String userEmail = event.getUserEmail();
+        Long orderId = event.getOrderId();
+
+        String subject = "Вашата поръчка беше изпратена!";
+        String text = "Вашата поръчка с номер: " + orderId + " беше изпратена. Ще получите известие от вашият куриер. Благодарим че бяхте наш клиент! Поздрави GR TURBO Team!";
+
+        emailServiceImpl.sendEmail(userEmail, subject, text);
+    }
 }

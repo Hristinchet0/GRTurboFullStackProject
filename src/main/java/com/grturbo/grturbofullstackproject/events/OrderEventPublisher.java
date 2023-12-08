@@ -16,4 +16,9 @@ public class OrderEventPublisher {
         OrderProcessedEvent event = new OrderProcessedEvent(this, username);
         eventPublisher.publishEvent(event);
     }
+
+    public void publishOrderStatusEvent(Long orderId, String userEmail) {
+        OrderStatusEvent event = new OrderStatusEvent(this, orderId, userEmail);
+        eventPublisher.publishEvent(event);
+    }
 }

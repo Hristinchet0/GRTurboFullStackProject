@@ -3,6 +3,7 @@ package com.grturbo.grturbofullstackproject.service;
 import org.springframework.scheduling.annotation.Scheduled;
 
 public interface ScheduledService {
-    @Scheduled(cron = "0 12 10 * * ?")
+
+    @Scheduled(cron = "0 00 0 * * *")
     void deleteAllCartItemsScheduled();
 }
