@@ -103,8 +103,8 @@ public class CartController {
     @RequestMapping(value = "/cart/delete/cartItem/{id}", method = {RequestMethod.PUT, RequestMethod.GET})
     public String deleteProduct(@PathVariable("id") Long cartItem,
                                 RedirectAttributes attributes,
-                                Principal principal,
-                                Model model) {
+                                Model model,
+                                Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
