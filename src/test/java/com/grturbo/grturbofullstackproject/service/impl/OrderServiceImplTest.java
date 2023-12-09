@@ -609,6 +609,7 @@ class OrderServiceImplTest {
     @Test
     void testSendOrder() {
         assertThrows(IllegalArgumentException.class, () -> orderServiceImpl.sendOrder(123L));
+        assertThrows(IllegalArgumentException.class, () -> orderServiceImpl.sendOrder(1L));
     }
 
     @Test
