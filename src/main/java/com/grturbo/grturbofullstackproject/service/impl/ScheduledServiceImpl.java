@@ -15,7 +15,7 @@ public class ScheduledServiceImpl implements ScheduledService {
     }
 
     @Override
-    @Scheduled(cron = "0 12 10 * * ?")
+    @Scheduled(cron = "0 00 0 * * *")
     public void deleteAllCartItemsScheduled() {
         shoppingCartService.deleteAllCartItemsInShoppingCarts();
     }
